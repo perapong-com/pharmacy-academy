@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* Global Font - Thai Sarabun (Google Fonts version) */
+/* Exclude icon fonts (Font Awesome, etc.) from font override */
+*:not([class*="fa-"]):not([class*="fab"]):not([class*="fas"]):not([class*="far"]):not([class*="fal"]):not([class*="fad"]):not([class*="icon"]):not(i) {
+  font-family: "Sarabun", "TH Sarabun New", sans-serif !important;
+}
+
+html,
+body {
+  font-family: "Sarabun", "TH Sarabun New", sans-serif;
+  font-size: 46px;
+  line-height: 1.6;
+}
+
+/* Keep icon fonts intact */
+.fa, .fas, .far, .fal, .fad, .fab,
+[class*="fa-"],
+i[class*="fa"] {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", FontAwesome !important;
+}
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 168 98% 15%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 235 82% 66%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 168 98% 15%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 168 98% 15%;
+    --radius: 0.5rem;
+  }
+}
+
+/* Custom utility classes */
+.border-border {
+  border-color: hsl(var(--border));
+}
+
+.bg-background {
+  background-color: hsl(var(--background));
+}
+
+.text-foreground {
+  color: hsl(var(--foreground));
+}
+
+/* ========================================
+   Font Size Boost for Components (+2px)
+   ======================================== */
+
+/* Header - increase all text by 2px */
+header,
+.header-section,
+.header-section-2,
+.header-unified,
+.header-top,
+.header-main,
+.main-menu,
+.mean-nav {
+  font-size: calc(1em + 2px) !important;
+}
+
+/* Navigation menu items */
+.main-menu a,
+.main-menu span,
+.mean-nav a {
+  font-size: 18px !important;
+}
+
+/* Footer - increase all text by 2px */
+footer,
+.footer-section,
+.footer-area,
+.footer-widget {
+  font-size: calc(1em + 2px) !important;
+}
+
+/* Sidebar - increase all text by 2px */
+.sidebar,
+.sidebar-widget,
+.widget,
+aside {
+  font-size: calc(1em + 2px) !important;
+}
+
+/* Components - increase all text by 2px */
+.card,
+.course-item,
+.courses-card,
+.event-card,
+.team-card,
+.testimonial-item,
+.feature-item,
+.accordion,
+.faq-item,
+.shop-cart,
+.courses-grid,
+.courses-details,
+.about-section,
+.contact-section,
+.breadcrumb {
+  font-size: calc(1em + 2px) !important;
+}
+
+/* Buttons - increase by 2px */
+.theme-btn,
+.btn,
+button:not(.close):not([class*="slick"]) {
+  font-size: 18px !important;
+}
+
+/* Form inputs and labels */
+input,
+textarea,
+select,
+label,
+.form-control {
+  font-size: 18px !important;
+}
+
+/* Dropdown and select menus */
+.nice-select,
+.dropdown-menu,
+.submenu {
+  font-size: 18px !important;
+}
+
+/* Breadcrumb text */
+.breadcrumb-title,
+.breadcrumb-content {
+  font-size: calc(1em + 2px) !important;
+}
+
+/* Prices */
+.price,
+.course-price,
+[class*="price"] {
+  font-size: 21px !important;
+}
+
+/* Icons - keep reasonable size */
+i.fas,
+i.far,
+i.fab,
+i.fa,
+.icon i {
+  font-size: 15px !important;
+}
+
+/* Checkbox and Radio labels */
+input[type="checkbox"] + label,
+input[type="checkbox"] + span,
+input[type="radio"] + label,
+input[type="radio"] + span,
+.form-check-label,
+.checkbox label,
+.radio label,
+label[for] {
+  font-size: 16px !important;
+}
+
+/* Checkbox container text */
+.form-check,
+.checkbox,
+.radio {
+  font-size: 16px !important;
+}
+
+/* Course sidebar checkbox/radio labels - specific selectors */
+.checkbox-single,
+.checkbox-single .text-color,
+.checkbox-single span,
+.courses-list label,
+.courses-list .text-color,
+.courses-sidebar-items label,
+.courses-sidebar-items .text-color {
+  font-size: 16px !important;
+}

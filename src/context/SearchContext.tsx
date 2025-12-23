@@ -1,0 +1,155 @@
+"use client"
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+// All courses data for search suggestions
+export const ALL_COURSES = [
+    {
+        id: 1,
+        title: 'เภสัชวิทยาคลินิกเบื้องต้น',
+        titleEn: 'Clinical Pharmacology Basics',
+        category: 'วิทยาลัยเภสัชบำบัด',
+        instructor: 'ภก.สมชาย ใจดี',
+        price: 1500,
+        image: 'assets/img/courses/01.jpg',
+    },
+    {
+        id: 2,
+        title: 'การบริบาลผู้ป่วยเบาหวาน',
+        titleEn: 'Diabetes Patient Care',
+        category: 'วิทยาลัยเภสัชกรรมชุมชน',
+        instructor: 'ภก.วิชัย สุขใจ',
+        price: 1800,
+        image: 'assets/img/courses/02.jpg',
+    },
+    {
+        id: 3,
+        title: 'กฎหมายเภสัชกรรม',
+        titleEn: 'Pharmacy Law',
+        category: 'วิทยาลัยการคุ้มครองผู้บริโภคด้านยา',
+        instructor: 'ภก.ประสิทธิ์ นิติกร',
+        price: 1200,
+        image: 'assets/img/courses/03.jpg',
+    },
+    {
+        id: 4,
+        title: 'ยาปฏิชีวนะในทางปฏิบัติ',
+        titleEn: 'Antibiotics in Practice',
+        category: 'วิทยาลัยแพทย์รวมสมุนไพร',
+        instructor: 'ภก.สุวรรณา เภสัชกร',
+        price: 2000,
+        image: 'assets/img/courses/04.jpg',
+    },
+    {
+        id: 5,
+        title: 'การจัดการร้านยา',
+        titleEn: 'Pharmacy Management',
+        category: 'วิทยาลัยการบริหารเภสัชกิจ',
+        instructor: 'ภก.นภา ธุรกิจดี',
+        price: 1600,
+        image: 'assets/img/courses/05.jpg',
+    },
+    {
+        id: 6,
+        title: 'การดูแลผู้ป่วยโรคหัวใจ',
+        titleEn: 'Cardiovascular Patient Care',
+        category: 'วิทยาลัยเภสัชบำบัด',
+        instructor: 'ภก.ธนวัฒน์ หัวใจดี',
+        price: 2500,
+        image: 'assets/img/courses/06.jpg',
+    },
+    {
+        id: 7,
+        title: 'เภสัชกรรมโรงพยาบาล',
+        titleEn: 'Hospital Pharmacy',
+        category: 'วิทยาลัยเภสัชกรรมอุตสาหการ',
+        instructor: 'ภก.สมศักดิ์ โรงพยาบาลดี',
+        price: 3500,
+        image: 'assets/img/courses/07.jpg',
+    },
+    {
+        id: 8,
+        title: 'พิษวิทยาคลินิก',
+        titleEn: 'Clinical Toxicology',
+        category: 'วิทยาลัยเภสัชบำบัด',
+        instructor: 'ภก.อรุณ พิษวิทยา',
+        price: 4500,
+        image: 'assets/img/courses/08.jpg',
+    },
+    {
+        id: 9,
+        title: 'สมุนไพรไทยในยาแผนปัจจุบัน',
+        titleEn: 'Thai Herbs in Modern Medicine',
+        category: 'วิทยาลัยแพทย์รวมสมุนไพร',
+        instructor: 'ภก.สมุนไพร รักษ์ธรรมชาติ',
+        price: 800,
+        image: 'assets/img/courses/09.jpg',
+    },
+    {
+        id: 10,
+        title: 'การใช้ยาในผู้สูงอายุ',
+        titleEn: 'Geriatric Pharmacotherapy',
+        category: 'วิทยาลัยเภสัชกรรมชุมชน',
+        instructor: 'ภก.วัยวุฒิ ผู้สูงวัย',
+        price: 5500,
+        image: 'assets/img/courses/10.jpg',
+    },
+];
+
+export interface CourseSearchResult {
+    id: number;
+    title: string;
+    titleEn: string;
+    category: string;
+    instructor: string;
+    price: number;
+    image: string;
+}
+
+interface SearchContextType {
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+    suggestions: CourseSearchResult[];
+    showSuggestions: boolean;
+    setShowSuggestions: (show: boolean) => void;
+    selectedPriceRange: string;
+    setSelectedPriceRange: (range: string) => void;
+}
+
+const SearchContext = createContext<SearchContextType | undefined>(undefined);
+
+export const SearchProvider = ({ children }: { children: ReactNode }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [selectedPriceRange, setSelectedPriceRange] = useState('all');
+
+    // Get search suggestions based on query
+    const suggestions = searchQuery.length >= 2
+        ? ALL_COURSES.filter(course =>
+            course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            course.titleEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            course.instructor.toLowerCase().includes(searchQuery.toLowerCase())
+        ).slice(0, 5) // Limit to 5 suggestions
+        : [];
+
+    return (
+        <SearchContext.Provider value={{
+            searchQuery,
+            setSearchQuery,
+            suggestions,
+            showSuggestions,
+            setShowSuggestions,
+            selectedPriceRange,
+            setSelectedPriceRange,
+        }}>
+            {children}
+        </SearchContext.Provider>
+    );
+};
+
+export const useSearch = () => {
+    const context = useContext(SearchContext);
+    if (context === undefined) {
+        throw new Error('useSearch must be used within a SearchProvider');
+    }
+    return context;
+};

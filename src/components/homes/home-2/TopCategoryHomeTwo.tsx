@@ -1,0 +1,180 @@
+import Link from 'next/link';
+import React from 'react';
+
+// SVG Icons for each pharmacology category
+const CategoryIcons = {
+    pharmacology: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+        </svg>
+    ),
+    clinical: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+            <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+            <circle cx="20" cy="10" r="2" />
+        </svg>
+    ),
+    care: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+        </svg>
+    ),
+    herbal: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M6 20.5h12" />
+            <path d="M12 20.5V10" />
+            <path d="M12 10c0-4.4 3.6-8 8-8-4.4 0-8 3.6-8 8" />
+            <path d="M12 10c0-4.4-3.6-8-8-8 4.4 0 8 3.6 8 8" />
+            <path d="M12 10c3.5 0 6-2.5 6-6" />
+            <path d="M12 10c-3.5 0-6-2.5-6-6" />
+        </svg>
+    ),
+    chemistry: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M9 3h6v2H9z" />
+            <path d="M10 5v6l-5 8.5c-.5.8.1 1.5 1 1.5h12c.9 0 1.5-.7 1-1.5L14 11V5" />
+            <path d="M8.5 14h7" />
+        </svg>
+    ),
+    community: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="9" cy="7" r="4" />
+            <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+            <circle cx="19" cy="11" r="2" />
+            <path d="M19 8v6" />
+            <path d="M16 11h6" />
+        </svg>
+    ),
+    industry: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M2 20h20" />
+            <path d="M5 20V9l5 4V9l5 4V4h4a2 2 0 0 1 2 2v14" />
+            <path d="M17 8h1" />
+            <path d="M17 12h1" />
+        </svg>
+    ),
+    law: (
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="m3 6 9-3 9 3" />
+            <path d="M3 6v4c0 1.1.9 2 2 2h1" />
+            <path d="M21 6v4c0 1.1-.9 2-2 2h-1" />
+            <path d="M12 3v18" />
+            <path d="M8 21h8" />
+        </svg>
+    )
+};
+
+const TopCategoryHomeTwo = () => {
+    const categories = [
+        { icon: CategoryIcons.pharmacology, name: 'เภสัชวิทยา', courses: 12, delay: '.2s' },
+        { icon: CategoryIcons.clinical, name: 'เภสัชกรรมคลินิก', courses: 8, delay: '.4s' },
+        { icon: CategoryIcons.care, name: 'การบริบาลเภสัชกรรม', courses: 10, delay: '.6s' },
+        { icon: CategoryIcons.herbal, name: 'เภสัชเวท', courses: 6, delay: '.8s' },
+        { icon: CategoryIcons.chemistry, name: 'เภสัชเคมี', courses: 5, delay: '.2s' },
+        { icon: CategoryIcons.community, name: 'เภสัชกรรมชุมชน', courses: 7, delay: '.4s' },
+        { icon: CategoryIcons.industry, name: 'เภสัชอุตสาหกรรม', courses: 4, delay: '.6s' },
+        { icon: CategoryIcons.law, name: 'กฎหมายเภสัชกรรม', courses: 3, delay: '.8s' }
+    ];
+
+    return (
+        <>
+            <section className="top-category-section-2 pb-0 section-padding fix footer-bg">
+                <div className="circle-shape">
+                    <img src="assets/img/circle-shape.png" alt="img" />
+                </div>
+                <div className="container">
+                    <div className="section-title text-center">
+                        <h6 className="text-white wow fadeInUp">
+                            หมวดหมู่ยอดนิยม
+                        </h6>
+                        <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
+                            สำรวจคอร์สเรียนตามหมวดหมู่
+                        </h2>
+                    </div>
+                    <div className="top-category-wrapper-2 mt-4 mt-md-0">
+                        <div className="row">
+                            <div className="col-xl-4 col-lg-6">
+                                <div className="top-category-left-items mb-5 mb-lg-0">
+                                    <div className="row g-0">
+                                        {categories.slice(0, 4).map((cat, index) => (
+                                            <div key={index} className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay={cat.delay}>
+                                                <div className={`top-category-box border-left-none ${index < 2 ? 'border-top-none' : 'border-bottom-none border-top-none'}`}>
+                                                    <Link href="/courses-grid">
+                                                        <div className="icon" style={{ color: '#fff' }}>
+                                                            {cat.icon}
+                                                        </div>
+                                                        <div className="content">
+                                                            <h6>{cat.name}</h6>
+                                                            <p>({cat.courses.toString().padStart(2, '0')}) คอร์ส</p>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-xl-4 col-lg-6">
+                                <div className="courses-image mb-5 mb-lg-0">
+                                    <img src="assets/img/boy-img.png" alt="img" className="wow img-custom-anim-left" />
+                                    <div className="bg-shape">
+                                        <img src="assets/img/boy-bg-shape.png" alt="img" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-xl-4 col-lg-6">
+                                <div className="top-category-left-items">
+                                    <div className="row g-0">
+                                        {categories.slice(4, 8).map((cat, index) => (
+                                            <div key={index} className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay={cat.delay}>
+                                                <div className={`top-category-box border-right-none ${index < 2 ? 'border-top-none' : 'border-bottom-none border-top-none'}`}>
+                                                    <Link href="/courses-grid">
+                                                        <div className="icon" style={{ color: '#fff' }}>
+                                                            {cat.icon}
+                                                        </div>
+                                                        <div className="content">
+                                                            <h6>{cat.name}</h6>
+                                                            <p>({cat.courses.toString().padStart(2, '0')}) คอร์ส</p>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="category-bottom-title wow fadeInUp" data-wow-delay=".3s">
+                        <h3>ค้นหาคอร์สที่เหมาะกับคุณ</h3>
+                        <Link href="/courses-grid" className="theme-btn hover-white">เริ่มเรียนเลย</Link>
+                    </div>
+                </div>
+                <div className="mycustom-marque">
+                    <div className="scrolling-wrap style-2">
+                        <div className="comm">
+                            <div className="cmn-textslide stroke-text">คอร์สเรียน</div>
+                            <div className="cmn-textslide stroke-text">หมวดหมู่</div>
+                        </div>
+                        <div className="comm">
+                            <div className="cmn-textslide stroke-text">คอร์สเรียน</div>
+                            <div className="cmn-textslide stroke-text">หมวดหมู่</div>
+                        </div>
+                        <div className="comm">
+                            <div className="cmn-textslide stroke-text">คอร์สเรียน</div>
+                            <div className="cmn-textslide stroke-text">หมวดหมู่</div>
+                        </div>
+                        <div className="comm">
+                            <div className="cmn-textslide stroke-text">คอร์สเรียน</div>
+                            <div className="cmn-textslide stroke-text">หมวดหมู่</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </>
+    );
+};
+
+export default TopCategoryHomeTwo;
