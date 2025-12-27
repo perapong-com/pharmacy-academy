@@ -1,23 +1,28 @@
-
-import CoursesGrid from '@/components/courses-grid';
-import Wrapper from '@/layouts/Wrapper';
 import React from 'react';
-
-
 import { Metadata } from 'next';
+import Wrapper from '@/layouts/Wrapper';
+import MarqueeOne from '@/common/MarqueeOne';
+import FooterTwo from '@/layouts/footers/FooterTwo';
+import HeaderTwo from '@/layouts/headers/HeaderTwo';
+import BreadcrumbCourses from '@/common/breadcrumb/BreadcrumbCourses';
+import { CoursesGridArea } from '@/features/courses';
+
 export const metadata: Metadata = {
-    title: "Courses Grid - Eduspace - Online Course, Education & University Next JS Template",
-    description: "Browse our courses",
-    keywords: "Online Course, Education, University",
+    title: "คอร์สเรียน - Pharmacy Academy",
+    description: "สำรวจคอร์สเรียนทั้งหมด",
+    keywords: "Online Course, Education, Pharmacy",
 };
 
-
-const index = () => {
+const CoursesGridPage = () => {
     return (
         <Wrapper>
-            <CoursesGrid />
+            <MarqueeOne />
+            <HeaderTwo />
+            <BreadcrumbCourses title="คอร์สเรียนทั้งหมด" subtitle="คอร์สเรียน" />
+            <CoursesGridArea />
+            <FooterTwo />
         </Wrapper>
     );
 };
 
-export default index;
+export default CoursesGridPage;

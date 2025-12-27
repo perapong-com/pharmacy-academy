@@ -2,7 +2,7 @@ import React from 'react';
 import MarqueeOne from '@/common/MarqueeOne';
 import FooterTwo from '@/layouts/footers/FooterTwo';
 import HeaderTwo from '@/layouts/headers/HeaderTwo';
-import RegisterArea from '@/components/auth/RegisterArea';
+import { RegisterArea } from '@/features/auth';
 
 import { Metadata } from 'next';
 

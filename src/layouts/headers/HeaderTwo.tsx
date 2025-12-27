@@ -1,38 +1,104 @@
-
 "use client"
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import NavMenu from './NavMenu';
-import NiceSelect from '@/ui/NiceSelect';
 import UseSticky from '@/hooks/UseSticky';
 import OffCanvas from '@/common/OffCanvas';
 import HeaderUserProfile from '@/components/common/HeaderUserProfile';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
+import { useSearch } from '@/context/SearchContext';
+import { useCart } from '@/features/cart';
+import { useLanguage } from '@/context/LanguageContext';
+
+// Mock courses for search suggestions
+const COURSES_DATA = [
+    { id: 1, title: 'เภสัชวิทยาคลินิกเบื้องต้น', instructor: 'ภญ.สมใจ รักเรียน', price: 1500, image: 'assets/img/courses/01.jpg' },
+    { id: 2, title: 'การบริบาลเภสัชกรรมผู้ป่วยเบาหวาน', instructor: 'ภก.วิชัย ใจดี', price: 2000, image: 'assets/img/courses/02.jpg' },
+    { id: 3, title: 'กฎหมายเภสัชกรรมเบื้องต้น', instructor: 'ภก.ธนา มั่นคง', price: 1200, image: 'assets/img/courses/03.jpg' },
+    { id: 4, title: 'การใช้ยาในผู้สูงอายุ', instructor: 'ภญ.พิมพ์ใจ สว่าง', price: 1800, image: 'assets/img/courses/04.jpg' },
+];
 
 const HeaderTwo = () => {
-    const selectHandler = (e: any) => { };
-    const { sticky } = UseSticky()
-    const [openCanvas, setOpenCanvas] = useState(false)
+    const { sticky } = UseSticky();
+    const [openCanvas, setOpenCanvas] = useState(false);
+    const { setSearchQuery } = useSearch();
+    const { cartItems } = useCart();
+    const { t } = useLanguage();
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [localSearch, setLocalSearch] = useState('');
+    const searchRef = useRef<HTMLDivElement>(null);
+
+    // Filter courses based on search
+    const filteredCourses = COURSES_DATA.filter(course =>
+        course.title.toLowerCase().includes(localSearch.toLowerCase()) ||
+        course.instructor.toLowerCase().includes(localSearch.toLowerCase())
+    ).slice(0, 4);
+
+    // Close suggestions when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+                setShowSuggestions(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const handleSearchSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setSearchQuery(localSearch);
+        setShowSuggestions(false);
+        window.location.href = `/courses-grid?search=${encodeURIComponent(localSearch)}`;
+    };
 
     return (
         <>
             <header className="header-section-2">
-                <div className="container">
-                    <div className="header-top">
-                        <Link href="/" className="top-logo">
-                            <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#004736' }}>Pharmacy Academy</span>
-                        </Link>
-                    </div>
-                </div>
                 <div id="header-sticky" className={`header-2 ${sticky ? "sticky" : ""}`}>
                     <div className="container">
                         <div className="mega-menu-wrapper">
-                            <div className="header-main">
-                                <Link href="/" className="header-logo">
-                                    <span style={{ fontSize: '20px', fontWeight: 'bold', color: '#004736' }}>Pharmacy Academy</span>
+                            <div className="header-main" style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                gap: '16px'
+                            }}>
+                                {/* Logo - Always visible */}
+                                <Link
+                                    href="/"
+                                    className="header-logo"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        textDecoration: 'none',
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    <img
+                                        src="/images/Logo.jpg"
+                                        alt="สภาเภสัชกรรม"
+                                        style={{
+                                            height: sticky ? '40px' : '50px',
+                                            width: 'auto',
+                                            marginRight: '10px',
+                                            transition: 'height 0.2s ease'
+                                        }}
+                                    />
+                                    <span style={{
+                                        fontSize: sticky ? '16px' : '18px',
+                                        fontWeight: 'bold',
+                                        color: '#004736',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'font-size 0.2s ease'
+                                    }}>
+                                        Pharmacy Academy
+                                    </span>
                                 </Link>
-                                <div className="header-left">
+
+                                {/* Navigation Menu */}
+                                <div className="header-left d-none d-xl-flex" style={{ flex: '0 0 auto' }}>
                                     <div className="mean__menu-wrapper">
                                         <div className="main-menu">
                                             <nav id="mobile-menu">
@@ -41,9 +107,162 @@ const HeaderTwo = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="header-right d-flex justify-content-end align-items-center" style={{ gap: '12px' }}>
-                                    <LanguageSwitcher />
-                                    <HeaderUserProfile />
+
+                                {/* Right Section */}
+                                <div className="header-right" style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '12px',
+                                    flex: '1 1 auto',
+                                    justifyContent: 'flex-end'
+                                }}>
+                                    {/* Search Box */}
+                                    <div
+                                        ref={searchRef}
+                                        className="d-none d-lg-block"
+                                        style={{
+                                            position: 'relative',
+                                            flex: sticky ? '0 1 200px' : '0 1 260px',
+                                        }}
+                                    >
+                                        <form onSubmit={handleSearchSubmit}>
+                                            <div style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                background: '#f5f7fa',
+                                                borderRadius: '8px',
+                                                padding: '8px 14px',
+                                                border: showSuggestions ? '2px solid #004736' : '2px solid transparent',
+                                                transition: 'all 0.2s ease',
+                                            }}>
+                                                <i className="fas fa-search" style={{ color: '#999', marginRight: '8px', fontSize: '13px' }}></i>
+                                                <input
+                                                    type="text"
+                                                    placeholder={t('ค้นหาคอร์ส...', 'Search...')}
+                                                    value={localSearch}
+                                                    onChange={(e) => {
+                                                        setLocalSearch(e.target.value);
+                                                        setShowSuggestions(e.target.value.length > 0);
+                                                    }}
+                                                    onFocus={() => localSearch.length > 0 && setShowSuggestions(true)}
+                                                    style={{
+                                                        border: 'none',
+                                                        background: 'transparent',
+                                                        outline: 'none',
+                                                        width: '100%',
+                                                        fontSize: '13px',
+                                                        color: '#333',
+                                                    }}
+                                                />
+                                            </div>
+                                        </form>
+
+                                        {/* Search Suggestions */}
+                                        {showSuggestions && localSearch.length > 0 && (
+                                            <div style={{
+                                                position: 'absolute',
+                                                top: 'calc(100% + 8px)',
+                                                left: 0,
+                                                right: 0,
+                                                background: '#fff',
+                                                borderRadius: '12px',
+                                                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+                                                zIndex: 1000,
+                                                overflow: 'hidden',
+                                            }}>
+                                                {filteredCourses.length === 0 ? (
+                                                    <div style={{ padding: '16px', textAlign: 'center', color: '#666' }}>
+                                                        {t('ไม่พบคอร์ส', 'No courses found')}
+                                                    </div>
+                                                ) : (
+                                                    filteredCourses.map((course) => (
+                                                        <Link
+                                                            key={course.id}
+                                                            href={`/courses-details?id=${course.id}`}
+                                                            onClick={() => setShowSuggestions(false)}
+                                                            style={{
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '10px',
+                                                                padding: '10px 14px',
+                                                                textDecoration: 'none',
+                                                                borderBottom: '1px solid #f0f0f0',
+                                                                transition: 'background 0.15s',
+                                                            }}
+                                                            onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                                                            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                                        >
+                                                            <div style={{ flex: 1, minWidth: 0 }}>
+                                                                <div style={{ fontSize: '13px', fontWeight: '500', color: '#333' }}>
+                                                                    {course.title}
+                                                                </div>
+                                                                <div style={{ fontSize: '11px', color: '#666' }}>
+                                                                    ฿{course.price.toLocaleString()}
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    ))
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Language Switcher */}
+                                    <div className="d-none d-md-block">
+                                        <LanguageSwitcher />
+                                    </div>
+
+                                    {/* Cart Icon */}
+                                    <Link
+                                        href="/shop-cart"
+                                        style={{
+                                            position: 'relative',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: '36px',
+                                            height: '36px',
+                                            background: '#f5f7fa',
+                                            borderRadius: '8px',
+                                            textDecoration: 'none',
+                                            transition: 'all 0.2s ease',
+                                            flexShrink: 0,
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = '#e8f5f0';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.background = '#f5f7fa';
+                                        }}
+                                    >
+                                        <i className="fas fa-shopping-cart" style={{ color: '#004736', fontSize: '14px' }}></i>
+                                        {cartItems.length > 0 && (
+                                            <span style={{
+                                                position: 'absolute',
+                                                top: '-4px',
+                                                right: '-4px',
+                                                minWidth: '16px',
+                                                height: '16px',
+                                                background: '#ef4444',
+                                                color: '#fff',
+                                                borderRadius: '50%',
+                                                fontSize: '9px',
+                                                fontWeight: '700',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                            }}>
+                                                {cartItems.length}
+                                            </span>
+                                        )}
+                                    </Link>
+
+                                    {/* User Profile - Compact version */}
+                                    <div className="d-none d-md-block">
+                                        <HeaderUserProfile compact={sticky} />
+                                    </div>
+
+                                    {/* Mobile Menu Toggle */}
                                     <div className="header__hamburger d-xl-none my-auto">
                                         <div className="sidebar__toggle" onClick={() => setOpenCanvas(!openCanvas)}>
                                             <i className="fas fa-bars"></i>
@@ -56,7 +275,6 @@ const HeaderTwo = () => {
                 </div>
             </header>
             <OffCanvas openCanvas={openCanvas} setOpenCanvas={setOpenCanvas} />
-
         </>
     );
 };

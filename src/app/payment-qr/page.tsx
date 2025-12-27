@@ -2,7 +2,7 @@ import React from 'react';
 import MarqueeOne from '@/common/MarqueeOne';
 import FooterTwo from '@/layouts/footers/FooterTwo';
 import HeaderTwo from '@/layouts/headers/HeaderTwo';
-import PaymentQRArea from '@/components/payment/PaymentQRArea';
+import { PaymentQRArea } from '@/features/payment';
 
 import { Metadata } from 'next';
 

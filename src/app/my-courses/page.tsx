@@ -2,7 +2,7 @@ import React from 'react';
 import MarqueeOne from '@/common/MarqueeOne';
 import FooterTwo from '@/layouts/footers/FooterTwo';
 import HeaderTwo from '@/layouts/headers/HeaderTwo';
-import MyCoursesArea from '@/components/learning/MyCoursesArea';
+import { MyCoursesArea } from '@/features/learning';
 
 import { Metadata } from 'next';
 

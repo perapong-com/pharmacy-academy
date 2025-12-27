@@ -72,14 +72,14 @@ const TopCategoryHomeTwo = () => {
     const { t } = useLanguage();
 
     const categories = [
-        { icon: CategoryIcons.pharmacology, name: t('เภสัชวิทยา', 'Pharmacology'), courses: 12, delay: '.2s' },
-        { icon: CategoryIcons.clinical, name: t('เภสัชกรรมคลินิก', 'Clinical Pharmacy'), courses: 8, delay: '.4s' },
-        { icon: CategoryIcons.care, name: t('การบริบาลเภสัชกรรม', 'Pharmaceutical Care'), courses: 10, delay: '.6s' },
-        { icon: CategoryIcons.herbal, name: t('เภสัชเวท', 'Herbal Medicine'), courses: 6, delay: '.8s' },
-        { icon: CategoryIcons.chemistry, name: t('เภสัชเคมี', 'Pharmaceutical Chemistry'), courses: 5, delay: '.2s' },
-        { icon: CategoryIcons.community, name: t('เภสัชกรรมชุมชน', 'Community Pharmacy'), courses: 7, delay: '.4s' },
-        { icon: CategoryIcons.industry, name: t('เภสัชอุตสาหกรรม', 'Pharmaceutical Industry'), courses: 4, delay: '.6s' },
-        { icon: CategoryIcons.law, name: t('กฎหมายเภสัชกรรม', 'Pharmacy Law'), courses: 3, delay: '.8s' }
+        { icon: CategoryIcons.pharmacology, name: t('วิทยาลัยเภสัชบำบัด', 'The College of Pharmcotherapy of Thailand'), courses: 12, delay: '.2s' },
+        { icon: CategoryIcons.clinical, name: t('วิทยาลัยการคุ้มครองผู้บริโภคด้านยาฯ', 'The College of Pharmaceutical and Health Consumer Protection of Thailand'), courses: 8, delay: '.4s' },
+        { icon: CategoryIcons.care, name: t('วิทยาลัยเภสัชกรรมสมุนไพร', 'The College of Herbal Pharmacy of Thailand'), courses: 10, delay: '.6s' },
+        { icon: CategoryIcons.herbal, name: t('วิทยาลัยเภสัชกรรมอุตสาหการ', 'The College of Industrial Pharmacy of Thailand'), courses: 6, delay: '.8s' },
+        { icon: CategoryIcons.chemistry, name: t('วิทยาลัยเภสัชกรรมชุมชน', 'The College of Community Pharmacy of Thailand'), courses: 5, delay: '.2s' },
+        { icon: CategoryIcons.community, name: t('วิทยาลัยการบริหารเภสัชกิจ', 'The College of Pharmacy Adimnistration of Thailand'), courses: 7, delay: '.4s' },
+        { icon: CategoryIcons.industry, name: t('วิทยาลัยเภสัชพันธุศาสตร์และเภสัชกรรมแม่นยำ', 'The College of Pharmacogenomics and Precision Medicine of Thailand'), courses: 4, delay: '.6s' },
+        { icon: CategoryIcons.law, name: t('อื่นๆ', 'Other'), courses: 3, delay: '.8s' }
     ];
 
     return (

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import HeaderTwo from '@/layouts/headers/HeaderTwo';
-import CourseLearningArea from '@/components/learning/CourseLearningArea';
+import { CourseLearningArea } from '@/features/learning';
 
 const CourseLearningPage = () => {
     return (

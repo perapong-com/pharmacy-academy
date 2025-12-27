@@ -2,10 +2,14 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/features/auth';
 import { useLanguage } from '@/context/LanguageContext';
 
-const HeaderUserProfile = () => {
+interface HeaderUserProfileProps {
+    compact?: boolean;
+}
+
+const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
     const { user, isAuthenticated, logout } = useAuth();
     const { language, t } = useLanguage();
     const [dropdownOpen, setDropdownOpen] = useState(false);

@@ -33,9 +33,6 @@ const LanguageSwitcher = () => {
             }}
             title={language === 'th' ? 'Switch to English' : 'เปลี่ยนเป็นภาษาไทย'}
         >
-            <span style={{ fontSize: '16px' }}>
-                {language === 'th' ? '🇹🇭' : '🇬🇧'}
-            </span>
             <span style={{
                 display: 'flex',
                 alignItems: 'center',

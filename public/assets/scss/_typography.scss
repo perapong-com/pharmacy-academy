@@ -2,21 +2,21 @@
     Template Default Fonts & Fonts Styles
  ---------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
-$heading-font: "Sora", system-ui;
-$body-font: 'Sora', sans-serif;
+$heading-font: "Sarabun", "TH Sarabun New", system-ui, sans-serif;
+$body-font: 'Sarabun', 'TH Sarabun New', sans-serif;
 
 //font-family: "Font Awesome 5 Pro";
 $fa: "Font Awesome 5 Pro";
 
 body {
-    font-family: $body-font;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 30px;
-    color: $text-color;
-    background-color: $white;
+	font-family: $body-font;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 30px;
+	color: $text-color;
+	background-color: $white;
 	padding: 0;
 	margin: 0;
 	overflow-x: hidden;
@@ -29,17 +29,17 @@ ul {
 }
 
 button {
-    border: none;
-    background-color: transparent;
+	border: none;
+	background-color: transparent;
 	padding: 0;
 }
 
-input:focus{
+input:focus {
 	color: $white;
 	outline: none;
 }
 
-input{
+input {
 	color: $white;
 }
 
@@ -49,10 +49,10 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: $heading-font;
-    margin: 0px;
+	font-family: $heading-font;
+	margin: 0px;
 	padding: 0;
-    color: $header-color;
+	color: $header-color;
 	text-transform: capitalize;
 	@include transition;
 	font-weight: 400;
@@ -67,15 +67,15 @@ h2 {
 	font-size: 55px;
 	font-weight: 600;
 
-	@include breakpoint(max-xl){
+	@include breakpoint(max-xl) {
 		font-size: 42px;
 	}
 
-	@include breakpoint(max-md){
+	@include breakpoint(max-md) {
 		font-size: 36px;
 	}
 
-	@include breakpoint(max-sm){
+	@include breakpoint(max-sm) {
 		font-size: 32px;
 	}
 }
@@ -84,7 +84,7 @@ h3 {
 	font-size: 22px;
 	font-weight: 600;
 
-	@include breakpoint(max-sm){
+	@include breakpoint(max-sm) {
 		font-size: 20px;
 	}
 }
@@ -105,17 +105,14 @@ h6 {
 }
 
 a {
-    text-decoration: none;
-    outline: none !important;
-    cursor: pointer;
-    color: $header-color;
+	text-decoration: none;
+	outline: none !important;
+	cursor: pointer;
+	color: $header-color;
 	@include transition;
 }
 
 p {
-    margin: 0px;
+	margin: 0px;
 	@include transition;
 }
-
-
-
