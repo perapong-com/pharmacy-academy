@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import React, { useState, useMemo } from 'react';
 import EnrollButton from '@/components/common/EnrollButton';
-import { useAuth } from '@/features/auth';
 import { useLanguage } from '@/context/LanguageContext';
 
 // Sample pharmacy courses data with images
@@ -109,67 +108,12 @@ const PRICE_RANGES = [
 
 const LEVELS = ['All Level', 'Beginner', 'Intermediate', 'Advanced'];
 
-// Mock enrolled courses for logged-in users
-const ENROLLED_COURSES = [
-    {
-        id: 1,
-        title: 'เภสัชวิทยาคลินิกเบื้องต้น',
-        instructor: 'ภก.สมชาย ใจดี',
-        cpe: 2.5,
-        duration: '6 ชั่วโมง',
-        image: 'assets/img/courses/01.jpg',
-        progress: 65,
-        completedLessons: 8,
-        totalLessons: 12,
-        lastAccessed: '2024-12-20',
-        status: 'in_progress' as const,
-    },
-    {
-        id: 2,
-        title: 'การบริบาลผู้ป่วยเบาหวาน',
-        instructor: 'ภก.วิชัย สุขใจ',
-        cpe: 3.0,
-        duration: '8 ชั่วโมง',
-        image: 'assets/img/courses/02.jpg',
-        progress: 100,
-        completedLessons: 15,
-        totalLessons: 15,
-        lastAccessed: '2024-12-18',
-        status: 'completed' as const,
-    },
-    {
-        id: 4,
-        title: 'ยาปฏิชีวนะในทางปฏิบัติ',
-        instructor: 'ภก.สุวรรณา เภสัชกร',
-        cpe: 3.5,
-        duration: '10 ชั่วโมง',
-        image: 'assets/img/courses/04.jpg',
-        progress: 20,
-        completedLessons: 3,
-        totalLessons: 15,
-        lastAccessed: '2024-12-22',
-        status: 'in_progress' as const,
-    },
-];
-
 const CoursesGridArea = () => {
-    const { isAuthenticated } = useAuth();
     const { language, t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedPriceRange, setSelectedPriceRange] = useState(0); // index of PRICE_RANGES
-    const [activeTab, setActiveTab] = useState<'explore' | 'my'>('explore');
 
-    // Handle URL tab parameter on client side
-    React.useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const params = new URLSearchParams(window.location.search);
-            const tab = params.get('tab');
-            if (tab === 'my') {
-                setActiveTab('my');
-            }
-        }
-    }, []);
 
     // Filter courses based on search, category, and price range
     const filteredCourses = useMemo(() => {
@@ -195,61 +139,17 @@ const CoursesGridArea = () => {
         <>
             <section className="courses-section section-padding fix">
                 <div className="container">
-                    {/* Header with Tabs */}
-                    <div className="courses-header mb-4">
-                        <div className="row align-items-center g-3">
-                            <div className="col-lg-12">
-                                <div className="tab-buttons d-flex gap-2">
-                                    <button
-                                        onClick={() => setActiveTab('my')}
-                                        style={{
-                                            padding: '12px 28px',
-                                            border: activeTab === 'my' ? 'none' : '1px solid #ddd',
-                                            borderRadius: '8px',
-                                            background: activeTab === 'my' ? '#4F46E5' : '#fff',
-                                            color: activeTab === 'my' ? '#fff' : '#333',
-                                            fontWeight: '500',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.2s ease',
-                                        }}
-                                    >
-                                        {t('คอร์สของฉัน', 'My Courses')}
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('explore')}
-                                        style={{
-                                            padding: '12px 28px',
-                                            border: activeTab === 'explore' ? 'none' : '1px solid #ddd',
-                                            borderRadius: '8px',
-                                            background: activeTab === 'explore' ? '#4F46E5' : '#fff',
-                                            color: activeTab === 'explore' ? '#fff' : '#333',
-                                            fontWeight: '500',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.2s ease',
-                                        }}
-                                    >
-                                        {t('สำรวจคอร์ส', 'Explore Courses')}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="breadcrumb-nav mt-3" style={{ fontSize: '14px', color: '#666' }}>
-                            {activeTab === 'explore' ? t('สำรวจคอร์ส', 'Explore Courses') : t('คอร์สของฉัน', 'My Courses')} /
-                        </div>
-                    </div>
-
-                    {activeTab === 'explore' ? (
-                        <div className="row g-4">
-                            {/* Sidebar Filters */}
-                            <div className="col-xl-3 col-lg-4">
-                                <div className="courses-main-sidebar-area">
-                                    <div className="courses-main-sidebar">
-                                        {/* Search */}
-                                        <div className="courses-sidebar-items">
-                                            <div className="wid-title style-2">
-                                                <h5>{t('ค้นหา', 'Search')}</h5>
-                                            </div>
-                                            <div className="search-widget">
+                    <div className="row g-4">
+                        {/* Sidebar Filters */}
+                        <div className="col-xl-3 col-lg-4">
+                            <div className="courses-main-sidebar-area">
+                                <div className="courses-main-sidebar">
+                                    {/* Search */}
+                                    <div className="courses-sidebar-items">
+                                        <div className="wid-title style-2">
+                                            <h5>{t('ค้นหา', 'Search')}</h5>
+                                        </div>
+                                        <div className="search-widget">
                                                 <form onSubmit={e => e.preventDefault()}>
                                                     <input
                                                         type="text"
@@ -448,256 +348,8 @@ const CoursesGridArea = () => {
                                         ))}
                                     </div>
                                 )}
-                            </div>
                         </div>
-                    ) : (
-                        /* My Courses Tab */
-                        <div className="my-courses-content">
-                            {isAuthenticated && ENROLLED_COURSES.length > 0 ? (
-                                <>
-                                    {/* Stats Summary */}
-                                    <div className="row mb-4">
-                                        <div className="col-md-4 mb-3">
-                                            <div style={{
-                                                background: 'linear-gradient(135deg, #e8f8f4 0%, #d1fae5 100%)',
-                                                borderRadius: '12px',
-                                                padding: '20px',
-                                                textAlign: 'center',
-                                            }}>
-                                                <h3 style={{ color: '#014D40', marginBottom: '4px' }}>{ENROLLED_COURSES.length}</h3>
-                                                <p style={{ color: '#666', margin: 0, fontSize: '14px' }}>{t('คอร์สทั้งหมด', 'All Courses')}</p>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4 mb-3">
-                                            <div style={{
-                                                background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-                                                borderRadius: '12px',
-                                                padding: '20px',
-                                                textAlign: 'center',
-                                            }}>
-                                                <h3 style={{ color: '#92400e', marginBottom: '4px' }}>
-                                                    {ENROLLED_COURSES.filter(c => c.status === 'in_progress').length}
-                                                </h3>
-                                                <p style={{ color: '#666', margin: 0, fontSize: '14px' }}>{t('กำลังเรียน', 'In Progress')}</p>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4 mb-3">
-                                            <div style={{
-                                                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                                                borderRadius: '12px',
-                                                padding: '20px',
-                                                textAlign: 'center',
-                                            }}>
-                                                <h3 style={{ color: '#1e40af', marginBottom: '4px' }}>
-                                                    {ENROLLED_COURSES.filter(c => c.status === 'completed').length}
-                                                </h3>
-                                                <p style={{ color: '#666', margin: 0, fontSize: '14px' }}>{t('เรียนจบแล้ว', 'Completed')}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Enrolled Courses List */}
-                                    <div className="enrolled-courses-list">
-                                        {ENROLLED_COURSES.map((course) => (
-                                            <div
-                                                key={course.id}
-                                                style={{
-                                                    background: '#fff',
-                                                    borderRadius: '16px',
-                                                    padding: '20px',
-                                                    marginBottom: '16px',
-                                                    boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '24px',
-                                                    transition: 'all 0.3s ease',
-                                                }}
-                                            >
-                                                {/* Course Image */}
-                                                <div style={{
-                                                    position: 'relative',
-                                                    flexShrink: 0,
-                                                    width: '200px',
-                                                    height: '130px',
-                                                    borderRadius: '12px',
-                                                    overflow: 'hidden',
-                                                }}>
-                                                    <img
-                                                        src={course.image}
-                                                        alt={course.title}
-                                                        style={{
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover'
-                                                        }}
-                                                    />
-                                                    {/* Status Badge */}
-                                                    <span style={{
-                                                        position: 'absolute',
-                                                        top: '8px',
-                                                        right: '8px',
-                                                        padding: '4px 10px',
-                                                        borderRadius: '16px',
-                                                        fontSize: '11px',
-                                                        fontWeight: '600',
-                                                        background: course.status === 'completed' ? '#22c55e' : '#f59e0b',
-                                                        color: '#fff',
-                                                    }}>
-                                                        {course.status === 'completed' ? t('✓ เรียนจบแล้ว', '✓ Completed') : t('📖 กำลังเรียน', '📖 In Progress')}
-                                                    </span>
-                                                </div>
-
-                                                {/* Course Info */}
-                                                <div style={{ flex: 1, minWidth: 0 }}>
-                                                    <h5 style={{
-                                                        color: '#014D40',
-                                                        fontSize: '18px',
-                                                        fontWeight: '600',
-                                                        marginBottom: '8px',
-                                                        lineHeight: '1.4',
-                                                    }}>
-                                                        {course.title}
-                                                    </h5>
-                                                    <p style={{ color: '#666', fontSize: '14px', marginBottom: '12px' }}>
-                                                        <i className="fas fa-user-tie" style={{ marginRight: '6px' }}></i>
-                                                        {course.instructor}
-                                                    </p>
-
-                                                    {/* Progress Bar */}
-                                                    <div style={{ marginBottom: '12px', maxWidth: '400px' }}>
-                                                        <div style={{
-                                                            display: 'flex',
-                                                            justifyContent: 'space-between',
-                                                            marginBottom: '6px',
-                                                        }}>
-                                                            <span style={{ fontSize: '13px', color: '#666' }}>
-                                                                {course.completedLessons}/{course.totalLessons} {t('บทเรียน', 'Lessons')}
-                                                            </span>
-                                                            <span style={{
-                                                                fontSize: '13px',
-                                                                fontWeight: '600',
-                                                                color: course.progress === 100 ? '#22c55e' : '#014D40',
-                                                            }}>
-                                                                {course.progress}%
-                                                            </span>
-                                                        </div>
-                                                        <div style={{
-                                                            height: '8px',
-                                                            background: '#e5e7eb',
-                                                            borderRadius: '4px',
-                                                            overflow: 'hidden',
-                                                        }}>
-                                                            <div style={{
-                                                                width: `${course.progress}%`,
-                                                                height: '100%',
-                                                                background: course.progress === 100
-                                                                    ? 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)'
-                                                                    : 'linear-gradient(90deg, #014D40 0%, #40C7A9 100%)',
-                                                                borderRadius: '4px',
-                                                                transition: 'width 0.5s ease',
-                                                            }}></div>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Meta Info */}
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        gap: '20px',
-                                                    }}>
-                                                        <span style={{ fontSize: '13px', color: '#666' }}>
-                                                            <i className="fas fa-clock" style={{ marginRight: '6px', color: '#40C7A9' }}></i>
-                                                            {course.duration}
-                                                        </span>
-                                                        <span style={{ fontSize: '13px', color: '#666' }}>
-                                                            <i className="fas fa-certificate" style={{ marginRight: '6px', color: '#40C7A9' }}></i>
-                                                            {course.cpe} CPE
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                {/* Buttons */}
-                                                <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                    {/* Download CPE Button - Only for completed courses */}
-                                                    {course.status === 'completed' && (
-                                                        <button
-                                                            onClick={() => {
-                                                                // Simulate CPE certificate download
-                                                                alert(t('กำลังดาวน์โหลดใบรับรอง CPE...', 'Downloading CPE Certificate...'));
-                                                            }}
-                                                            style={{
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                justifyContent: 'center',
-                                                                gap: '8px',
-                                                                padding: '14px 28px',
-                                                                background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
-                                                                color: '#fff',
-                                                                border: 'none',
-                                                                borderRadius: '10px',
-                                                                cursor: 'pointer',
-                                                                fontWeight: '600',
-                                                                fontSize: '14px',
-                                                                transition: 'all 0.3s ease',
-                                                                whiteSpace: 'nowrap',
-                                                            }}
-                                                        >
-                                                            <i className="fas fa-download"></i> {t('ดาวน์โหลด CPE', 'Download CPE')}
-                                                        </button>
-                                                    )}
-
-                                                    {/* Continue/Retake Button */}
-                                                    <Link
-                                                        href={`/course-learning?id=${course.id}`}
-                                                        style={{
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'center',
-                                                            gap: '8px',
-                                                            padding: '14px 28px',
-                                                            background: course.status === 'completed'
-                                                                ? 'linear-gradient(135deg, #22c55e 0%, #4ade80 100%)'
-                                                                : 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)',
-                                                            color: '#fff',
-                                                            borderRadius: '10px',
-                                                            textDecoration: 'none',
-                                                            fontWeight: '600',
-                                                            fontSize: '14px',
-                                                            transition: 'all 0.3s ease',
-                                                            whiteSpace: 'nowrap',
-                                                        }}
-                                                    >
-                                                        {course.status === 'completed' ? (
-                                                            <><i className="fas fa-redo"></i> {t('เรียนซ้ำ', 'Retake')}</>
-                                                        ) : (
-                                                            <><i className="fas fa-play"></i> {t('เรียนต่อ', 'Continue')}</>
-                                                        )}
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </>
-                            ) : (
-                                <div className="text-center py-5">
-                                    <i className="fas fa-graduation-cap" style={{ fontSize: '64px', color: '#ddd', marginBottom: '20px' }}></i>
-                                    <h4 style={{ color: '#333', marginBottom: '12px' }}>{t('ยังไม่มีคอร์สของคุณ', 'You have no courses yet')}</h4>
-                                    <p style={{ color: '#666', marginBottom: '24px' }}>
-                                        {isAuthenticated
-                                            ? t('เริ่มเรียนรู้ได้เลยโดยการสมัครคอร์สที่สนใจ', 'Start learning by enrolling in courses you are interested in')
-                                            : t('กรุณาเข้าสู่ระบบเพื่อดูคอร์สของคุณ', 'Please log in to view your courses')
-                                        }
-                                    </p>
-                                    <button
-                                        onClick={() => setActiveTab('explore')}
-                                        className="theme-btn"
-                                        style={{ padding: '12px 32px' }}
-                                    >
-                                        {t('ค้นหาคอร์สเรียน', 'Find Courses')}
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                    </div>
                 </div>
             </section>
         </>

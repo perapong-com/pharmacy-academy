@@ -24,9 +24,6 @@ const PaymentHistoryArea = () => {
                         }}>
                             <div className="d-flex justify-content-between align-items-center mb-4">
                                 <h3 style={{ color: '#004736', marginBottom: '0' }}>{t('ประวัติการชำระเงิน', 'Payment History')}</h3>
-                                <Link href="/courses-grid?tab=my" className="theme-btn" style={{ padding: '10px 20px' }}>
-                                    {t('คอร์สของฉัน', 'My Courses')}
-                                </Link>
                             </div>
 
                             <div className="table-responsive">

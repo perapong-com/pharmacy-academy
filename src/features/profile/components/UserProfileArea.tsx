@@ -418,40 +418,7 @@ const UserProfileArea = () => {
                                         <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
                                             {course.progress === 100 ? (
                                                 <>
-                                                    <Link
-                                                        href={`/course-learning?id=${course.id}`}
-                                                        style={{
-                                                            padding: '10px 20px',
-                                                            background: '#22c55e',
-                                                            color: '#fff',
-                                                            borderRadius: '8px',
-                                                            textDecoration: 'none',
-                                                            fontWeight: '500',
-                                                            fontSize: '14px',
-                                                            whiteSpace: 'nowrap'
-                                                        }}
-                                                    >
-                                                        {t('ดูใบประกาศ', 'Certificate')}
-                                                    </Link>
-                                                    <button
-                                                        onClick={() => {
-                                                            // Simulate download CPE
-                                                            alert(t('กำลังดาวน์โหลดใบ CPE...', 'Downloading CPE certificate...'));
-                                                        }}
-                                                        style={{
-                                                            padding: '10px 20px',
-                                                            background: '#fff',
-                                                            color: '#22c55e',
-                                                            border: '2px solid #22c55e',
-                                                            borderRadius: '8px',
-                                                            fontWeight: '500',
-                                                            fontSize: '14px',
-                                                            whiteSpace: 'nowrap',
-                                                            cursor: 'pointer'
-                                                        }}
-                                                    >
-                                                        <i className="fas fa-download me-1"></i>{t('โหลด CPE', 'Download CPE')}
-                                                    </button>
+                                                    <DownloadButton t={t} />
                                                 </>
                                             ) : (
                                                 <Link
@@ -479,6 +446,49 @@ const UserProfileArea = () => {
                 </div>
             </div>
         </section>
+    );
+};
+
+const DownloadButton = ({ t }: { t: any }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <button
+            onClick={() => alert(t('กำลังดาวน์โหลดหนังสือรับรอง...', 'Downloading Certificate...'))}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                height: '42px',
+                padding: isHovered ? '0 20px' : '0',
+                width: isHovered ? 'auto' : '42px',
+                minWidth: '42px',
+                background: '#004736',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: '500',
+                fontSize: '14px',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: isHovered ? '8px' : '0',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                overflow: 'hidden',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+            }}
+        >
+            <i className="fas fa-download"></i>
+            <span style={{
+                maxWidth: isHovered ? '200px' : '0',
+                opacity: isHovered ? 1 : 0,
+                transition: 'all 0.3s ease',
+                display: 'inline-block'
+            }}>
+                {t('ดาวน์โหลดหนังสือรับรอง', 'Download Certificate')}
+            </span>
+        </button>
     );
 };
 

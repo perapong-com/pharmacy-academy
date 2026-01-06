@@ -236,42 +236,6 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                 </div>
 
                 <Link
-                    href="/courses-grid?tab=my"
-                    onClick={() => setDropdownOpen(false)}
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        padding: '12px',
-                        color: '#333',
-                        textDecoration: 'none',
-                        borderRadius: '10px',
-                        transition: 'all 0.2s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#f0fdf4';
-                        e.currentTarget.style.color = '#014D40';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent';
-                        e.currentTarget.style.color = '#333';
-                    }}
-                >
-                    <div style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '8px',
-                        background: '#e8f8f4',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}>
-                        <i className="fas fa-book" style={{ color: '#014D40', fontSize: '14px' }}></i>
-                    </div>
-                    <span style={{ fontWeight: '500' }}>{t('คอร์สของฉัน', 'My Courses')}</span>
-                </Link>
-
-                <Link
                     href="/profile"
                     onClick={() => setDropdownOpen(false)}
                     style={{
