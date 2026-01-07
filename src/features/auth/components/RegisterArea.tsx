@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 
 import AuthLayout from "./AuthLayout";
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 const RegisterArea: React.FC = () => {
     const { t } = useLanguage();

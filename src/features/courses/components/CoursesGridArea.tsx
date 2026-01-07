@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useState, useMemo } from 'react';
 import EnrollButton from '@/components/common/EnrollButton';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 // Sample pharmacy courses data with images
 const COURSES_DATA = [

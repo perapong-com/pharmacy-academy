@@ -4,12 +4,12 @@ import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
 import NavMenu from './NavMenu';
 import UseSticky from '@/hooks/UseSticky';
-import OffCanvas from '@/common/OffCanvas';
+import OffCanvas from '@/components/common/OffCanvas';
 import HeaderUserProfile from '@/components/common/HeaderUserProfile';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
-import { useSearch } from '@/context/SearchContext';
+import { useSearch } from '@/features/search';
 import { useCart } from '@/features/cart';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 // Mock courses for search suggestions
 const COURSES_DATA = [

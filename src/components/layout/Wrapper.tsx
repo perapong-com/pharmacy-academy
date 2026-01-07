@@ -1,6 +1,6 @@
 "use client";
 
-import ScrollToTop from "@/common/ScrollToTop";
+import ScrollToTop from "@/components/common/ScrollToTop";
 import { animationCreate } from "@/utils/utils";
 import { useEffect } from "react";
 

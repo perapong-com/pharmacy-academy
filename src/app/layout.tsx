@@ -2,8 +2,8 @@
 import "./globals.css";
 import "../styles/index.scss";
 import { AuthProvider } from "@/features/auth";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { SearchProvider } from "@/context/SearchContext";
+import { LanguageProvider } from "@/features/i18n";
+import { SearchProvider } from "@/features/search";
 import { CartProvider } from "@/features/cart";
 
 

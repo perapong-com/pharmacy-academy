@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 const PaymentFailArea = () => {
     const { t } = useLanguage();

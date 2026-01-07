@@ -1,8 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
-import MarqueeOne from '@/common/MarqueeOne';
-import FooterTwo from '@/layouts/footers/FooterTwo';
-import HeaderTwo from '@/layouts/headers/HeaderTwo';
+import MarqueeOne from '@/components/common/MarqueeOne';
+import FooterTwo from '@/components/layout/footers/FooterTwo';
+import HeaderTwo from '@/components/layout/headers/HeaderTwo';
 import { PaymentPromptPayArea } from '@/features/payment';
 
 export const metadata: Metadata = {

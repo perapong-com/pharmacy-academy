@@ -1,10 +1,10 @@
 
 "use client"
 import Link from 'next/link';
-import Count from '@/common/Count';
+import Count from '@/components/common/Count';
 import React, { useState } from 'react';
-import VideoPopup from '@/modals/VideoPopup';
-import { useLanguage } from '@/context/LanguageContext';
+import VideoPopup from '@/components/common/VideoPopup';
+import { useLanguage } from '@/features/i18n';
 
 
 const HeroHomeTwo = () => {

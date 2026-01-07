@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/features/auth";
 
 import AuthLayout from "./AuthLayout";
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 const SignInArea: React.FC = () => {
     const { t } = useLanguage();

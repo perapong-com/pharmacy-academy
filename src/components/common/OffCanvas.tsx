@@ -1,5 +1,5 @@
 
-import MobileMenu from '@/layouts/headers/MobileMenu';
+import MobileMenu from '@/components/layout/headers/MobileMenu';
 import Link from 'next/link';
 import React from 'react';
 

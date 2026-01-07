@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 const LanguageSwitcher = () => {
     const { language, toggleLanguage } = useLanguage();

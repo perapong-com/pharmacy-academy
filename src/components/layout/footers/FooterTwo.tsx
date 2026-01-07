@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 const FooterTwo = () => {
     const { t } = useLanguage();

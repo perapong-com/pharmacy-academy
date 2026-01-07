@@ -1,10 +1,10 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Wrapper from '@/layouts/Wrapper';
-import MarqueeOne from '@/common/MarqueeOne';
-import FooterTwo from '@/layouts/footers/FooterTwo';
-import HeaderTwo from '@/layouts/headers/HeaderTwo';
-import BreadcrumbCoursesDetails from '@/common/breadcrumb/BreadcrumbCoursesDetails';
+import Wrapper from '@/components/layout/Wrapper';
+import MarqueeOne from '@/components/common/MarqueeOne';
+import FooterTwo from '@/components/layout/footers/FooterTwo';
+import HeaderTwo from '@/components/layout/headers/HeaderTwo';
+import BreadcrumbCoursesDetails from '@/components/common/breadcrumb/BreadcrumbCoursesDetails';
 import { CoursesDetailsArea, RelatedCourses } from '@/features/courses';
 
 export const metadata: Metadata = {

@@ -3,7 +3,7 @@
 import menu_data from "@/data/menu_data";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/features/i18n";
 
 const MobileMenu = () => {
 	const { language } = useLanguage();
