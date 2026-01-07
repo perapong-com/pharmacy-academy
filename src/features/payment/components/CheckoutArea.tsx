@@ -39,6 +39,25 @@ const CheckoutArea = () => {
     const { t } = useLanguage();
     const [cartItems, setCartItems] = useState(CART_ITEMS);
     const [paymentMethod, setPaymentMethod] = useState<'promptpay' | 'card'>('promptpay');
+    const [receiptType, setReceiptType] = useState<'personal' | 'company'>('personal');
+    const [companyInfo, setCompanyInfo] = useState({
+        name: '',
+        taxId: '',
+        address: '',
+        branch: ''
+    });
+    const [addressInfo, setAddressInfo] = useState({
+        addressNo: '',
+        village: '',
+        moo: '',
+        soi: '',
+        road: '',
+        subDistrict: '',
+        district: '',
+        province: '',
+        postalCode: ''
+    });
+    const [formErrors, setFormErrors] = useState<{ [key: string]: boolean }>({});
     const [voucherCode, setVoucherCode] = useState('');
     const [discount, setDiscount] = useState(0);
     const [discountApplied, setDiscountApplied] = useState(false);
@@ -112,247 +131,691 @@ const CheckoutArea = () => {
     const total = subtotal - discount;
 
     return (
-        <section className="checkout-section section-padding">
-            <div className="container">
-                <div className="row g-4">
-                    {/* Left: Cart Items */}
-                    <div className="col-lg-7">
-                        <div className="cart-wrapper" style={{
-                            background: '#fff',
-                            borderRadius: '16px',
-                            padding: '24px',
-                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.06)'
-                        }}>
-                            {/* Header */}
-                            <div className="d-flex justify-content-between align-items-center mb-4">
-                                <h5 style={{ color: '#333', margin: 0 }}>
-                                    {t('คอร์สเรียน', 'Courses')} ({cartItems.length})
-                                </h5>
-                                <button
-                                    onClick={clearAll}
-                                    style={{
-                                        background: 'transparent',
-                                        border: 'none',
-                                        color: '#ef4444',
-                                        cursor: 'pointer',
-                                        fontSize: '14px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '6px'
-                                    }}
-                                >
-                                    <i className="fas fa-trash"></i>
-                                    {t('ลบทั้งหมด', 'Clear All')}
-                                </button>
-                            </div>
+        <>
+            <section className="checkout-section section-padding">
+                <div className="container">
+                    <div className="row g-4">
+                        {/* Left: Payment Options */}
+                        <div className="col-lg-7">
+                            <div className="payment-wrapper" style={{
+                                background: '#fff',
+                                borderRadius: '16px',
+                                padding: '24px',
+                                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.06)'
+                            }}>
+                                <h5 style={{ color: '#014D40', marginBottom: '20px' }}>{t('เลือกช่องทางชำระเงิน', 'Select Payment Method')}</h5>
 
-                            {/* Cart Items */}
-                            {cartItems.length === 0 ? (
-                                <div className="text-center py-5">
-                                    <i className="fas fa-shopping-cart" style={{ fontSize: '48px', color: '#ddd', marginBottom: '16px' }}></i>
-                                    <p style={{ color: '#666' }}>{t('ไม่มีคอร์สในตะกร้า', 'No courses in cart')}</p>
-                                    <Link href="/courses-grid" className="theme-btn" style={{ padding: '10px 24px' }}>
-                                        {t('เลือกคอร์สเรียน', 'Browse Courses')}
-                                    </Link>
+                                {/* Payment Methods - Horizontal Layout */}
+                                <div className="payment-methods d-flex gap-3 mb-4">
+                                    {/* QR PromptPay */}
+                                    <label
+                                        style={{
+                                            flex: 1,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '12px',
+                                            padding: '16px 20px',
+                                            border: paymentMethod === 'promptpay' ? '2px solid #014D40' : '1px solid #e0e0e0',
+                                            borderRadius: '12px',
+                                            cursor: 'pointer',
+                                            background: '#fff',
+                                            height: '80px',
+                                        }}
+                                    >
+                                        <div style={{
+                                            width: '28px',
+                                            height: '28px',
+                                            borderRadius: '50%',
+                                            background: paymentMethod === 'promptpay' ? '#014D40' : '#fff',
+                                            border: paymentMethod === 'promptpay' ? 'none' : '2px solid #ccc',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            flexShrink: 0
+                                        }}>
+                                            {paymentMethod === 'promptpay' && (
+                                                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#fff' }}></div>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <p style={{ margin: 0, fontWeight: '600', color: '#333', fontSize: '16px' }}>QR PromptPay</p>
+                                            <img
+                                                src="assets/img/prompt-pay-logo.png"
+                                                alt="PromptPay"
+                                                style={{ height: '24px', marginTop: '6px' }}
+                                            />
+                                        </div>
+                                        <input
+                                            type="radio"
+                                            name="payment"
+                                            checked={paymentMethod === 'promptpay'}
+                                            onChange={() => setPaymentMethod('promptpay')}
+                                            style={{ display: 'none' }}
+                                        />
+                                    </label>
+
+                                    {/* Credit/Debit Card */}
+                                    <label
+                                        style={{
+                                            flex: 1,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '12px',
+                                            padding: '16px 20px',
+                                            border: paymentMethod === 'card' ? '2px solid #014D40' : '1px solid #e0e0e0',
+                                            borderRadius: '12px',
+                                            cursor: 'pointer',
+                                            background: '#fff',
+                                            height: '80px',
+                                        }}
+                                    >
+                                        <div style={{
+                                            width: '28px',
+                                            height: '28px',
+                                            borderRadius: '50%',
+                                            background: paymentMethod === 'card' ? '#014D40' : '#fff',
+                                            border: paymentMethod === 'card' ? 'none' : '2px solid #ccc',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            flexShrink: 0
+                                        }}>
+                                            {paymentMethod === 'card' && (
+                                                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#fff' }}></div>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <p style={{ margin: 0, fontWeight: '600', color: '#333', fontSize: '16px' }}>Credit/Debit Card</p>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" style={{ height: '18px' }} />
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" style={{ height: '14px' }} />
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="radio"
+                                            name="payment"
+                                            checked={paymentMethod === 'card'}
+                                            onChange={() => setPaymentMethod('card')}
+                                            style={{ display: 'none' }}
+                                        />
+                                    </label>
                                 </div>
-                            ) : (
-                                <div className="cart-items">
-                                    {cartItems.map((item) => (
-                                        <div key={item.id} className="cart-item d-flex gap-3 mb-4 pb-4" style={{ borderBottom: '1px solid #f0f0f0' }}>
-                                            {/* Course Image */}
+
+                                {/* Receipt Type Selection */}
+                                <div className="receipt-type-section mb-4">
+                                    <div className="d-flex gap-3 mb-3">
+                                        {/* Personal Receipt */}
+                                        <label
+                                            style={{
+                                                flex: 1,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '10px',
+                                                padding: '14px 20px',
+                                                border: receiptType === 'personal' ? '2px solid #014D40' : '1px solid #e0e0e0',
+                                                borderRadius: '12px',
+                                                cursor: 'pointer',
+                                                background: '#fff',
+                                            }}
+                                        >
                                             <div style={{
-                                                width: '120px',
-                                                height: '80px',
-                                                borderRadius: '8px',
-                                                overflow: 'hidden',
+                                                width: '24px',
+                                                height: '24px',
+                                                borderRadius: '50%',
+                                                background: receiptType === 'personal' ? '#014D40' : '#fff',
+                                                border: receiptType === 'personal' ? 'none' : '2px solid #ccc',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
                                                 flexShrink: 0
                                             }}>
-                                                <img
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                                />
+                                                {receiptType === 'personal' && (
+                                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fff' }}></div>
+                                                )}
                                             </div>
+                                            <span style={{ fontSize: '15px', fontWeight: '500', color: '#333' }}>
+                                                {t('บุคคลธรรมดา', 'Personal')}
+                                            </span>
+                                            <input
+                                                type="radio"
+                                                name="receiptType"
+                                                checked={receiptType === 'personal'}
+                                                onChange={() => setReceiptType('personal')}
+                                                style={{ display: 'none' }}
+                                            />
+                                        </label>
 
-                                            {/* Course Info */}
-                                            <div className="flex-grow-1">
-                                                <h6 style={{ color: '#014D40', marginBottom: '4px', fontSize: '15px' }}>
-                                                    {item.title}
-                                                </h6>
-                                                <p style={{ color: '#666', fontSize: '13px', marginBottom: '8px' }}>
-                                                    Instructors: {item.instructor}
-                                                </p>
-                                                <span style={{
-                                                    background: '#E8F8F4',
-                                                    color: '#014D40',
-                                                    padding: '4px 12px',
-                                                    borderRadius: '20px',
-                                                    fontSize: '12px'
-                                                }}>
-                                                    {item.credits} Credit
-                                                </span>
+                                        {/* Company / Tax Invoice */}
+                                        <label
+                                            style={{
+                                                flex: 1,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '10px',
+                                                padding: '14px 20px',
+                                                border: receiptType === 'company' ? '2px solid #014D40' : '1px solid #e0e0e0',
+                                                borderRadius: '12px',
+                                                cursor: 'pointer',
+                                                background: '#fff',
+                                            }}
+                                        >
+                                            <div style={{
+                                                width: '24px',
+                                                height: '24px',
+                                                borderRadius: '50%',
+                                                background: receiptType === 'company' ? '#014D40' : '#fff',
+                                                border: receiptType === 'company' ? 'none' : '2px solid #ccc',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                flexShrink: 0
+                                            }}>
+                                                {receiptType === 'company' && (
+                                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fff' }}></div>
+                                                )}
                                             </div>
+                                            <span style={{ fontSize: '15px', fontWeight: '500', color: '#333' }}>
+                                                {t('อื่นๆ', 'Other')}
+                                            </span>
+                                            <input
+                                                type="radio"
+                                                name="receiptType"
+                                                checked={receiptType === 'company'}
+                                                onChange={() => setReceiptType('company')}
+                                                style={{ display: 'none' }}
+                                            />
+                                        </label>
+                                    </div>
 
-                                            {/* Price & Remove */}
-                                            <div className="text-end" style={{ minWidth: '100px' }}>
-                                                <button
-                                                    onClick={() => removeItem(item.id)}
+                                    {/* Company Form - Show when "อื่นๆ" is selected */}
+                                    {receiptType === 'company' && (
+                                        <div style={{ marginTop: '12px' }}>
+                                            <p style={{
+                                                color: '#014D40',
+                                                fontSize: '11px',
+                                                marginBottom: '10px',
+                                                fontStyle: 'italic'
+                                            }}>
+                                                {t('กรณีออกในนามนิติบุคคล โปรดระบุที่อยู่และเลขประจำตัวผู้เสียภาษี', 'For corporate invoices, please provide address and tax ID')}
+                                            </p>
+
+                                            {/* Tax ID - Required */}
+                                            <div className="mb-2">
+                                                <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                    {t('เลขประจำตัวผู้เสียภาษี', 'Tax ID')} <span style={{ color: '#ef4444' }}>*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={companyInfo.taxId}
+                                                    onChange={(e) => {
+                                                        setCompanyInfo({ ...companyInfo, taxId: e.target.value });
+                                                        if (e.target.value) setFormErrors({ ...formErrors, taxId: false });
+                                                    }}
+                                                    onBlur={(e) => {
+                                                        if (!e.target.value) setFormErrors({ ...formErrors, taxId: true });
+                                                    }}
+                                                    maxLength={13}
                                                     style={{
-                                                        background: 'transparent',
-                                                        border: 'none',
-                                                        color: '#999',
-                                                        cursor: 'pointer',
-                                                        padding: '4px',
-                                                        marginBottom: '8px'
+                                                        width: '100%',
+                                                        padding: '8px 10px',
+                                                        border: formErrors.taxId ? '1px solid #ef4444' : '1px solid #ddd',
+                                                        borderRadius: '8px',
+                                                        fontSize: '13px',
+                                                        color: '#000'
+                                                    }}
+                                                />
+                                                {formErrors.taxId && (
+                                                    <span style={{ color: '#ef4444', fontSize: '10px' }}>
+                                                        {t('กรุณากรอกเลขประจำตัวผู้เสียภาษี', 'Please enter Tax ID')}
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            {/* Address Dropdown */}
+                                            <div className="mb-2">
+                                                <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                    {t('ที่อยู่', 'Address')}
+                                                </label>
+                                                <select
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '8px 10px',
+                                                        border: '1px solid #ddd',
+                                                        borderRadius: '8px',
+                                                        fontSize: '13px',
+                                                        color: '#000',
+                                                        background: '#fff'
                                                     }}
                                                 >
-                                                    <i className="fas fa-times"></i>
-                                                </button>
-                                                <div>
-                                                    {item.originalPrice && (
-                                                        <p style={{
-                                                            color: '#999',
+                                                    <option value="">{t('- เลือกที่อยู่ออกใบเสร็จ -', '- Select address -')}</option>
+                                                </select>
+                                            </div>
+
+                                            {/* หรือ กรอกที่อยู่ที่ต้องการออกใบเสร็จ */}
+                                            <p style={{ fontSize: '11px', color: '#014D40', marginBottom: '6px', marginTop: '6px' }}>
+                                                {t('หรือ กรอกที่อยู่ที่ต้องการออกใบเสร็จ', 'Or enter address for receipt')}
+                                            </p>
+
+                                            {/* Address Row 1 - 3 equal columns */}
+                                            <div className="d-flex gap-2 mb-2">
+                                                {/* เลขที่ - Required */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('เลขที่', 'No.')} <span style={{ color: '#ef4444' }}>*</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.addressNo}
+                                                        onChange={(e) => {
+                                                            setAddressInfo({ ...addressInfo, addressNo: e.target.value });
+                                                            if (e.target.value) setFormErrors({ ...formErrors, addressNo: false });
+                                                        }}
+                                                        onBlur={(e) => {
+                                                            if (!e.target.value) setFormErrors({ ...formErrors, addressNo: true });
+                                                        }}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: formErrors.addressNo ? '1px solid #ef4444' : '1px solid #ddd',
+                                                            borderRadius: '8px',
                                                             fontSize: '13px',
-                                                            textDecoration: 'line-through',
-                                                            marginBottom: '2px'
-                                                        }}>
-                                                            {item.originalPrice.toLocaleString()} {t('บาท', 'THB')}
-                                                        </p>
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                    {formErrors.addressNo && (
+                                                        <span style={{ color: '#ef4444', fontSize: '9px' }}>{t('กรุณากรอกข้อมูล', 'Please enter data')}</span>
                                                     )}
-                                                    <p style={{
-                                                        color: '#014D40',
-                                                        fontSize: '16px',
-                                                        fontWeight: '600',
-                                                        margin: 0
-                                                    }}>
-                                                        {item.price.toLocaleString()} {t('บาท', 'THB')}
-                                                    </p>
+                                                </div>
+                                                {/* หมู่บ้าน/อาคาร */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('หมู่บ้าน/อาคาร', 'Village/Building')}
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.village}
+                                                        onChange={(e) => setAddressInfo({ ...addressInfo, village: e.target.value })}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                </div>
+                                                {/* หมู่ที่ */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('หมู่ที่', 'Moo')}
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.moo}
+                                                        onChange={(e) => setAddressInfo({ ...addressInfo, moo: e.target.value })}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* Address Row 2 - 3 equal columns */}
+                                            <div className="d-flex gap-2 mb-2">
+                                                {/* ตรอก/ซอย */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('ตรอก/ซอย', 'Soi')}
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.soi}
+                                                        onChange={(e) => setAddressInfo({ ...addressInfo, soi: e.target.value })}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                </div>
+                                                {/* ถนน */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('ถนน', 'Road')}
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.road}
+                                                        onChange={(e) => setAddressInfo({ ...addressInfo, road: e.target.value })}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                </div>
+                                                {/* ตำบล/แขวง - Required */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('ตำบล/แขวง', 'Sub-district')} <span style={{ color: '#ef4444' }}>*</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.subDistrict}
+                                                        onChange={(e) => {
+                                                            setAddressInfo({ ...addressInfo, subDistrict: e.target.value });
+                                                            if (e.target.value) setFormErrors({ ...formErrors, subDistrict: false });
+                                                        }}
+                                                        onBlur={(e) => {
+                                                            if (!e.target.value) setFormErrors({ ...formErrors, subDistrict: true });
+                                                        }}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: formErrors.subDistrict ? '1px solid #ef4444' : '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                    {formErrors.subDistrict && (
+                                                        <span style={{ color: '#ef4444', fontSize: '9px' }}>{t('กรุณากรอกข้อมูล', 'Please enter data')}</span>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* Address Row 3 - 3 equal columns */}
+                                            <div className="d-flex gap-2 mb-2">
+                                                {/* อำเภอ/เขต - Required */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('อำเภอ/เขต', 'District')} <span style={{ color: '#ef4444' }}>*</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.district}
+                                                        onChange={(e) => {
+                                                            setAddressInfo({ ...addressInfo, district: e.target.value });
+                                                            if (e.target.value) setFormErrors({ ...formErrors, district: false });
+                                                        }}
+                                                        onBlur={(e) => {
+                                                            if (!e.target.value) setFormErrors({ ...formErrors, district: true });
+                                                        }}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: formErrors.district ? '1px solid #ef4444' : '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                    {formErrors.district && (
+                                                        <span style={{ color: '#ef4444', fontSize: '9px' }}>{t('กรุณากรอกข้อมูล', 'Please enter data')}</span>
+                                                    )}
+                                                </div>
+                                                {/* จังหวัด - Required (Changed to input) */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('จังหวัด', 'Province')} <span style={{ color: '#ef4444' }}>*</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.province}
+                                                        onChange={(e) => {
+                                                            setAddressInfo({ ...addressInfo, province: e.target.value });
+                                                            if (e.target.value) setFormErrors({ ...formErrors, province: false });
+                                                        }}
+                                                        onBlur={(e) => {
+                                                            if (!e.target.value) setFormErrors({ ...formErrors, province: true });
+                                                        }}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: formErrors.province ? '1px solid #ef4444' : '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                    {formErrors.province && (
+                                                        <span style={{ color: '#ef4444', fontSize: '9px' }}>{t('กรุณากรอกข้อมูล', 'Please enter data')}</span>
+                                                    )}
+                                                </div>
+                                                {/* รหัสไปรษณีย์ - Required */}
+                                                <div style={{ flex: 1 }}>
+                                                    <label style={{ fontSize: '11px', color: '#000', marginBottom: '2px', display: 'block' }}>
+                                                        {t('รหัสไปรษณีย์', 'Postal Code')} <span style={{ color: '#ef4444' }}>*</span>
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        value={addressInfo.postalCode}
+                                                        onChange={(e) => {
+                                                            setAddressInfo({ ...addressInfo, postalCode: e.target.value });
+                                                            if (e.target.value) setFormErrors({ ...formErrors, postalCode: false });
+                                                        }}
+                                                        onBlur={(e) => {
+                                                            if (!e.target.value) setFormErrors({ ...formErrors, postalCode: true });
+                                                        }}
+                                                        maxLength={5}
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '8px 10px',
+                                                            border: formErrors.postalCode ? '1px solid #ef4444' : '1px solid #ddd',
+                                                            borderRadius: '8px',
+                                                            fontSize: '13px',
+                                                            color: '#000'
+                                                        }}
+                                                    />
+                                                    {formErrors.postalCode && (
+                                                        <span style={{ color: '#ef4444', fontSize: '9px' }}>{t('กรุณากรอกข้อมูล', 'Please enter data')}</span>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    </div>
 
-                    {/* Right: Payment Options */}
-                    <div className="col-lg-5">
-                        <div className="payment-wrapper" style={{
-                            background: '#fff',
-                            borderRadius: '16px',
-                            padding: '24px',
-                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.06)'
-                        }}>
-                            <h5 style={{ color: '#014D40', marginBottom: '20px' }}>{t('เลือกช่องทางชำระเงิน', 'Select Payment Method')}</h5>
+                                {/* Submit Button */}
+                                <button
+                                    onClick={() => {
+                                        // Validate required fields when receipt type is company
+                                        if (receiptType === 'company') {
+                                            const errors: { [key: string]: boolean } = {};
+                                            let hasError = false;
 
-                            {/* Payment Methods */}
-                            <div className="payment-methods mb-4">
-                                {/* QR PromptPay */}
-                                <label
-                                    className="payment-option d-flex align-items-center justify-content-between p-3 mb-2"
+                                            if (!companyInfo.taxId) { errors.taxId = true; hasError = true; }
+                                            if (!addressInfo.addressNo) { errors.addressNo = true; hasError = true; }
+                                            if (!addressInfo.subDistrict) { errors.subDistrict = true; hasError = true; }
+                                            if (!addressInfo.district) { errors.district = true; hasError = true; }
+                                            if (!addressInfo.province) { errors.province = true; hasError = true; }
+                                            if (!addressInfo.postalCode) { errors.postalCode = true; hasError = true; }
+
+                                            setFormErrors(errors);
+
+                                            if (hasError) {
+                                                alert(t('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน', 'Please fill in all required fields'));
+                                                return;
+                                            }
+                                        }
+                                        window.location.href = paymentMethod === 'promptpay' ? '/payment-qr' : '/payment-card';
+                                    }}
+                                    disabled={cartItems.length === 0}
                                     style={{
-                                        border: paymentMethod === 'promptpay' ? '2px solid #014D40' : '1px solid #e0e0e0',
+                                        width: '100%',
+                                        padding: '14px',
+                                        background: cartItems.length === 0 ? '#ccc' : '#014D40',
+                                        color: '#fff',
+                                        border: 'none',
                                         borderRadius: '12px',
-                                        cursor: 'pointer',
-                                        background: paymentMethod === 'promptpay' ? '#f8fffe' : '#fff',
-                                        minHeight: '60px',
+                                        fontSize: '15px',
+                                        fontWeight: '500',
+                                        cursor: cartItems.length === 0 ? 'not-allowed' : 'pointer',
+                                        marginBottom: '16px'
                                     }}
                                 >
-                                    <div className="d-flex align-items-center gap-3">
-                                        <div style={{
-                                            width: '40px',
-                                            height: '40px',
-                                            background: paymentMethod === 'promptpay' ? '#014D40' : '#f0f0f0',
-                                            borderRadius: '8px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            transition: 'all 0.3s ease',
-                                        }}>
-                                            <i className="fas fa-qrcode" style={{ color: paymentMethod === 'promptpay' ? '#fff' : '#666' }}></i>
-                                        </div>
-                                        <div>
-                                            <p style={{ margin: 0, fontWeight: '500', color: '#333' }}>QR PromptPay</p>
-                                            <small style={{ color: '#666' }}>{t('ไม่มีค่าธรรมเนียม • ยืนยันทันที', 'No fees • Instant confirmation')}</small>
-                                        </div>
-                                    </div>
-                                    <div style={{
-                                        width: '24px',
-                                        height: '24px',
-                                        borderRadius: '50%',
-                                        border: paymentMethod === 'promptpay' ? '6px solid #014D40' : '2px solid #ccc',
-                                        background: '#fff'
-                                    }}></div>
-                                    <input
-                                        type="radio"
-                                        name="payment"
-                                        checked={paymentMethod === 'promptpay'}
-                                        onChange={() => setPaymentMethod('promptpay')}
-                                        style={{ display: 'none' }}
-                                    />
-                                </label>
+                                    {t('ดำเนินการชำระเงิน', 'Proceed to Payment')}
+                                </button>
 
-                                {/* Credit/Debit Card */}
-                                <label
-                                    className="payment-option d-flex align-items-center justify-content-between p-3"
-                                    style={{
-                                        border: paymentMethod === 'card' ? '2px solid #014D40' : '1px solid #e0e0e0',
-                                        borderRadius: '12px',
-                                        cursor: 'pointer',
-                                        background: paymentMethod === 'card' ? '#f8fffe' : '#fff',
-                                        minHeight: '60px',
-                                    }}
-                                >
-                                    <div className="d-flex align-items-center gap-3">
-                                        <div style={{
-                                            width: '40px',
-                                            height: '40px',
-                                            background: paymentMethod === 'card' ? '#014D40' : '#f0f0f0',
-                                            borderRadius: '8px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            transition: 'all 0.3s ease',
-                                        }}>
-                                            <i className="fas fa-credit-card" style={{ color: paymentMethod === 'card' ? '#fff' : '#666' }}></i>
-                                        </div>
-                                        <div>
-                                            <p style={{ margin: 0, fontWeight: '500', color: '#333' }}>Credit/Debit Card</p>
-                                            <small style={{ color: '#666', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" style={{ height: '14px', marginRight: '4px' }} />
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" style={{ height: '14px' }} />
-                                            </small>
-                                        </div>
-                                    </div>
-                                    <div style={{
-                                        width: '24px',
-                                        height: '24px',
-                                        borderRadius: '50%',
-                                        border: paymentMethod === 'card' ? '6px solid #014D40' : '2px solid #ccc',
-                                        background: '#fff'
-                                    }}></div>
-                                    <input
-                                        type="radio"
-                                        name="payment"
-                                        checked={paymentMethod === 'card'}
-                                        onChange={() => setPaymentMethod('card')}
-                                        style={{ display: 'none' }}
-                                    />
-                                </label>
+                                {/* Terms */}
+                                <p className="text-center" style={{ fontSize: '12px', color: '#999', margin: 0 }}>
+                                    {t('โดยการดำเนินการต่อ คุณยอมรับ', 'By proceeding, you agree to')}{' '}
+                                    <Link href="#" style={{ color: '#014D40' }}>{t('เงื่อนไขการให้บริการ', 'Terms of Service')}</Link>
+                                    {' '}{t('และ', 'and')}{' '}
+                                    <Link href="#" style={{ color: '#014D40' }}>{t('นโยบายความเป็นส่วนตัว', 'Privacy Policy')}</Link>
+                                    {' '}{t('ของ CourseD', 'of CourseD')}
+                                </p>
                             </div>
+                        </div>
 
-                            {/* Voucher Code */}
-                            <div className="voucher-section mb-4">
-                                <label style={{ color: '#666', fontSize: '13px', marginBottom: '8px', display: 'block' }}>
-                                    {t('โค้ดส่วนลด / VOUCHER', 'Discount Code / VOUCHER')}
-                                </label>
-                                {!discountApplied ? (
-                                    <>
+                        {/* Right: Cart Items */}
+                        <div className="col-lg-5">
+                            <div className="cart-wrapper" style={{
+                                background: '#fff',
+                                borderRadius: '16px',
+                                padding: '24px',
+                                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.06)'
+                            }}>
+                                {/* Header */}
+                                <div className="d-flex justify-content-between align-items-center mb-4">
+                                    <h5 style={{ color: '#333', margin: 0 }}>
+                                        {t('คอร์สเรียน', 'Courses')} ({cartItems.length})
+                                    </h5>
+                                    <button
+                                        onClick={clearAll}
+                                        style={{
+                                            background: 'transparent',
+                                            border: 'none',
+                                            color: '#ef4444',
+                                            cursor: 'pointer',
+                                            fontSize: '14px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '6px'
+                                        }}
+                                    >
+                                        {t('ลบทั้งหมด', 'clear all')}
+                                    </button>
+                                </div>
+
+                                {/* Cart Items */}
+                                {cartItems.length === 0 ? (
+                                    <div className="text-center py-5">
+                                        <i className="fas fa-shopping-cart" style={{ fontSize: '48px', color: '#ddd', marginBottom: '16px' }}></i>
+                                        <p style={{ color: '#666' }}>{t('ไม่มีคอร์สในตะกร้า', 'No courses in cart')}</p>
+                                        <Link href="/courses-grid" className="theme-btn" style={{ padding: '10px 24px' }}>
+                                            {t('เลือกคอร์สเรียน', 'Browse Courses')}
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <div className="cart-items" style={{ maxHeight: '250px', overflowY: 'scroll', marginBottom: '16px' }}>
+                                        {cartItems.map((item) => (
+                                            <div key={item.id} className="cart-item d-flex gap-3 mb-3 pb-3" style={{ borderBottom: '1px solid #f0f0f0' }}>
+                                                {/* Course Image */}
+                                                <div style={{
+                                                    width: '80px',
+                                                    height: '55px',
+                                                    borderRadius: '6px',
+                                                    overflow: 'hidden',
+                                                    flexShrink: 0
+                                                }}>
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.title}
+                                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                    />
+                                                </div>
+
+                                                {/* Course Info */}
+                                                <div className="flex-grow-1" style={{ minWidth: 0 }}>
+                                                    <h6 style={{
+                                                        color: '#014D40',
+                                                        marginBottom: '2px',
+                                                        fontSize: '13px',
+                                                        whiteSpace: 'nowrap',
+                                                        overflow: 'hidden',
+                                                        textOverflow: 'ellipsis'
+                                                    }}>
+                                                        {item.title}
+                                                    </h6>
+                                                    <p style={{ color: '#666', fontSize: '11px', marginBottom: '4px' }}>
+                                                        Instructors: {item.instructor}
+                                                    </p>
+                                                    <span style={{
+                                                        background: '#E8F8F4',
+                                                        color: '#014D40',
+                                                        padding: '2px 8px',
+                                                        borderRadius: '12px',
+                                                        fontSize: '10px'
+                                                    }}>
+                                                        {item.credits} Credit
+                                                    </span>
+                                                </div>
+
+                                                {/* Price & Remove */}
+                                                <div className="text-end" style={{ minWidth: '80px' }}>
+                                                    <button
+                                                        onClick={() => removeItem(item.id)}
+                                                        style={{
+                                                            background: 'transparent',
+                                                            border: 'none',
+                                                            color: '#999',
+                                                            cursor: 'pointer',
+                                                            padding: '2px',
+                                                            marginBottom: '4px',
+                                                            fontSize: '12px'
+                                                        }}
+                                                    >
+                                                        <i className="fas fa-times"></i>
+                                                    </button>
+                                                    <div>
+                                                        {item.originalPrice && (
+                                                            <p style={{
+                                                                color: '#999',
+                                                                fontSize: '11px',
+                                                                textDecoration: 'line-through',
+                                                                marginBottom: '1px'
+                                                            }}>
+                                                                {item.originalPrice.toLocaleString()} {t('บาท', 'THB')}
+                                                            </p>
+                                                        )}
+                                                        <p style={{
+                                                            color: '#014D40',
+                                                            fontSize: '13px',
+                                                            fontWeight: '600',
+                                                            margin: 0
+                                                        }}>
+                                                            {item.price.toLocaleString()} {t('บาท', 'THB')}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Voucher Code Section */}
+                                <div className="voucher-section mb-3">
+                                    <label style={{ color: '#333', fontSize: '13px', marginBottom: '8px', display: 'block', fontWeight: '500' }}>
+                                        {t('โค้ดส่วนลด / VOUCHER', 'Discount Code / VOUCHER')}
+                                    </label>
+                                    {!discountApplied ? (
                                         <div className="d-flex gap-2">
                                             <input
                                                 type="text"
-                                                placeholder={t('ใส่รหัสส่วนลด (เช่น WELCOME)', 'Enter discount code (e.g. WELCOME)')}
+                                                placeholder=""
                                                 value={voucherCode}
                                                 onChange={(e) => {
                                                     setVoucherCode(e.target.value);
@@ -361,10 +824,10 @@ const CheckoutArea = () => {
                                                 onKeyPress={(e) => e.key === 'Enter' && applyVoucher()}
                                                 style={{
                                                     flex: 1,
-                                                    padding: '12px 16px',
-                                                    border: discountError ? '1px solid #ef4444' : '1px solid #e0e0e0',
-                                                    borderRadius: '8px',
-                                                    fontSize: '14px',
+                                                    padding: '10px 12px',
+                                                    border: '1px solid #e0e0e0',
+                                                    borderRadius: '6px',
+                                                    fontSize: '13px',
                                                     color: '#333'
                                                 }}
                                             />
@@ -374,126 +837,82 @@ const CheckoutArea = () => {
                                                     background: '#014D40',
                                                     color: '#fff',
                                                     border: 'none',
-                                                    borderRadius: '8px',
-                                                    padding: '12px 16px',
-                                                    cursor: 'pointer'
+                                                    borderRadius: '6px',
+                                                    padding: '10px 16px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '13px'
                                                 }}
                                             >
-                                                <i className="fas fa-check"></i>
+                                                {t('ยืนยัน', 'Apply')}
                                             </button>
                                         </div>
-                                        {discountError && (
-                                            <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px', marginBottom: 0 }}>
-                                                <i className="fas fa-exclamation-circle me-1"></i>
-                                                {discountError}
-                                            </p>
-                                        )}
-                                    </>
-                                ) : (
-                                    <div style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        padding: '12px 16px',
-                                        background: '#f0fdf4',
-                                        border: '1px solid #22c55e',
-                                        borderRadius: '8px'
-                                    }}>
-                                        <div className="d-flex align-items-center gap-2">
-                                            <i className="fas fa-tag" style={{ color: '#22c55e' }}></i>
-                                            <span style={{ color: '#166534', fontWeight: '500' }}>
+                                    ) : (
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            padding: '10px 12px',
+                                            background: '#f0fdf4',
+                                            border: '1px solid #22c55e',
+                                            borderRadius: '6px'
+                                        }}>
+                                            <span style={{ color: '#166534', fontWeight: '500', fontSize: '13px' }}>
                                                 {appliedCode} - {t('ลด', 'Save')} ฿{discount.toLocaleString()}
                                             </span>
+                                            <button
+                                                onClick={removeVoucher}
+                                                style={{
+                                                    background: 'transparent',
+                                                    border: 'none',
+                                                    color: '#666',
+                                                    cursor: 'pointer',
+                                                    padding: '2px'
+                                                }}
+                                            >
+                                                <i className="fas fa-times"></i>
+                                            </button>
                                         </div>
-                                        <button
-                                            onClick={removeVoucher}
-                                            style={{
-                                                background: 'transparent',
-                                                border: 'none',
-                                                color: '#666',
-                                                cursor: 'pointer',
-                                                padding: '4px'
-                                            }}
-                                        >
-                                            <i className="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Order Summary */}
-                            <div className="order-summary mb-4">
-                                <h6 style={{ color: '#014D40', marginBottom: '16px' }}>{t('สรุปยอดชำระ', 'Order Summary')}</h6>
-
-                                <div className="d-flex justify-content-between mb-2">
-                                    <span style={{ color: '#666' }}>{t('ราคารวม', 'Subtotal')} ({cartItems.length} {t('รายการ', 'items')})</span>
-                                    <span>{subtotal.toLocaleString()} {t('บาท', 'THB')}</span>
+                                    )}
                                 </div>
 
-                                {discount > 0 && (
+                                {/* Order Summary */}
+                                <div className="order-summary">
+                                    <h6 style={{ color: '#333', marginBottom: '12px', fontWeight: '500' }}>{t('สรุปยอดชำระ', 'Order Summary')}</h6>
+
                                     <div className="d-flex justify-content-between mb-2">
-                                        <span style={{ color: '#22c55e' }}>
-                                            <i className="fas fa-tag me-1"></i>
-                                            {t('ส่วนลด', 'Discount')} ({appliedCode})
-                                        </span>
-                                        <span style={{ color: '#22c55e' }}>-{discount.toLocaleString()} {t('บาท', 'THB')}</span>
+                                        <span style={{ color: '#666', fontSize: '13px' }}>{t('ราคารวม', 'Subtotal')} ({cartItems.length} {t('รายการ', 'items')})</span>
+                                        <span style={{ fontSize: '13px' }}>{subtotal.toLocaleString()} {t('บาท', 'THB')}</span>
                                     </div>
-                                )}
 
-                                <div className="d-flex justify-content-between mb-3">
-                                    <span style={{ color: '#666' }}>{t('ภาษี (7%)', 'Tax (7%)')}</span>
-                                    <small style={{ color: '#999' }}>{t('รวมในราคาขายแล้ว', 'Included in price')}</small>
-                                </div>
-
-                                <div className="d-flex justify-content-between pt-3" style={{ borderTop: '1px solid #e0e0e0' }}>
-                                    <strong style={{ color: '#014D40' }}>{t('ยอดสุทธิ', 'Total')}</strong>
-                                    <div className="text-end">
-                                        {discount > 0 && (
-                                            <span style={{ color: '#999', textDecoration: 'line-through', fontSize: '14px', marginRight: '8px' }}>
-                                                ฿{subtotal.toLocaleString()}
+                                    {discount > 0 && (
+                                        <div className="d-flex justify-content-between mb-2">
+                                            <span style={{ color: '#22c55e', fontSize: '13px' }}>
+                                                {t('ส่วนลด', 'Discount')} ({appliedCode})
                                             </span>
-                                        )}
-                                        <strong style={{ color: '#014D40', fontSize: '24px' }}>
+                                            <span style={{ color: '#22c55e', fontSize: '13px' }}>-{discount.toLocaleString()} {t('บาท', 'THB')}</span>
+                                        </div>
+                                    )}
+
+                                    <div className="d-flex justify-content-between mb-3">
+                                        <span style={{ color: '#666', fontSize: '13px' }}>{t('ภาษี (7%)', 'VAT 7%')}</span>
+                                        <span style={{ color: '#999', fontSize: '12px', textDecoration: 'underline' }}>{t('รวมในราคาขายแล้ว', 'Included in price')}</span>
+                                    </div>
+
+                                    <div className="d-flex justify-content-between pt-2" style={{ borderTop: '1px solid #e0e0e0' }}>
+                                        <strong style={{ color: '#333', fontSize: '14px' }}>{t('ยอดสุทธิ', 'Total')}</strong>
+                                        <strong style={{ color: '#014D40', fontSize: '18px' }}>
                                             {total.toLocaleString()} {t('บาท', 'THB')}
                                         </strong>
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Submit Button */}
-                            <button
-                                onClick={() => window.location.href = paymentMethod === 'promptpay' ? '/payment-qr' : '/payment-card'}
-                                disabled={cartItems.length === 0}
-                                style={{
-                                    width: '100%',
-                                    padding: '16px',
-                                    background: cartItems.length === 0 ? '#ccc' : '#014D40',
-                                    color: '#fff',
-                                    border: 'none',
-                                    borderRadius: '12px',
-                                    fontSize: '16px',
-                                    fontWeight: '500',
-                                    cursor: cartItems.length === 0 ? 'not-allowed' : 'pointer',
-                                    marginBottom: '16px'
-                                }}
-                            >
-                                {t('ดำเนินการชำระเงิน', 'Proceed to Payment')}
-                            </button>
-
-                            {/* Terms */}
-                            <p className="text-center" style={{ fontSize: '12px', color: '#999', margin: 0 }}>
-                                {t('โดยการดำเนินการต่อ คุณยอมรับ', 'By proceeding, you agree to')}{' '}
-                                <Link href="#" style={{ color: '#014D40' }}>{t('เงื่อนไขการให้บริการ', 'Terms of Service')}</Link>
-                                {' '}{t('และ', 'and')}{' '}
-                                <Link href="#" style={{ color: '#014D40' }}>{t('นโยบายความเป็นส่วนตัว', 'Privacy Policy')}</Link>
-                                {' '}{t('ของ CourseD', 'of CourseD')}
-                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 };
 
 export default CheckoutArea;
+
