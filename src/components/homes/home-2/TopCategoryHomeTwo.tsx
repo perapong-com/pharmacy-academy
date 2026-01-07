@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React from 'react';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 // SVG Icons for each pharmacology category
 const CategoryIcons = {

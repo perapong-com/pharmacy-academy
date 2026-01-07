@@ -1,5 +1,5 @@
 "use client"
-import VideoPopup from '@/modals/VideoPopup';
+import VideoPopup from '@/components/common/VideoPopup';
 import Link from 'next/link';
 import React, { useState } from 'react';
 

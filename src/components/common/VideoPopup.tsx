@@ -21,4 +21,3 @@ const VideoPopup = ({
 };
 
 export default VideoPopup;
-

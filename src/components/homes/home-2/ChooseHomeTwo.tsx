@@ -1,5 +1,5 @@
 "use client";
-import Count from '@/common/Count';
+import Count from '@/components/common/Count';
 import React from 'react';
 
 const ChooseHomeTwo = () => {

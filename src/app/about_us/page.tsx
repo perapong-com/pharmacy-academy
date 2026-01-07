@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Wrapper from '@/layouts/Wrapper';
+import Wrapper from '@/components/layout/Wrapper';
 import AboutUs from '@/components/about-us';
 
 import { Metadata } from 'next';

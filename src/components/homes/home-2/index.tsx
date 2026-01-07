@@ -1,10 +1,10 @@
-import MarqueeOne from "@/common/MarqueeOne";
-import HeaderTwo from "@/layouts/headers/HeaderTwo";
+import MarqueeOne from "@/components/common/MarqueeOne";
+import HeaderTwo from "@/components/layout/headers/HeaderTwo";
 import React from "react";
 import HeroHomeTwo from "./HeroHomeTwo";
 import TopCategoryHomeTwo from "./TopCategoryHomeTwo";
 import CertificateHomeTwo from "./CertificateHomeTwo";
-import FooterTwo from "@/layouts/footers/FooterTwo";
+import FooterTwo from "@/components/layout/footers/FooterTwo";
 
 const HomeTwo = () => {
 	return (

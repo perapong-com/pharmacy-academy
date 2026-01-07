@@ -3,7 +3,7 @@ import menu_data from '@/data/menu_data';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { useLanguage } from '@/context/LanguageContext';
+import { useLanguage } from '@/features/i18n';
 
 const NavMenu = () => {
   const { language } = useLanguage();
