@@ -14,6 +14,17 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
     const { language, t } = useLanguage();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile screen
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -27,6 +38,9 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
     }, []);
 
     if (!isAuthenticated || !user) {
+        // Mobile: Icon-only buttons
+
+        // Desktop: Full buttons with text
         return (
             <div className="header-buttons" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
                 {/* Login Button - Outlined Style */}
@@ -103,6 +117,87 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
         );
     }
 
+    // Mobile: Avatar-only compact version for logged-in users
+    if (isMobile) {
+        return (
+            <div className="header-user-profile" ref={dropdownRef} style={{ position: 'relative' }}>
+                <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '36px',
+                        height: '36px',
+                        background: 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease',
+                        padding: 0,
+                    }}
+                >
+                    {user.avatar ? (
+                        <img src={user.avatar} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                    ) : (
+                        <i className="fas fa-user" style={{ color: '#fff', fontSize: '14px' }}></i>
+                    )}
+                </button>
+
+                {/* Dropdown Menu for Mobile */}
+                <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    right: 0,
+                    minWidth: '200px',
+                    background: '#fff',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+                    padding: '8px',
+                    zIndex: 1000,
+                    opacity: dropdownOpen ? 1 : 0,
+                    visibility: dropdownOpen ? 'visible' : 'hidden',
+                    transform: dropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+                    transition: 'all 0.25s ease',
+                }}>
+                    {/* User Info Header */}
+                    <div style={{ padding: '12px', borderBottom: '1px solid #f0f0f0', marginBottom: '8px' }}>
+                        <p style={{ margin: 0, color: '#014D40', fontWeight: '600', fontSize: '14px' }}>{user.name}</p>
+                        <p style={{ margin: '2px 0 0', color: '#666', fontSize: '11px' }}>{user.email}</p>
+                    </div>
+
+                    <Link href="/profile" onClick={() => setDropdownOpen(false)} style={{
+                        display: 'flex', alignItems: 'center', gap: '10px', padding: '10px',
+                        color: '#333', textDecoration: 'none', borderRadius: '8px',
+                    }}>
+                        <i className="fas fa-user-circle" style={{ color: '#0284c7' }}></i>
+                        <span>{t('โปรไฟล์', 'Profile')}</span>
+                    </Link>
+
+                    <Link href="/payment-history" onClick={() => setDropdownOpen(false)} style={{
+                        display: 'flex', alignItems: 'center', gap: '10px', padding: '10px',
+                        color: '#333', textDecoration: 'none', borderRadius: '8px',
+                    }}>
+                        <i className="fas fa-receipt" style={{ color: '#d97706' }}></i>
+                        <span>{t('ประวัติชำระเงิน', 'Payment History')}</span>
+                    </Link>
+
+                    <div style={{ height: '1px', background: '#f0f0f0', margin: '8px 0' }}></div>
+
+                    <button onClick={() => { setDropdownOpen(false); logout(); }} style={{
+                        display: 'flex', alignItems: 'center', gap: '10px', padding: '10px',
+                        width: '100%', background: 'transparent', border: 'none',
+                        color: '#ef4444', cursor: 'pointer', borderRadius: '8px',
+                    }}>
+                        <i className="fas fa-sign-out-alt"></i>
+                        <span>{t('ออกจากระบบ', 'Sign Out')}</span>
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // Desktop: Full user profile
     return (
         <div className="header-user-profile" ref={dropdownRef} style={{ position: 'relative' }}>
             <button

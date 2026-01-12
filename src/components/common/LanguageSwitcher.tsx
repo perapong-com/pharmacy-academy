@@ -1,27 +1,37 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/features/i18n';
 
 const LanguageSwitcher = () => {
     const { language, toggleLanguage } = useLanguage();
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     return (
         <button
             onClick={toggleLanguage}
+            className="language-switcher"
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
-                padding: '8px 14px',
+                gap: isMobile ? '2px' : '6px',
+                padding: isMobile ? '3px 6px' : '8px 14px',
                 background: 'transparent',
-                border: '2px solid #014D40',
-                borderRadius: '8px',
+                border: isMobile ? '1.5px solid #014D40' : '2px solid #014D40',
+                borderRadius: isMobile ? '6px' : '8px',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                fontSize: '14px',
+                fontSize: isMobile ? '10px' : '14px',
                 fontWeight: '600',
                 color: '#014D40',
+                flexShrink: 0,
             }}
             onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#014D40';

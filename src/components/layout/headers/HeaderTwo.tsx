@@ -79,20 +79,23 @@ const HeaderTwo = () => {
                                     <img
                                         src="/images/Logo.jpg"
                                         alt="สภาเภสัชกรรม"
+                                        className="header-logo-img"
                                         style={{
-                                            height: sticky ? '40px' : '50px',
+                                            height: sticky ? '45px' : '65px',
                                             width: 'auto',
-                                            marginRight: '10px',
+                                            marginRight: '12px',
                                             transition: 'height 0.2s ease'
                                         }}
                                     />
-                                    <span style={{
-                                        fontSize: sticky ? '16px' : '18px',
-                                        fontWeight: 'bold',
-                                        color: '#004736',
-                                        whiteSpace: 'nowrap',
-                                        transition: 'font-size 0.2s ease'
-                                    }}>
+                                    <span
+                                        className="header-logo-text"
+                                        style={{
+                                            fontSize: sticky ? '18px' : '22px',
+                                            fontWeight: 'bold',
+                                            color: '#004736',
+                                            whiteSpace: 'nowrap',
+                                            transition: 'font-size 0.2s ease'
+                                        }}>
                                         Pharmacy Academy
                                     </span>
                                 </Link>
@@ -208,9 +211,7 @@ const HeaderTwo = () => {
                                     </div>
 
                                     {/* Language Switcher */}
-                                    <div className="d-none d-md-block">
-                                        <LanguageSwitcher />
-                                    </div>
+                                    <LanguageSwitcher />
 
                                     {/* Cart Icon */}
                                     <Link
@@ -257,7 +258,7 @@ const HeaderTwo = () => {
                                         )}
                                     </Link>
 
-                                    {/* User Profile - Compact version */}
+                                    {/* User Profile - Hidden on mobile, visible on tablet+ */}
                                     <div className="d-none d-md-block">
                                         <HeaderUserProfile compact={sticky} />
                                     </div>

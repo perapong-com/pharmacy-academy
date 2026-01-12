@@ -99,11 +99,11 @@ const TopCategoryHomeTwo = () => {
                     </div>
                     <div className="top-category-wrapper-2 mt-4 mt-md-0">
                         <div className="row">
-                            <div className="col-xl-4 col-lg-6">
+                            <div className="col-12 col-xl-4 col-lg-6">
                                 <div className="top-category-left-items mb-5 mb-lg-0">
                                     <div className="row g-0">
                                         {categories.slice(0, 4).map((cat, index) => (
-                                            <div key={index} className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay={cat.delay}>
+                                            <div key={index} className="col-6 col-md-6 wow fadeInUp" data-wow-delay={cat.delay}>
                                                 <div className={`top-category-box border-left-none ${index < 2 ? 'border-top-none' : 'border-bottom-none border-top-none'}`}>
                                                     <Link href="/courses-grid">
                                                         <div className="icon" style={{ color: '#fff' }}>
@@ -120,7 +120,7 @@ const TopCategoryHomeTwo = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xl-4 col-lg-6">
+                            <div className="col-12 col-xl-4 col-lg-6 d-none d-lg-block">
                                 <div className="courses-image mb-5 mb-lg-0">
                                     <img src="assets/img/boy-img.png" alt="img" className="wow img-custom-anim-left" />
                                     <div className="bg-shape">
@@ -128,11 +128,11 @@ const TopCategoryHomeTwo = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xl-4 col-lg-6">
+                            <div className="col-12 col-xl-4 col-lg-6">
                                 <div className="top-category-left-items">
                                     <div className="row g-0">
                                         {categories.slice(4, 8).map((cat, index) => (
-                                            <div key={index} className="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay={cat.delay}>
+                                            <div key={index} className="col-6 col-md-6 wow fadeInUp" data-wow-delay={cat.delay}>
                                                 <div className={`top-category-box border-right-none ${index < 2 ? 'border-top-none' : 'border-bottom-none border-top-none'}`}>
                                                     <Link href="/courses-grid">
                                                         <div className="icon" style={{ color: '#fff' }}>

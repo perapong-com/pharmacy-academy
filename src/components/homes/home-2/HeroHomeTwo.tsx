@@ -16,7 +16,7 @@ const HeroHomeTwo = () => {
             <section className="hero-section hero-2 fix" style={{ position: 'relative' }}>
                 <div className="container">
                     <div className="row g-4">
-                        <div className="col-lg-6">
+                        <div className="col-12 col-lg-6">
                             <div className="hero-content">
                                 <h1 className="wow fadeInUp" data-wow-delay=".3s">
                                     {t('ศูนย์การเรียนรู้ออนไลน์สำหรับ', 'Online Learning Center for')}
@@ -43,7 +43,7 @@ const HeroHomeTwo = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-6">
+                        <div className="col-12 col-lg-6">
                             <div className="hero-image-items">
                                 <div className="hero-image" style={{ position: 'relative' }}>
                                     <img
