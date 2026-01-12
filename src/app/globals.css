@@ -2,7 +2,9 @@
 
 /* Global Font - Thai Sarabun (Google Fonts version) */
 /* Exclude icon fonts (Font Awesome, etc.) from font override */
-*:not([class*="fa-"]):not([class*="fab"]):not([class*="fas"]):not([class*="far"]):not([class*="fal"]):not([class*="fad"]):not([class*="icon"]):not(i) {
+*:not([class*="fa-"]):not([class*="fab"]):not([class*="fas"]):not(
+    [class*="far"]
+  ):not([class*="fal"]):not([class*="fad"]):not([class*="icon"]):not(i) {
   font-family: "Sarabun", "TH Sarabun New", sans-serif !important;
 }
 
@@ -22,7 +24,8 @@ body {
 .fab,
 [class*="fa-"],
 i[class*="fa"] {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", FontAwesome !important;
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands",
+    "Font Awesome 5 Free", "Font Awesome 5 Brands", FontAwesome !important;
 }
 
 @layer base {
@@ -65,19 +68,19 @@ i[class*="fa"] {
 
 /* Language-based font families */
 html.lang-th {
-  font-family: 'Sarabun', 'TH Sarabun New', sans-serif;
+  font-family: "Sarabun", "TH Sarabun New", sans-serif;
 }
 
 html.lang-en {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html.lang-th body {
-  font-family: 'Sarabun', 'TH Sarabun New', sans-serif;
+  font-family: "Sarabun", "TH Sarabun New", sans-serif;
 }
 
 html.lang-en body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Exclude FontAwesome icons from font override */
@@ -198,10 +201,10 @@ i.fa,
 }
 
 /* Checkbox and Radio labels */
-input[type="checkbox"]+label,
-input[type="checkbox"]+span,
-input[type="radio"]+label,
-input[type="radio"]+span,
+input[type="checkbox"] + label,
+input[type="checkbox"] + span,
+input[type="radio"] + label,
+input[type="radio"] + span,
 .form-check-label,
 .checkbox label,
 .radio label,
@@ -227,418 +230,91 @@ label[for] {
   font-size: 16px !important;
 }
 
-/* Cart Items Scrollbar - Always Visible */
-.cart-items {
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #f5f5f5;
-}
-
-.cart-items::-webkit-scrollbar {
-  width: 8px;
-}
-
-.cart-items::-webkit-scrollbar-track {
-  background: #f5f5f5;
-  border-radius: 4px;
-}
-
-.cart-items::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-.cart-items::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
-}
-
 /* ========================================
-   Responsive Styles
+   Mobile Responsive - Course Page
+   Mobile: ≤640px, Tablet: 641-1024px
    ======================================== */
 
-/* Small Desktop & Tablet Landscape (≤992px) */
-@media (max-width: 992px) {
-
-  /* Hero section adjustments */
-  .hero-section.hero-2 {
-    padding: 60px 0 40px;
+/* Reduce breadcrumb banner height on mobile */
+@media (max-width: 640px) {
+  .breadcrumb-wrapper.courses-page-banner {
+    padding: 20px 0 !important;
+    min-height: auto !important;
   }
 
-  .hero-content h1 {
-    font-size: 32px !important;
-    line-height: 1.2;
+  .breadcrumb-wrapper.courses-page-banner .page-heading h1 {
+    font-size: 1.6rem !important;
+    margin-bottom: 8px;
   }
 
-  .hero-content p {
-    font-size: 16px !important;
+  .breadcrumb-wrapper.courses-page-banner .breadcrumb-items {
+    font-size: 0.9rem !important;
   }
 
-  /* Hide decorative shapes on smaller screens */
-  .hero-shape {
-    display: none !important;
-  }
-
-  /* Adjust counter box position */
-  .counter-box {
-    bottom: 10px !important;
-    right: 10px !important;
-    padding: 12px 16px !important;
-  }
-
-  .counter-box h2 {
-    font-size: 24px !important;
-  }
-
-  /* Category section */
-  .top-category-section-2 {
-    padding: 40px 0;
-  }
-
-  .section-title h2 {
-    font-size: 28px !important;
-  }
-
-  /* Hide center image in category section on tablet */
-  .courses-image {
+  /* Hide decorative shapes on mobile */
+  .breadcrumb-wrapper.courses-page-banner .shape-1,
+  .breadcrumb-wrapper.courses-page-banner .shape-2,
+  .breadcrumb-wrapper.courses-page-banner .shape-3,
+  .breadcrumb-wrapper.courses-page-banner .dot-shape,
+  .breadcrumb-wrapper.courses-page-banner .vector-shape {
     display: none !important;
   }
 }
 
-/* Tablet Portrait (≤768px) */
-@media (max-width: 768px) {
-
-  /* Hero section - make content centered */
-  .hero-section.hero-2 {
-    padding: 40px 0 30px;
-    text-align: center;
-  }
-
-  .hero-content {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .hero-content h1 {
-    font-size: 28px !important;
-  }
-
-  .hero-content p {
-    font-size: 15px !important;
-    padding: 0 10px;
-  }
-
-  .hero-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .hero-button .theme-btn {
-    width: 100%;
-    max-width: 280px;
-    text-align: center;
-  }
-
-  .hero-button .button-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Hero image adjustments */
-  .hero-image-items {
-    display: flex;
-    justify-content: center;
-  }
-
-  .hero-image img {
-    max-width: 80% !important;
-    margin: 0 auto;
-  }
-
-  .counter-box {
-    position: relative !important;
-    bottom: auto !important;
-    right: auto !important;
-    margin-top: 20px;
-    text-align: center;
-    display: inline-block;
-  }
-
-  /* Category boxes - 2 columns on tablet */
-  .top-category-left-items .row .col-lg-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-
-  .top-category-box {
-    padding: 16px !important;
-    min-height: 120px;
-  }
-
-  .top-category-box h6 {
-    font-size: 14px !important;
-    line-height: 1.3;
-  }
-
-  .top-category-box .icon svg,
-  .top-category-box .icon img {
-    width: 32px !important;
-    height: 32px !important;
-  }
-
-  /* Section title adjustments */
-  .section-title h2 {
-    font-size: 24px !important;
-  }
-
-  .section-title h6 {
-    font-size: 14px !important;
-  }
-
-  /* Category bottom CTA */
-  .category-bottom-title {
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-    padding: 30px 20px !important;
-  }
-
-  .category-bottom-title h3 {
-    font-size: 20px !important;
-  }
-
-  /* Marquee adjustments */
-  .mycustom-marque {
-    margin-top: 30px;
-  }
-
-  .cmn-textslide {
-    font-size: 40px !important;
-  }
-
-  /* Header adjustments for mobile */
-  .header-2 .container {
-    padding: 0 15px;
-  }
-
-  .header-logo img {
-    height: 35px !important;
-  }
-
-  .header-logo span {
-    font-size: 14px !important;
-  }
+/* Collapsible Filter Section Styles */
+.filter-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #0d4f4a 0%, #0a3d39 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
 }
 
-/* Mobile (≤576px) */
-@media (max-width: 576px) {
+.filter-toggle-btn:hover {
+  background: linear-gradient(135deg, #0a3d39 0%, #072e2b 100%);
+  transform: translateY(-1px);
+}
 
-  /* Global font size reduction for mobile */
-  body {
-    font-size: 14px;
-  }
+.filter-toggle-btn i {
+  transition: transform 0.3s ease;
+}
 
-  /* Container padding */
-  .container {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
+.filter-toggle-btn.open i {
+  transform: rotate(180deg);
+}
 
-  /* Hero section - fully mobile optimized */
-  .hero-section.hero-2 {
-    padding: 30px 0 20px;
-  }
+.filter-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease;
+  opacity: 0;
+}
 
-  .hero-content h1 {
-    font-size: 24px !important;
-    margin-bottom: 12px;
-  }
+.filter-content.open {
+  max-height: 1000px;
+  opacity: 1;
+  transition: max-height 0.4s ease-in, opacity 0.3s ease;
+}
 
-  .hero-content h1 span img {
-    height: 6px !important;
-  }
-
-  .hero-content p {
-    font-size: 14px !important;
-    margin-bottom: 20px;
-  }
-
-  .hero-button .theme-btn {
-    padding: 12px 24px !important;
-    font-size: 14px !important;
-  }
-
-  .video-btn {
-    width: 40px !important;
-    height: 40px !important;
-  }
-
-  .video-btn i {
-    font-size: 12px !important;
-  }
-
-  /* Hero image mobile */
-  .hero-image img {
-    max-width: 100% !important;
-    border-radius: 12px !important;
-  }
-
-  .counter-box {
-    padding: 10px 14px !important;
-  }
-
-  .counter-box p {
-    font-size: 12px !important;
-  }
-
-  .counter-box h2 {
-    font-size: 20px !important;
-  }
-
-  /* Category section mobile */
-  .top-category-section-2 {
-    padding: 30px 0;
-  }
-
-  .section-title h2 {
-    font-size: 20px !important;
-    padding: 0 10px;
-  }
-
-  .section-title h6 {
-    font-size: 12px !important;
-  }
-
-  /* Category boxes - still 2 columns but smaller */
-  .top-category-box {
-    padding: 12px !important;
-    min-height: 100px;
-  }
-
-  .top-category-box h6 {
-    font-size: 12px !important;
-  }
-
-  .top-category-box p {
-    font-size: 11px !important;
-  }
-
-  .top-category-box .icon svg,
-  .top-category-box .icon img {
-    width: 28px !important;
-    height: 28px !important;
-  }
-
-  /* Category CTA */
-  .category-bottom-title {
-    padding: 20px 16px !important;
-  }
-
-  .category-bottom-title h3 {
-    font-size: 18px !important;
-  }
-
-  .category-bottom-title .theme-btn {
-    width: 100%;
-    text-align: center;
-  }
-
-  /* Marquee mobile */
-  .cmn-textslide {
-    font-size: 28px !important;
-  }
-
-  /* Header mobile */
-  .header-logo-img {
-    height: 45px !important;
-  }
-
-  .header-logo-text {
-    font-size: 16px !important;
-  }
-
-  /* Language switcher smaller on mobile - match cart icon size */
-  .language-switcher {
-    padding: 6px 8px !important;
-    font-size: 11px !important;
-    border-width: 1.5px !important;
-    border-radius: 6px !important;
-    height: 32px !important;
-    min-height: 32px !important;
-  }
-
-  /* Buttons on mobile */
-  .theme-btn {
-    font-size: 14px !important;
-    padding: 10px 20px !important;
-  }
-
-  /* Hero button - center text */
-  .hero-button .theme-btn {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    width: auto !important;
-    min-width: 200px !important;
-    max-width: 280px !important;
-    margin: 0 auto !important;
-  }
-
-  /* Video button - inline with text */
-  .hero-button .button-text {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 12px !important;
-    margin-top: 16px !important;
-  }
-
-  .hero-button .button-text .video-btn {
-    width: 48px !important;
-    height: 48px !important;
-    min-width: 48px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .hero-button .button-text .d-line {
-    margin-left: 0 !important;
-  }
-
-  /* Category bottom button - center text */
-  .category-bottom-title .theme-btn {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    width: auto !important;
-    min-width: 200px !important;
-    max-width: 280px !important;
-    margin: 0 auto !important;
-  }
-
-  /* Footer mobile */
-  .footer-section,
-  .footer-area {
-    padding: 30px 0;
-  }
-
-  /* General spacing reductions */
-  .section-padding {
-    padding: 40px 0;
-  }
-
-  /* Circle shape hide on mobile */
-  .circle-shape {
+/* PC: Hide toggle button and always show filter content */
+@media (min-width: 1025px) {
+  .filter-toggle-btn {
     display: none !important;
   }
-
-  /* Compact header elements on mobile */
-  .header-right {
-    gap: 6px !important;
+  
+  .filter-content {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
   }
 
   /* Cart icon smaller */
