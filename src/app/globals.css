@@ -94,12 +94,12 @@ html.lang-en i[class*="fab"] {
   font-family: "Font Awesome 5 Pro", "Font Awesome 5 Free", "FontAwesome" !important;
 }
 
-/* ========================================
+/* ====================================
    Font Size Boost for Components (+2px)
    ======================================== */
 
 /* Header - increase all text by 2px */
-header,
+header, 
 .header-section,
 .header-section-2,
 .header-unified,

@@ -46,7 +46,6 @@ const LanguageSwitcher = () => {
             <span style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '4px'
             }}>
                 <span style={{
                     fontWeight: language === 'th' ? '700' : '400',
