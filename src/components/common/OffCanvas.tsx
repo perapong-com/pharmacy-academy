@@ -19,7 +19,7 @@ const OffCanvas = ({ setOpenCanvas, openCanvas }: any) => {
     const menuItems: MenuItem[] = [
         { label: t('หน้าแรก', 'Home'), href: '/' },
         { label: t('คอร์สเรียน', 'Courses'), href: '/courses-grid' },
-        { label: t('เกี่ยวกับเรา', 'About Us'), href: '/about_us' },
+        { label: t('เกี่ยวกับเรา', 'About Us'), href: '/about_us' }, 
     ];
 
     const handleLogout = () => {
