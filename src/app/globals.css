@@ -709,3 +709,232 @@ label[for] {
     font-size: 12px !important;
   }
 }
+
+/* ========================================
+   Checkout Page Responsive Styles
+   ======================================== */
+
+/* Tablet (≤992px) */
+@media (max-width: 992px) {
+
+  /* Stack checkout columns - use flexbox with order */
+  .checkout-section .row {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .checkout-section .col-lg-7,
+  .checkout-section .col-lg-5 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Courses section (col-lg-5) comes first visually (on top) */
+  .checkout-section .col-lg-5 {
+    order: -1 !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Payment section (col-lg-7) comes second (on bottom) */
+  .checkout-section .col-lg-7 {
+    order: 1 !important;
+  }
+}
+
+/* Mobile (≤768px) */
+@media (max-width: 768px) {
+
+  /* Checkout section padding */
+  .checkout-section {
+    padding: 20px 0 !important;
+  }
+
+  .checkout-section .container {
+    padding: 0 12px !important;
+  }
+
+  /* Payment/Cart wrapper adjustments */
+  .payment-wrapper,
+  .cart-wrapper {
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Payment methods - stack vertically */
+  .payment-methods {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .payment-methods label {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  /* Keep text left, logo right in payment methods */
+  .payment-methods label>div:last-of-type {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex: 1 !important;
+  }
+
+  .payment-methods label>div:last-of-type p {
+    margin: 0 !important;
+  }
+
+  .payment-methods label>div:last-of-type img {
+    margin-top: 0 !important;
+  }
+
+  .payment-methods label>div:last-of-type>div:last-child {
+    margin-top: 0 !important;
+  }
+
+  /* Receipt type selection - stack vertically */
+  .receipt-type-section .d-flex.gap-3 {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .receipt-type-section .d-flex.gap-3 label {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  /* Address form fields - stack vertically */
+  .receipt-type-section .d-flex.gap-2.mb-2 {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .receipt-type-section .d-flex.gap-2.mb-2>div {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  /* Reduce form input/select sizes on mobile */
+  .receipt-type-section select,
+  .receipt-type-section input {
+    font-size: 14px !important;
+    padding: 10px 12px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+  .receipt-type-section label {
+    font-size: 12px !important;
+  }
+
+  .receipt-type-section p {
+    font-size: 11px !important;
+  }
+
+  /* Voucher section */
+  .voucher-section .d-flex.gap-2 {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .voucher-section .d-flex.gap-2 button {
+    width: 100% !important;
+  }
+}
+
+/* Small Mobile (≤576px) */
+@media (max-width: 576px) {
+
+  /* Even smaller padding for small mobile */
+  .checkout-section {
+    padding: 16px 0 !important;
+  }
+
+  .payment-wrapper,
+  .cart-wrapper {
+    padding: 14px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Cart items */
+  .cart-items {
+    max-height: 200px !important;
+  }
+
+  /* Smaller text on mobile */
+  .checkout-section h5 {
+    font-size: 16px !important;
+  }
+
+  .checkout-section h6 {
+    font-size: 14px !important;
+  }
+
+  /* Order summary adjustments */
+  .order-summary .d-flex span {
+    font-size: 12px !important;
+  }
+
+  .order-summary strong {
+    font-size: 14px !important;
+  }
+}
+
+/* ========================================
+   Payment Card Page Responsive Styles
+   ======================================== */
+
+/* Tablet (≤992px) */
+@media (max-width: 992px) {
+
+  /* Stack payment card columns - use flexbox with order */
+  .payment-card-section .row {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .payment-card-section .col-lg-6 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Order Summary (second col-lg-6) comes first visually (on top) */
+  .payment-card-section .col-lg-6:last-child {
+    order: -1 !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Card Form (first col-lg-6) comes second (on bottom) */
+  .payment-card-section .col-lg-6:first-child {
+    order: 1 !important;
+  }
+}
+
+/* Mobile (≤768px) */
+@media (max-width: 768px) {
+
+  .payment-card-section {
+    padding: 20px 0 !important;
+  }
+
+  .card-form-wrapper,
+  .order-summary-wrapper {
+    padding: 20px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Keep Expiry and CVV on same row */
+  .card-form-wrapper .row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .card-form-wrapper .row .col-6 {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+}
