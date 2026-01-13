@@ -62,7 +62,7 @@ const HeroHomeTwo = () => {
                                     <div className="hero-shape">
                                         <img src="assets/img/hero/hero-shape.png" alt="img" className="wow img-custom-anim-top" data-wow-duration="1.5s" data-wow-delay="0.2s" />
                                     </div>
-                                    <div className="counter-box float-bob-y">
+                                    <div className="counter-box">
                                         <p>{t('มากกว่า', 'More than')}</p>
                                         <h2><span className="odometer" data-count="100">
                                             <Count number={100} text='+' />
