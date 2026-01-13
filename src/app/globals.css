@@ -2,7 +2,9 @@
 
 /* Global Font - Thai Sarabun (Google Fonts version) */
 /* Exclude icon fonts (Font Awesome, etc.) from font override */
-*:not([class*="fa-"]):not([class*="fab"]):not([class*="fas"]):not([class*="far"]):not([class*="fal"]):not([class*="fad"]):not([class*="icon"]):not(i) {
+*:not([class*="fa-"]):not([class*="fab"]):not([class*="fas"]):not(
+    [class*="far"]
+  ):not([class*="fal"]):not([class*="fad"]):not([class*="icon"]):not(i) {
   font-family: "Sarabun", "TH Sarabun New", sans-serif !important;
 }
 
@@ -22,7 +24,8 @@ body {
 .fab,
 [class*="fa-"],
 i[class*="fa"] {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", FontAwesome !important;
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands",
+    "Font Awesome 5 Free", "Font Awesome 5 Brands", FontAwesome !important;
 }
 
 @layer base {
@@ -65,19 +68,19 @@ i[class*="fa"] {
 
 /* Language-based font families */
 html.lang-th {
-  font-family: 'Sarabun', 'TH Sarabun New', sans-serif;
+  font-family: "Sarabun", "TH Sarabun New", sans-serif;
 }
 
 html.lang-en {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html.lang-th body {
-  font-family: 'Sarabun', 'TH Sarabun New', sans-serif;
+  font-family: "Sarabun", "TH Sarabun New", sans-serif;
 }
 
 html.lang-en body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Exclude FontAwesome icons from font override */
@@ -94,12 +97,12 @@ html.lang-en i[class*="fab"] {
   font-family: "Font Awesome 5 Pro", "Font Awesome 5 Free", "FontAwesome" !important;
 }
 
-/* ========================================
+/* ====================================
    Font Size Boost for Components (+2px)
    ======================================== */
 
 /* Header - increase all text by 2px */
-header,
+header, 
 .header-section,
 .header-section-2,
 .header-unified,
@@ -198,10 +201,10 @@ i.fa,
 }
 
 /* Checkbox and Radio labels */
-input[type="checkbox"]+label,
-input[type="checkbox"]+span,
-input[type="radio"]+label,
-input[type="radio"]+span,
+input[type="checkbox"] + label,
+input[type="checkbox"] + span,
+input[type="radio"] + label,
+input[type="radio"] + span,
 .form-check-label,
 .checkbox label,
 .radio label,
@@ -225,30 +228,6 @@ label[for] {
 .courses-sidebar-items label,
 .courses-sidebar-items .text-color {
   font-size: 16px !important;
-}
-
-/* Cart Items Scrollbar - Always Visible */
-.cart-items {
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #f5f5f5;
-}
-
-.cart-items::-webkit-scrollbar {
-  width: 8px;
-}
-
-.cart-items::-webkit-scrollbar-track {
-  background: #f5f5f5;
-  border-radius: 4px;
-}
-
-.cart-items::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-.cart-items::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
 }
 
 /* ========================================
@@ -712,17 +691,16 @@ label[for] {
    Responsive Styles
    ======================================== */
 
-/* Small Desktop & Tablet Landscape (≤992px) */
-@media (max-width: 992px) {
-
-  /* Hero section adjustments */
-  .hero-section.hero-2 {
-    padding: 60px 0 40px;
+/* Reduce breadcrumb banner height on mobile */
+@media (max-width: 640px) {
+  .breadcrumb-wrapper.courses-page-banner {
+    padding: 20px 0 !important;
+    min-height: auto !important;
   }
 
-  .hero-content h1 {
-    font-size: 32px !important;
-    line-height: 1.2;
+  .breadcrumb-wrapper.courses-page-banner .page-heading h1 {
+    font-size: 1.6rem !important;
+    margin-bottom: 8px;
   }
 
   .hero-content p {
@@ -820,66 +798,76 @@ label[for] {
   }
 }
 
-/* Tablet Portrait (≤768px) */
-@media (max-width: 768px) {
+/* Collapsible Filter Section Styles */
+.filter-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #0d4f4a 0%, #0a3d39 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
 
-  /* Hero section - make content centered */
-  .hero-section.hero-2 {
-    padding: 40px 0 30px;
-    text-align: center;
+.filter-toggle-btn:hover {
+  background: linear-gradient(135deg, #0a3d39 0%, #072e2b 100%);
+  transform: translateY(-1px);
+}
+
+.filter-toggle-btn i {
+  transition: transform 0.3s ease;
+}
+
+.filter-toggle-btn.open i {
+  transform: rotate(180deg);
+}
+
+.filter-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.filter-content.open {
+  max-height: 1000px;
+  opacity: 1;
+  transition: max-height 0.4s ease-in, opacity 0.3s ease;
+}
+
+/* PC: Hide toggle button and always show filter content */
+@media (min-width: 1025px) {
+  .filter-toggle-btn {
+    display: none !important;
+  }
+  
+  .filter-content {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
   }
 
-  .hero-content {
-    text-align: center;
-    margin-bottom: 30px;
+  /* Cart icon smaller */
+  .header-right a[href="/shop-cart"] {
+    width: 32px !important;
+    height: 32px !important;
   }
 
-  .hero-content h1 {
-    font-size: 28px !important;
+  .header-right a[href="/shop-cart"] i {
+    font-size: 12px !important;
   }
 
-  .hero-content p {
-    font-size: 15px !important;
-    padding: 0 10px;
-  }
-
-  .hero-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .hero-button .theme-btn {
-    width: 100%;
-    max-width: 280px;
-    text-align: center;
-  }
-
-  .hero-button .button-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Hero image adjustments */
-  .hero-image-items {
-    display: flex;
-    justify-content: center;
-  }
-
-  .hero-image img {
-    max-width: 80% !important;
-    margin: 0 auto;
-  }
-
-  .counter-box {
-    position: relative !important;
-    bottom: auto !important;
-    right: auto !important;
-    margin-top: 20px;
-    text-align: center;
-    display: inline-block;
+  /* Category boxes - white background on mobile */
+  .top-category-left-items .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
   }
 
   /* Category section for tablet portrait */
@@ -925,88 +913,84 @@ label[for] {
     text-align: center !important;
     padding: 30px 20px !important;
   }
+}
 
-  .category-bottom-title h3 {
-    font-size: 20px !important;
-  }
+/* ========================================
+   Checkout Page Responsive Styles
+   ======================================== */
 
   /* Header adjustments for mobile */
   .header-2 .container {
     padding: 0 15px;
   }
 
-  .header-logo img {
-    height: 35px !important;
+  /* Courses section (col-lg-5) comes first visually (on top) */
+  .checkout-section .col-lg-5 {
+    order: -1 !important;
+    margin-bottom: 20px !important;
   }
 
-  .header-logo span {
-    font-size: 14px !important;
+  /* Payment section (col-lg-7) comes second (on bottom) */
+  .checkout-section .col-lg-7 {
+    order: 1 !important;
   }
 }
 
-/* Mobile (≤576px) */
-@media (max-width: 576px) {
+/* Mobile (≤768px) */
+@media (max-width: 768px) {
 
-  /* Global font size reduction for mobile */
-  body {
-    font-size: 14px;
+  /* Checkout section padding */
+  .checkout-section {
+    padding: 20px 0 !important;
   }
 
-  /* Container padding */
-  .container {
-    padding-left: 16px;
-    padding-right: 16px;
+  .checkout-section .container {
+    padding: 0 12px !important;
   }
 
-  /* Hero section - fully mobile optimized */
-  .hero-section.hero-2 {
-    padding: 30px 0 20px;
-  }
-
-  .hero-content h1 {
-    font-size: 24px !important;
-    margin-bottom: 12px;
-  }
-
-  .hero-content h1 span img {
-    height: 6px !important;
-  }
-
-  .hero-content p {
-    font-size: 14px !important;
-    margin-bottom: 20px;
-  }
-
-  .hero-button .theme-btn {
-    padding: 12px 24px !important;
-    font-size: 14px !important;
-  }
-
-  .video-btn {
-    width: 40px !important;
-    height: 40px !important;
-  }
-
-  .video-btn i {
-    font-size: 12px !important;
-  }
-
-  /* Hero image mobile */
-  .hero-image img {
-    max-width: 100% !important;
+  /* Payment/Cart wrapper adjustments */
+  .payment-wrapper,
+  .cart-wrapper {
+    padding: 16px !important;
     border-radius: 12px !important;
   }
 
-  .counter-box {
-    padding: 10px 14px !important;
+  /* Payment methods - stack vertically */
+  .payment-methods {
+    flex-direction: column !important;
+    gap: 12px !important;
   }
 
-  .counter-box p {
-    font-size: 12px !important;
+  .payment-methods label {
+    width: 100% !important;
+    flex: none !important;
   }
 
-  .counter-box h2 {
-    font-size: 20px !important;
+  /* Keep text left, logo right in payment methods */
+  .payment-methods label>div:last-of-type {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex: 1 !important;
+  }
+
+  .payment-methods label>div:last-of-type p {
+    margin: 0 !important;
+  }
+
+  .payment-methods label>div:last-of-type img {
+    margin-top: 0 !important;
+  }
+
+  .payment-methods label>div:last-of-type>div:last-child {
+    margin-top: 0 !important;
+  }
+
+  /* Receipt type selection - stack vertically */
+  .receipt-type-section .d-flex.gap-3 {
+    flex-direction: column !important;
+    gap: 12px !important;
   }
 
   /* Category section mobile */
@@ -1018,8 +1002,9 @@ label[for] {
     font-size: 20px !important;
   }
 
-  .section-title h6 {
-    font-size: 12px !important;
+  .receipt-type-section .d-flex.gap-2.mb-2>div {
+    width: 100% !important;
+    flex: none !important;
   }
 
   .top-category-left-items {
@@ -1058,10 +1043,10 @@ label[for] {
   .category-bottom-title {
     padding: 20px 15px !important;
   }
+}
 
-  .category-bottom-title h3 {
-    font-size: 18px !important;
-  }
+/* Small Mobile (≤576px) */
+@media (max-width: 576px) {
 
   .category-bottom-title .theme-btn {
     width: 100% !important;
@@ -1073,64 +1058,36 @@ label[for] {
     display: none !important;
   }
 
-  /* Header mobile */
-  .header-logo-img {
-    height: 45px !important;
+  /* Cart items */
+  .cart-items {
+    max-height: 200px !important;
   }
 
-  .header-logo-text {
+  /* Smaller text on mobile */
+  .checkout-section h5 {
     font-size: 16px !important;
   }
 
-  /* Language switcher smaller on mobile - match cart icon size */
-  .language-switcher {
-    padding: 6px 8px !important;
-    font-size: 11px !important;
-    border-width: 1.5px !important;
-    border-radius: 6px !important;
-    height: 32px !important;
-    min-height: 32px !important;
-  }
-
-  /* Buttons on mobile */
-  .theme-btn {
+  .checkout-section h6 {
     font-size: 14px !important;
-    padding: 10px 20px !important;
   }
 
-  /* Hero button - center text */
-  .hero-button .theme-btn {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    width: auto !important;
-    min-width: 200px !important;
-    max-width: 280px !important;
-    margin: 0 auto !important;
+  /* Order summary adjustments */
+  .order-summary .d-flex span {
+    font-size: 12px !important;
   }
 
-  /* Video button - inline with text */
-  .hero-button .button-text {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 12px !important;
-    margin-top: 16px !important;
+  .order-summary strong {
+    font-size: 14px !important;
   }
+}
 
-  .hero-button .button-text .video-btn {
-    width: 48px !important;
-    height: 48px !important;
-    min-width: 48px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
+/* ========================================
+   Payment Card Page Responsive Styles
+   ======================================== */
 
-  .hero-button .button-text .d-line {
-    margin-left: 0 !important;
-  }
+/* Tablet (≤992px) */
+@media (max-width: 992px) {
 
   /* Footer mobile */
   .footer-section,
@@ -1148,13 +1105,14 @@ label[for] {
     gap: 6px !important;
   }
 
-  /* Cart icon smaller */
-  .header-right a[href="/shop-cart"] {
-    width: 32px !important;
-    height: 32px !important;
+  /* Order Summary (second col-lg-6) comes first visually (on top) */
+  .payment-card-section .col-lg-6:last-child {
+    order: -1 !important;
+    margin-bottom: 20px !important;
   }
 
-  .header-right a[href="/shop-cart"] i {
-    font-size: 12px !important;
+  /* Card Form (first col-lg-6) comes second (on bottom) */
+  .payment-card-section .col-lg-6:first-child {
+    order: 1 !important;
   }
 }
