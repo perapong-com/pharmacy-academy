@@ -330,7 +330,7 @@ const CoursesGridArea = () => {
                                                         </div>
                                                     </div>
                                                     <div className="courses-card-items-hover" style={{
-                                                        marginTop: 0,
+                                                        marginTop: 20,
                                                         padding: '18px 20px',
                                                         display: 'flex',
                                                         alignItems: 'center',
@@ -350,7 +350,7 @@ const CoursesGridArea = () => {
                                                                 </li>
                                                             </ul>
                                                             <h5>
-                                                                <Link href="/courses-details">{course.title}</Link>
+                                                                <span style={{ fontSize: '20px', fontWeight: 700 }}>{course.title}</span>
                                                             </h5>
                                                             <h4>฿{course.price.toLocaleString()}</h4>
                                                             <span>{course.description}</span>
