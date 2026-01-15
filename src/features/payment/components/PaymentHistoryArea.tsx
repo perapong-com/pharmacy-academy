@@ -67,23 +67,112 @@ const PaymentHistoryArea = () => {
                                 </table>
                             </div>
 
+                            {/* Mobile Card Layout */}
+                            <div className="payment-cards-mobile" style={{ display: 'none' }}>
+                                {payments.map((payment, index) => (
+                                    <div key={index} style={{
+                                        marginBottom: '16px',
+                                        borderRadius: '16px',
+                                        overflow: 'hidden',
+                                        boxShadow: '0 2px 10px rgba(0,0,0,0.08)'
+                                    }}>
+                                        {/* Card Header - Order ID */}
+                                        <div style={{
+                                            background: '#004736',
+                                            color: '#fff',
+                                            padding: '12px 16px',
+                                            fontSize: '14px',
+                                            fontWeight: '600'
+                                        }}>
+                                            {payment.id}
+                                        </div>
+                                        {/* Card Body */}
+                                        <div style={{ padding: '16px', background: '#fff' }}>
+                                            {/* Course Name */}
+                                            <h6 style={{
+                                                color: '#004736',
+                                                fontSize: '15px',
+                                                fontWeight: '600',
+                                                marginBottom: '6px'
+                                            }}>
+                                                {payment.course}
+                                            </h6>
+                                            {/* Date */}
+                                            <p style={{
+                                                color: '#666',
+                                                fontSize: '12px',
+                                                marginBottom: '12px'
+                                            }}>
+                                                {payment.date}
+                                            </p>
+                                            {/* Amount & Status */}
+                                            <div style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '12px',
+                                                marginBottom: '14px'
+                                            }}>
+                                                <span style={{
+                                                    color: '#004736',
+                                                    fontSize: '20px',
+                                                    fontWeight: '700'
+                                                }}>
+                                                    ฿{payment.amount.toLocaleString()}
+                                                </span>
+                                                <span style={{
+                                                    background: '#E8F8F4',
+                                                    color: '#40C7A9',
+                                                    padding: '4px 12px',
+                                                    borderRadius: '16px',
+                                                    fontSize: '12px',
+                                                    fontWeight: '500'
+                                                }}>
+                                                    {t('สำเร็จ', 'Success')}
+                                                </span>
+                                            </div>
+                                            {/* Receipt Button */}
+                                            <Link href="#" style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                gap: '8px',
+                                                padding: '12px',
+                                                border: '1px solid #e0e0e0',
+                                                borderRadius: '10px',
+                                                color: '#004736',
+                                                textDecoration: 'none',
+                                                fontSize: '14px',
+                                                fontWeight: '500'
+                                            }}>
+                                                <i className="fas fa-download"></i> {t('ใบเสร็จ', 'Receipt')}
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
                             <div className="summary-box mt-4" style={{
                                 background: '#E8F8F4',
                                 borderRadius: '10px',
-                                padding: '20px'
+                                padding: '16px'
                             }}>
-                                <div className="row">
-                                    <div className="col-md-4 text-center">
-                                        <h5 style={{ color: '#004736' }}>฿4,700</h5>
-                                        <p style={{ color: '#666', marginBottom: '0' }}>{t('ยอดรวมทั้งหมด', 'Total Amount')}</p>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    flexWrap: 'nowrap',
+                                    gap: '0'
+                                }}>
+                                    <div style={{ flex: 1, textAlign: 'center', padding: '8px', borderRight: '1px solid rgba(0, 71, 54, 0.1)' }}>
+                                        <h5 style={{ color: '#004736', fontSize: '22px', marginBottom: '4px' }}>฿4,700</h5>
+                                        <p style={{ color: '#666', marginBottom: '0', fontSize: '11px' }}>{t('ยอดรวมทั้งหมด', 'Total Amount')}</p>
                                     </div>
-                                    <div className="col-md-4 text-center">
-                                        <h5 style={{ color: '#004736' }}>3</h5>
-                                        <p style={{ color: '#666', marginBottom: '0' }}>{t('คอร์สที่ซื้อ', 'Courses Purchased')}</p>
+                                    <div style={{ flex: 1, textAlign: 'center', padding: '8px', borderRight: '1px solid rgba(0, 71, 54, 0.1)' }}>
+                                        <h5 style={{ color: '#004736', fontSize: '22px', marginBottom: '4px' }}>3</h5>
+                                        <p style={{ color: '#666', marginBottom: '0', fontSize: '11px' }}>{t('คอร์สที่ซื้อ', 'Courses Purchased')}</p>
                                     </div>
-                                    <div className="col-md-4 text-center">
-                                        <h5 style={{ color: '#004736' }}>7.5</h5>
-                                        <p style={{ color: '#666', marginBottom: '0' }}>{t('หน่วยกิต CPE', 'CPE Credits')}</p>
+                                    <div style={{ flex: 1, textAlign: 'center', padding: '8px' }}>
+                                        <h5 style={{ color: '#004736', fontSize: '22px', marginBottom: '4px' }}>7.5</h5>
+                                        <p style={{ color: '#666', marginBottom: '0', fontSize: '11px' }}>{t('หน่วยกิต CPE', 'CPE Credits')}</p>
                                     </div>
                                 </div>
                             </div>
