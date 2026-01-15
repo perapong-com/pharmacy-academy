@@ -94,89 +94,18 @@ const UserProfileArea = () => {
                                         </div>
                                         <div>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                                                {isEditingName ? (
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                                        <input
-                                                            type="text"
-                                                            value={editedName}
-                                                            onChange={(e) => setEditedName(e.target.value)}
-                                                            style={{
-                                                                fontSize: '24px',
-                                                                fontWeight: '700',
-                                                                padding: '8px 12px',
-                                                                borderRadius: '8px',
-                                                                border: '2px solid #fff',
-                                                                background: 'rgba(255,255,255,0.1)',
-                                                                color: '#fff',
-                                                                outline: 'none',
-                                                                width: '250px'
-                                                            }}
-                                                            autoFocus
-                                                        />
-                                                        <button
-                                                            onClick={async () => {
-                                                                if (editedName.trim()) {
-                                                                    await updateProfile({ name: editedName.trim() });
-                                                                    setIsEditingName(false);
-                                                                }
-                                                            }}
-                                                            style={{
-                                                                padding: '8px 16px',
-                                                                background: '#22c55e',
-                                                                color: '#fff',
-                                                                border: 'none',
-                                                                borderRadius: '8px',
-                                                                cursor: 'pointer',
-                                                                fontWeight: '500'
-                                                            }}
-                                                        >
-                                                            <i className="fas fa-check"></i>
-                                                        </button>
-                                                        <button
-                                                            onClick={() => {
-                                                                setIsEditingName(false);
-                                                                setEditedName(user.name || '');
-                                                            }}
-                                                            style={{
-                                                                padding: '8px 16px',
-                                                                background: 'rgba(255,255,255,0.2)',
-                                                                color: '#fff',
-                                                                border: 'none',
-                                                                borderRadius: '8px',
-                                                                cursor: 'pointer',
-                                                                fontWeight: '500'
-                                                            }}
-                                                        >
-                                                            <i className="fas fa-times"></i>
-                                                        </button>
-                                                    </div>
-                                                ) : (
-                                                    <>
-                                                        <h2 style={{ margin: 0, fontWeight: '700', color: '#fff' }}>{user.name}</h2>
-                                                        <button
-                                                            onClick={() => {
-                                                                setEditedName(user.name || '');
-                                                                setIsEditingName(true);
-                                                            }}
-                                                            style={{
-                                                                padding: '6px 12px',
-                                                                background: 'rgba(255,255,255,0.2)',
-                                                                color: '#fff',
-                                                                border: 'none',
-                                                                borderRadius: '6px',
-                                                                cursor: 'pointer',
-                                                                fontSize: '13px'
-                                                            }}
-                                                        >
-                                                            <i className="fas fa-edit me-1"></i>{t('แก้ไข', 'Edit')}
-                                                        </button>
-                                                    </>
-                                                )}
+                                                <h2 style={{ margin: 0, fontWeight: '700', color: '#fff' }}>{user.name}</h2>
                                             </div>
                                             <p style={{ margin: '0 0 5px', opacity: 0.9 }}>
                                                 <i className="fas fa-envelope me-2"></i>{user.email}
                                             </p>
-                                            <span style={{
+                                            {/* CPE for mobile - inside info section */}
+                                            <div className="cpe-mobile" style={{ display: 'none' }}>
+                                                <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{stats.totalCPE}</span>
+                                                <span style={{ fontSize: '12px', opacity: 0.8, marginLeft: '3px' }}>CPE</span>
+                                                <span style={{ fontSize: '11px', opacity: 0.7, marginLeft: '8px' }}>{t('หน่วยกิตสะสม', 'Accumulated Credits')}</span>
+                                            </div>
+                                            <span className="pharmacist-badge" style={{
                                                 display: 'inline-block',
                                                 padding: '5px 15px',
                                                 background: 'rgba(255,255,255,0.2)',
@@ -188,7 +117,7 @@ const UserProfileArea = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-4 text-md-end mt-4 mt-md-0">
+                                <div className="col-md-4 text-md-end mt-4 mt-md-0 cpe-desktop">
                                     <div style={{ fontSize: '48px', fontWeight: 'bold' }}>
                                         {stats.totalCPE}
                                         <span style={{ fontSize: '18px', opacity: 0.8, marginLeft: '5px' }}>CPE</span>
