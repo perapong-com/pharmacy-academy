@@ -221,33 +221,38 @@ const HeaderTwo = () => {
                                             position: 'relative',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            width: '36px',
-                                            height: '36px',
-                                            background: '#f5f7fa',
+                                            padding: '8px 16px',
+                                            minHeight: '38px',
+                                            background: 'transparent',
+                                            border: '2px solid #014D40',
                                             borderRadius: '8px',
                                             textDecoration: 'none',
-                                            transition: 'all 0.2s ease',
+                                            transition: 'all 0.3s ease',
                                             flexShrink: 0,
                                         }}
                                         onMouseEnter={(e) => {
-                                            e.currentTarget.style.background = '#e8f5f0';
+                                            e.currentTarget.style.background = '#014D40';
+                                            const icon = e.currentTarget.querySelector('i');
+                                            if (icon) (icon as HTMLElement).style.color = '#fff';
                                         }}
                                         onMouseLeave={(e) => {
-                                            e.currentTarget.style.background = '#f5f7fa';
+                                            e.currentTarget.style.background = 'transparent';
+                                            const icon = e.currentTarget.querySelector('i');
+                                            if (icon) (icon as HTMLElement).style.color = '#014D40';
                                         }}
                                     >
-                                        <i className="fas fa-shopping-cart" style={{ color: '#004736', fontSize: '14px' }}></i>
+                                        <i className="fas fa-shopping-cart" style={{ color: '#014D40', fontSize: '16px' }}></i>
                                         {cartItems.length > 0 && (
                                             <span style={{
                                                 position: 'absolute',
-                                                top: '-4px',
-                                                right: '-4px',
-                                                minWidth: '16px',
-                                                height: '16px',
+                                                top: '-6px',
+                                                right: '-6px',
+                                                minWidth: '18px',
+                                                height: '18px',
                                                 background: '#ef4444',
                                                 color: '#fff',
                                                 borderRadius: '50%',
-                                                fontSize: '9px',
+                                                fontSize: '10px',
                                                 fontWeight: '700',
                                                 display: 'flex',
                                                 alignItems: 'center',

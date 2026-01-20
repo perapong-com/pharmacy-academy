@@ -3,60 +3,23 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useLanguage } from '@/features/i18n';
-
-// Sample cart items
-const CART_ITEMS = [
-    {
-        id: 1,
-        title: 'React Zero to Hero: สร้างเว็บแอพพลิเคชัน',
-        instructor: 'โค้ดพล',
-        credits: 2,
-        originalPrice: 3900,
-        price: 2500,
-        image: 'assets/img/courses/01.jpg',
-    },
-    {
-        id: 2,
-        title: 'UX/UI Design Masterclass',
-        instructor: 'ดีไซน์เนอร์แอบ',
-        credits: 2,
-        originalPrice: null,
-        price: 1990,
-        image: 'assets/img/courses/02.jpg',
-    },
-    {
-        id: 3,
-        title: 'Data Science & Python: วิเคราะห์ข้อมูลธุรกิจ',
-        instructor: 'ดร. ดาต้า',
-        credits: 2,
-        originalPrice: 6000,
-        price: 4500,
-        image: 'assets/img/courses/03.jpg',
-    },
-];
+import {
+    SAMPLE_CART_ITEMS,
+    VOUCHER_CODES,
+    createInitialAddressInfo,
+    createInitialCompanyInfo,
+    type CartItem,
+    type PaymentMethod,
+    type ReceiptType,
+} from '@/data/payment.data';
 
 const CheckoutArea = () => {
     const { t } = useLanguage();
-    const [cartItems, setCartItems] = useState(CART_ITEMS);
-    const [paymentMethod, setPaymentMethod] = useState<'promptpay' | 'card'>('promptpay');
-    const [receiptType, setReceiptType] = useState<'personal' | 'company'>('personal');
-    const [companyInfo, setCompanyInfo] = useState({
-        name: '',
-        taxId: '',
-        address: '',
-        branch: ''
-    });
-    const [addressInfo, setAddressInfo] = useState({
-        addressNo: '',
-        village: '',
-        moo: '',
-        soi: '',
-        road: '',
-        subDistrict: '',
-        district: '',
-        province: '',
-        postalCode: ''
-    });
+    const [cartItems, setCartItems] = useState<CartItem[]>(SAMPLE_CART_ITEMS);
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('promptpay');
+    const [receiptType, setReceiptType] = useState<ReceiptType>('personal');
+    const [companyInfo, setCompanyInfo] = useState(createInitialCompanyInfo());
+    const [addressInfo, setAddressInfo] = useState(createInitialAddressInfo());
     const [formErrors, setFormErrors] = useState<{ [key: string]: boolean }>({});
     const [voucherCode, setVoucherCode] = useState('');
     const [discount, setDiscount] = useState(0);
@@ -64,14 +27,6 @@ const CheckoutArea = () => {
     const [discountError, setDiscountError] = useState('');
     const [appliedCode, setAppliedCode] = useState('');
 
-    // Sample voucher codes
-    const VOUCHER_CODES: { [key: string]: { type: 'percent' | 'fixed'; value: number; minOrder?: number } } = {
-        'WELCOME': { type: 'percent', value: 10 }, // 10% off
-        'SAVE20': { type: 'percent', value: 20 }, // 20% off
-        'PHARMA500': { type: 'fixed', value: 500 }, // 500 baht off
-        'NEWUSER': { type: 'percent', value: 15, minOrder: 2000 }, // 15% off min 2000
-        'VIP1000': { type: 'fixed', value: 1000, minOrder: 5000 }, // 1000 baht off min 5000
-    };
 
     const removeItem = (id: number) => {
         setCartItems(cartItems.filter(item => item.id !== id));
@@ -720,7 +675,7 @@ const CheckoutArea = () => {
                                         </Link>
                                     </div>
                                 ) : (
-                                    <div className="cart-items" style={{ maxHeight: '250px', overflowY: 'scroll', marginBottom: '16px' }}>
+                                    <div className="cart-items checkout-cart-items" style={{ marginBottom: '16px' }}>
                                         {cartItems.map((item) => (
                                             <div key={item.id} className="cart-item d-flex gap-3 mb-3 pb-3" style={{ borderBottom: '1px solid #f0f0f0' }}>
                                                 {/* Course Image */}
