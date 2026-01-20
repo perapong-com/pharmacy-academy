@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useLanguage } from '@/features/i18n';
 import { useAuth } from '@/features/auth';
+import { useCart } from '@/features/cart';
 
 interface MenuItem {
     label: string;
@@ -14,6 +15,7 @@ interface MenuItem {
 const OffCanvas = ({ setOpenCanvas, openCanvas }: any) => {
     const { t } = useLanguage();
     const { user, isAuthenticated, logout } = useAuth();
+    const { cartItems } = useCart();
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
     // Hide body scrollbar when offcanvas is open
@@ -31,6 +33,7 @@ const OffCanvas = ({ setOpenCanvas, openCanvas }: any) => {
     const menuItems: MenuItem[] = [
         { label: t('หน้าแรก', 'Home'), href: '/' },
         { label: t('คอร์สเรียน', 'Courses'), href: '/courses-grid' },
+        { label: t('ตะกร้าสินค้า', 'Cart'), href: '/shop-cart' },
         { label: t('เกี่ยวกับเรา', 'About Us'), href: '/about_us' },
     ];
 
@@ -274,6 +277,7 @@ const OffCanvas = ({ setOpenCanvas, openCanvas }: any) => {
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
+                                        justifyContent: 'space-between',
                                         padding: '14px 12px',
                                         minHeight: '48px',
                                         fontSize: '17px',
@@ -283,7 +287,26 @@ const OffCanvas = ({ setOpenCanvas, openCanvas }: any) => {
                                         borderRadius: '8px',
                                     }}
                                 >
-                                    {item.label}
+                                    <span>
+                                        {item.label}
+                                    </span>
+                                    {/* Cart count - always show on right */}
+                                    {item.href === '/shop-cart' && (
+                                        <span style={{
+                                            minWidth: '24px',
+                                            height: '24px',
+                                            background: cartItems.length > 0 ? '#ef4444' : '#e5e7eb',
+                                            color: cartItems.length > 0 ? '#fff' : '#666',
+                                            borderRadius: '50%',
+                                            fontSize: '13px',
+                                            fontWeight: '600',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}>
+                                            {cartItems.length}
+                                        </span>
+                                    )}
                                 </Link>
                             )}
                         </div>

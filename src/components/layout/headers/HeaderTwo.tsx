@@ -213,12 +213,12 @@ const HeaderTwo = () => {
                                     {/* Language Switcher */}
                                     <LanguageSwitcher />
 
-                                    {/* Cart Icon */}
+                                    {/* Cart Icon - Hidden on mobile/tablet, visible on desktop only */}
                                     <Link
                                         href="/shop-cart"
+                                        className="d-none d-xl-flex"
                                         style={{
                                             position: 'relative',
-                                            display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             width: '36px',
@@ -258,8 +258,8 @@ const HeaderTwo = () => {
                                         )}
                                     </Link>
 
-                                    {/* User Profile - Hidden on mobile, visible on tablet+ */}
-                                    <div className="d-none d-md-block">
+                                    {/* User Profile - Hidden on mobile/tablet, visible on desktop only */}
+                                    <div className="d-none d-xl-block">
                                         <HeaderUserProfile compact={sticky} />
                                     </div>
 
