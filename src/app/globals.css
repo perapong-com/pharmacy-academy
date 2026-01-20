@@ -3403,3 +3403,22 @@ label[for] {
     font-size: 14px !important;
   }
 }
+
+/* ========================================
+   Checkout Cart Items - Remove Scroll on Tablet
+   ======================================== */
+
+/* Default: show scroll on desktop only when needed */
+.checkout-cart-items {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* Hide scrollbar on all tablets (up to 1024px) */
+@media (max-width: 1024px) {
+  .checkout-cart-items {
+    max-height: none !important;
+    overflow-y: visible !important;
+    overflow: visible !important;
+  }
+}
