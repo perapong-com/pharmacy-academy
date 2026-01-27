@@ -887,7 +887,7 @@ const CourseLearningArea = () => {
                                                 </button>
                                             )}
                                         </div>
-                                        <Link href="/courses-grid?tab=my" style={{
+                                        <Link href="/profile" style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
