@@ -101,7 +101,7 @@ const HeaderTwo = () => {
                                 </Link>
 
                                 {/* Navigation Menu */}
-                                <div className="header-left d-none d-xl-flex" style={{ flex: '0 0 auto' }}>
+                                <div className="header-left d-none d-xxl-flex" style={{ flex: '0 0 auto' }}>
                                     <div className="mean__menu-wrapper">
                                         <div className="main-menu">
                                             <nav id="mobile-menu">
@@ -216,7 +216,7 @@ const HeaderTwo = () => {
                                     {/* Cart Icon - Hidden on mobile/tablet, visible on desktop only */}
                                     <Link
                                         href="/shop-cart"
-                                        className="d-none d-xl-flex"
+                                        className="d-none d-xxl-flex"
                                         style={{
                                             position: 'relative',
                                             alignItems: 'center',
@@ -264,12 +264,12 @@ const HeaderTwo = () => {
                                     </Link>
 
                                     {/* User Profile - Hidden on mobile/tablet, visible on desktop only */}
-                                    <div className="d-none d-xl-block">
+                                    <div className="d-none d-xxl-block">
                                         <HeaderUserProfile compact={sticky} />
                                     </div>
 
                                     {/* Mobile Menu Toggle */}
-                                    <div className="header__hamburger d-xl-none my-auto">
+                                    <div className="header__hamburger d-xxl-none my-auto">
                                         <div className="sidebar__toggle" onClick={() => setOpenCanvas(!openCanvas)}>
                                             <i className="fas fa-bars"></i>
                                         </div>
