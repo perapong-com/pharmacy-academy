@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Wrapper from '@/components/layout/Wrapper';
-import AboutUs from '@/components/about-us';
+import { AboutUs } from '@/features/about';
 
 import { Metadata } from 'next';
 export const metadata: Metadata = {

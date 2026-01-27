@@ -5,7 +5,7 @@
  */
 
 import { useState, useCallback } from 'react';
-import { VOUCHER_CODES } from '@/data/payment.data';
+import { VOUCHER_CODES } from '../data/mockData';
 
 interface UseVoucherReturn {
     // State
@@ -14,7 +14,7 @@ interface UseVoucherReturn {
     discountApplied: boolean;
     discountError: string;
     appliedCode: string;
-    
+
     // Actions
     setVoucherCode: (code: string) => void;
     applyVoucher: (subtotal: number, t: (th: string, en: string) => string) => void;
@@ -83,7 +83,7 @@ export const useVoucher = (): UseVoucherReturn => {
         discountApplied,
         discountError,
         appliedCode,
-        
+
         // Actions
         setVoucherCode,
         applyVoucher,

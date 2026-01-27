@@ -8,7 +8,7 @@ import Link from 'next/link';
 import React from 'react';
 import EnrollButton from '@/components/common/EnrollButton';
 import { useLanguage } from '@/features/i18n';
-import type { Course } from '@/data/courses.data';
+import type { Course } from '../data/mockData';
 
 interface CourseCardProps {
     course: Course;

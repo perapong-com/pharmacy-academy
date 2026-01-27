@@ -1,12 +1,12 @@
 "use client";
-import UseSticky from "@/hooks/UseSticky";
+import useSticky from "@/hooks/useSticky";
 import React, { useState, useEffect } from "react";
 
 type style_type = {
 	style?: boolean;
 };
 const ScrollToTop = ({ style }: style_type) => {
-	const { sticky }: { sticky: boolean } = UseSticky();
+	const { sticky }: { sticky: boolean } = useSticky();
 
 	const [showScroll, setShowScroll] = useState(false);
 
@@ -28,7 +28,7 @@ const ScrollToTop = ({ style }: style_type) => {
 	}, []);
 
 	return (
-		<> 
+		<>
 			<button id="back-top" className={`back-to-top ${sticky && "show"}`} onClick={scrollTop}>
 				<i className="fas fa-long-arrow-up"></i>
 			</button>

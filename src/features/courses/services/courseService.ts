@@ -7,7 +7,7 @@
  * Future: Can be extended to fetch from API
  */
 
-import { COURSES_DATA, CATEGORIES, PRICE_RANGES, type Course, type Category, type PriceRange } from '@/data/courses.data';
+import { COURSES_DATA, CATEGORIES, PRICE_RANGES, type Course, type Category, type PriceRange } from '../data/mockData';
 
 export interface ICourseService {
     getAllCourses(): Promise<Course[]>;

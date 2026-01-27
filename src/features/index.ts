@@ -13,6 +13,8 @@ export * as payment from './payment';
 export * as profile from './profile';
 export * as i18n from './i18n';
 export * as search from './search';
+export * as home from './home';
+export * as about from './about';
 
 // Common exports that are used frequently (no conflicts)
 export { AuthProvider } from './auth';

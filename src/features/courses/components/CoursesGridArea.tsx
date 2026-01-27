@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { useLanguage } from '@/features/i18n';
-import { CATEGORIES, PRICE_RANGES } from '@/data/courses.data';
+import { CATEGORIES, PRICE_RANGES } from '../data/mockData';
 import CourseCard from './CourseCard';
 import { useCourseFilter } from '../hooks/useCourseFilter';
 
@@ -32,7 +32,7 @@ const CoursesGridArea = () => {
                         <div className="col-xl-3 col-lg-4">
                             <div className="courses-main-sidebar-area">
                                 {/* Filter Toggle Button */}
-                                <button 
+                                <button
                                     className={`filter-toggle-btn ${isFilterOpen ? 'open' : ''}`}
                                     onClick={() => setIsFilterOpen(!isFilterOpen)}
                                 >
@@ -42,16 +42,16 @@ const CoursesGridArea = () => {
                                     </span>
                                     <i className="fas fa-chevron-down"></i>
                                 </button>
-                                
+
                                 {/* Collapsible Filter Content */}
                                 <div className={`filter-content ${isFilterOpen ? 'open' : ''}`}>
-                                <div className="courses-main-sidebar">
-                                    {/* Search */}
-                                    <div className="courses-sidebar-items">
-                                        <div className="wid-title style-2">
-                                            <h5>{t('ค้นหา', 'Search')}</h5>
-                                        </div>
-                                        <div className="search-widget">
+                                    <div className="courses-main-sidebar">
+                                        {/* Search */}
+                                        <div className="courses-sidebar-items">
+                                            <div className="wid-title style-2">
+                                                <h5>{t('ค้นหา', 'Search')}</h5>
+                                            </div>
+                                            <div className="search-widget">
                                                 <form onSubmit={e => e.preventDefault()}>
                                                     <input
                                                         type="text"
@@ -120,36 +120,36 @@ const CoursesGridArea = () => {
                                         <i className="far fa-times-circle me-2"></i>{t('ล้างตัวกรอง', 'Clear Filters')}
                                     </button>
                                 </div>
-                                </div> {/* End filter-content */}
+                            </div> {/* End filter-content */}
+                        </div>
+
+                        {/* Courses Grid */}
+                        <div className="col-xl-9 col-lg-8">
+                            <div className="coureses-notices-wrapper">
+                                <div className="courses-showing">
+                                    <div className="icon-items">
+                                        <Link href="/courses-grid"><i className="fas fa-th"></i></Link>
+                                    </div>
+                                    <h5>{t('แสดง', 'Showing')} <span>1-{filteredCourses.length}</span> {t('จาก', 'of')} <span>{totalCourses}</span> {t('คอร์ส', 'Courses')}</h5>
+                                </div>
                             </div>
 
-                            {/* Courses Grid */}
-                            <div className="col-xl-9 col-lg-8">
-                                <div className="coureses-notices-wrapper">
-                                    <div className="courses-showing">
-                                        <div className="icon-items">
-                                            <Link href="/courses-grid"><i className="fas fa-th"></i></Link>
-                                        </div>
-                                        <h5>{t('แสดง', 'Showing')} <span>1-{filteredCourses.length}</span> {t('จาก', 'of')} <span>{totalCourses}</span> {t('คอร์ส', 'Courses')}</h5>
-                                    </div>
+                            {filteredCourses.length === 0 ? (
+                                <div className="no-results text-center py-5">
+                                    <i className="fas fa-search" style={{ fontSize: '48px', color: '#ddd', marginBottom: '20px' }}></i>
+                                    <h5 style={{ color: '#666' }}>{t('ไม่พบคอร์สที่ตรงกับเงื่อนไข', 'No courses match your criteria')}</h5>
+                                    <p style={{ color: '#999' }}>{t('ลองเปลี่ยนคำค้นหาหรือตัวกรอง', 'Try changing your search or filters')}</p>
+                                    <button onClick={clearFilters} className="theme-btn mt-3">{t('ดูคอร์สทั้งหมด', 'View All Courses')}</button>
                                 </div>
-
-                                {filteredCourses.length === 0 ? (
-                                    <div className="no-results text-center py-5">
-                                        <i className="fas fa-search" style={{ fontSize: '48px', color: '#ddd', marginBottom: '20px' }}></i>
-                                        <h5 style={{ color: '#666' }}>{t('ไม่พบคอร์สที่ตรงกับเงื่อนไข', 'No courses match your criteria')}</h5>
-                                        <p style={{ color: '#999' }}>{t('ลองเปลี่ยนคำค้นหาหรือตัวกรอง', 'Try changing your search or filters')}</p>
-                                        <button onClick={clearFilters} className="theme-btn mt-3">{t('ดูคอร์สทั้งหมด', 'View All Courses')}</button>
-                                    </div>
-                                ) : (
-                                    <div className="row">
-                                        {filteredCourses.map((course) => (
-                                            <div key={course.id} className="col-xl-4 col-lg-6 col-md-6">
-                                                <CourseCard course={course} />
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
+                            ) : (
+                                <div className="row">
+                                    {filteredCourses.map((course) => (
+                                        <div key={course.id} className="col-xl-4 col-lg-6 col-md-6">
+                                            <CourseCard course={course} />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@
  */
 
 import { useState, useMemo, useEffect } from 'react';
-import { COURSES_DATA, CATEGORIES, PRICE_RANGES, type Course } from '@/data/courses.data';
+import { COURSES_DATA, CATEGORIES, PRICE_RANGES, type Course } from '../data/mockData';
 
 interface UseCourseFilterReturn {
     // State
@@ -14,14 +14,14 @@ interface UseCourseFilterReturn {
     selectedPriceRange: number;
     isFilterOpen: boolean;
     filteredCourses: Course[];
-    
+
     // Actions
     setSearchQuery: (query: string) => void;
     setSelectedCategory: (categoryId: string) => void;
     setSelectedPriceRange: (index: number) => void;
     setIsFilterOpen: (open: boolean) => void;
     clearFilters: () => void;
-    
+
     // Data
     totalCourses: number;
 }
@@ -41,7 +41,7 @@ export const useCourseFilter = (): UseCourseFilterReturn => {
                 setIsFilterOpen(true);
             }
         };
-        
+
         // Check on mount
         handleResize();
     }, []);
@@ -54,12 +54,12 @@ export const useCourseFilter = (): UseCourseFilterReturn => {
                 course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 course.titleEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 course.instructor.toLowerCase().includes(searchQuery.toLowerCase());
-            
-            const matchesCategory = selectedCategory === 'all' || 
+
+            const matchesCategory = selectedCategory === 'all' ||
                 course.category === CATEGORIES.find(c => c.id === selectedCategory)?.label;
-            
+
             const matchesPrice = course.price >= priceRange.min && course.price <= priceRange.max;
-            
+
             return matchesSearch && matchesCategory && matchesPrice;
         });
     }, [searchQuery, selectedCategory, selectedPriceRange]);
@@ -77,14 +77,14 @@ export const useCourseFilter = (): UseCourseFilterReturn => {
         selectedPriceRange,
         isFilterOpen,
         filteredCourses,
-        
+
         // Actions
         setSearchQuery,
         setSelectedCategory,
         setSelectedPriceRange,
         setIsFilterOpen,
         clearFilters,
-        
+
         // Data
         totalCourses: COURSES_DATA.length,
     };

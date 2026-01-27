@@ -7,7 +7,7 @@
  * Future: Can be extended to validate via API
  */
 
-import { VOUCHER_CODES, type Voucher } from '@/data/payment.data';
+import { VOUCHER_CODES, type Voucher } from '../data/mockData';
 
 export interface VoucherValidationResult {
     isValid: boolean;

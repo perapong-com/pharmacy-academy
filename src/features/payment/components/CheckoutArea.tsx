@@ -11,7 +11,7 @@ import {
     type CartItem,
     type PaymentMethod,
     type ReceiptType,
-} from '@/data/payment.data';
+} from '../data/mockData';
 
 const CheckoutArea = () => {
     const { t } = useLanguage();

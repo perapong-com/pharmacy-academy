@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
 import NavMenu from './NavMenu';
-import UseSticky from '@/hooks/UseSticky';
+import useSticky from '@/hooks/useSticky';
 import OffCanvas from '@/components/common/OffCanvas';
 import HeaderUserProfile from '@/components/common/HeaderUserProfile';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
@@ -20,7 +20,7 @@ const COURSES_DATA = [
 ];
 
 const HeaderTwo = () => {
-    const { sticky } = UseSticky();
+    const { sticky } = useSticky();
     const [openCanvas, setOpenCanvas] = useState(false);
     const { setSearchQuery } = useSearch();
     const { cartItems } = useCart();

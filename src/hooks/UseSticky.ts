@@ -5,7 +5,7 @@ interface StickyState {
   sticky: boolean;
 }
 
-const UseSticky = (): StickyState => {
+const useSticky = (): StickyState => {
   const [sticky, setSticky] = useState(false);
 
   const stickyHeader = (): void => {
@@ -29,4 +29,4 @@ const UseSticky = (): StickyState => {
   };
 };
 
-export default UseSticky;
+export default useSticky;
