@@ -68,7 +68,7 @@ const PaymentHistoryArea = () => {
                             </div>
 
                             {/* Mobile Card Layout */}
-                            <div className="payment-cards-mobile" style={{ display: 'none' }}>
+                            <div className="payment-cards-mobile">
                                 {payments.map((payment, index) => (
                                     <div key={index} style={{
                                         marginBottom: '16px',

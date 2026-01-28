@@ -1871,8 +1871,17 @@ label[for] {
    Payment History Responsive Styling
    ======================================== */
 
-/* All screen sizes - Card Layout */
-@media (max-width: 1200px) {
+/* Default (Desktop > 1366px): Hide mobile cards, show table */
+.payment-history-section .payment-cards-mobile {
+  display: none;
+}
+
+.payment-history-section .table-responsive {
+  display: block;
+}
+
+/* iPad Pro 12.9" Landscape and smaller (max 1400px): Show mobile card layout */
+@media (max-width: 1400px) {
 
   /* Hide table on mobile/tablet */
   .payment-history-section .table-responsive {
@@ -3420,5 +3429,96 @@ label[for] {
     max-height: none !important;
     overflow-y: visible !important;
     overflow: visible !important;
+  }
+}
+
+/* ========================================
+   Payment History - iPad Pro Landscape Responsive
+   ======================================== */
+
+/* iPad Pro 12.9" Landscape (1366px) and smaller - Show mobile card layout */
+@media (max-width: 1366px) {
+
+  /* Hide table layout on iPad Pro landscape */
+  .payment-history-section .table-responsive {
+    display: none !important;
+  }
+
+  /* Show mobile card layout on iPad Pro landscape */
+  .payment-history-section .payment-cards-mobile {
+    display: block !important;
+  }
+
+  /* Adjust wrapper padding */
+  .payment-history-section .history-wrapper {
+    padding: 24px !important;
+  }
+
+  /* Adjust title section */
+  .payment-history-section .history-wrapper>div:first-child {
+    margin-bottom: 16px !important;
+  }
+
+  .payment-history-section .history-wrapper h3 {
+    font-size: 22px !important;
+  }
+
+  /* Summary box responsive */
+  .payment-history-section .summary-box {
+    padding: 14px !important;
+  }
+
+  .payment-history-section .summary-box h5 {
+    font-size: 20px !important;
+  }
+
+  .payment-history-section .summary-box p {
+    font-size: 11px !important;
+  }
+}
+
+/* Tablet Portrait and smaller (up to 768px) */
+@media (max-width: 768px) {
+  .payment-history-section .history-wrapper {
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+
+  .payment-history-section .history-wrapper h3 {
+    font-size: 18px !important;
+  }
+
+  /* Summary box - smaller padding */
+  .payment-history-section .summary-box {
+    padding: 10px !important;
+  }
+
+  .payment-history-section .summary-box h5 {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile (up to 576px) */
+@media (max-width: 576px) {
+  .payment-history-section .history-wrapper {
+    padding: 12px !important;
+    border-radius: 12px !important;
+  }
+
+  .payment-history-section .history-wrapper h3 {
+    font-size: 16px !important;
+  }
+
+  /* Summary box */
+  .payment-history-section .summary-box {
+    padding: 8px !important;
+  }
+
+  .payment-history-section .summary-box h5 {
+    font-size: 14px !important;
+  }
+
+  .payment-history-section .summary-box p {
+    font-size: 9px !important;
   }
 }
