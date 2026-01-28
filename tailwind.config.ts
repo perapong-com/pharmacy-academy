@@ -53,7 +53,7 @@ const config: Config = {
                 sm: "8px",
             },
             fontFamily: {
-                sans: ["Inter", "Segoe UI", "sans-serif"],
+                sans: ["Sarabun", "TH Sarabun New", "sans-serif"],
             },
         },
     },

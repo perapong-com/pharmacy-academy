@@ -64,21 +64,15 @@ i[class*="fa"] {
   color: hsl(var(--foreground));
 }
 
-/* Language-based font families */
-html.lang-th {
-  font-family: "Sarabun", "TH Sarabun New", sans-serif;
-}
-
+/* Language-based font families - Enforce Sarabun for ALL */
+html.lang-th,
 html.lang-en {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-html.lang-th body {
   font-family: "Sarabun", "TH Sarabun New", sans-serif;
 }
 
+html.lang-th body,
 html.lang-en body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Sarabun", "TH Sarabun New", sans-serif;
 }
 
 /* Exclude FontAwesome icons from font override */
