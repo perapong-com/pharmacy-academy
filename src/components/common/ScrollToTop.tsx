@@ -1,5 +1,5 @@
 "use client";
-import useSticky from "@/hooks/useSticky";
+import useSticky from "@/hooks/useStickyHook";
 import React, { useState, useEffect } from "react";
 
 type style_type = {

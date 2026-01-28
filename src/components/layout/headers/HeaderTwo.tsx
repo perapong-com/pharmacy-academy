@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
 import NavMenu from './NavMenu';
-import useSticky from '@/hooks/useSticky';
+import useSticky from "@/hooks/useStickyHook";
 import OffCanvas from '@/components/common/OffCanvas';
 import HeaderUserProfile from '@/components/common/HeaderUserProfile';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
