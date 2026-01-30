@@ -83,10 +83,10 @@ const PaymentFailArea = () => {
                                     }}>
                                         <i className="fas fa-times" style={{ fontSize: '40px', color: '#fff' }}></i>
                                     </div>
-                                    <h2 style={{ color: '#fff', marginBottom: '8px', fontSize: '26px', fontWeight: '700' }}>
+                                    <h2 className="payment-status-title" style={{ color: '#fff', marginBottom: '8px' }}>
                                         {t('การชำระเงินไม่สำเร็จ', 'Payment Failed')}
                                     </h2>
-                                    <p style={{ color: 'rgba(255,255,255,0.9)', margin: 0, fontSize: '14px' }}>
+                                    <p className="payment-status-message" style={{ color: 'rgba(255,255,255,0.9)', margin: 0 }}>
                                         {t('กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง', 'Please check your details and try again')}
                                     </p>
                                 </div>
@@ -116,10 +116,10 @@ const PaymentFailArea = () => {
                                             <i className="fas fa-exclamation" style={{ color: '#fff', fontSize: '14px' }}></i>
                                         </div>
                                         <div>
-                                            <h5 style={{ color: '#991b1b', marginBottom: '4px', fontSize: '16px', fontWeight: '600' }}>
+                                            <h5 style={{ color: '#991b1b', marginBottom: '4px', fontWeight: 'bold' }}>
                                                 {errorInfo.title}
                                             </h5>
-                                            <p style={{ color: '#b91c1c', margin: 0, fontSize: '14px', lineHeight: '1.5' }}>
+                                            <p className="payment-status-message" style={{ color: '#b91c1c', margin: 0 }}>
                                                 {errorInfo.message}
                                             </p>
                                         </div>
@@ -133,11 +133,11 @@ const PaymentFailArea = () => {
                                     padding: '20px',
                                     marginBottom: '24px'
                                 }}>
-                                    <h5 style={{ color: '#374151', marginBottom: '16px', fontSize: '15px', fontWeight: '600' }}>
+                                    <h5 style={{ color: '#374151', marginBottom: '16px', fontWeight: '600' }}>
                                         <i className="fas fa-info-circle me-2" style={{ color: '#6b7280' }}></i>
                                         {t('สาเหตุที่เป็นไปได้', 'Possible Reasons')}
                                     </h5>
-                                    <ul style={{ margin: 0, paddingLeft: '20px', color: '#6b7280', fontSize: '14px', lineHeight: '2' }}>
+                                    <ul className="payment-detail-value" style={{ margin: 0, paddingLeft: '20px', color: '#6b7280', lineHeight: '2' }}>
                                         {paymentType === 'card' ? (
                                             <>
                                                 <li>{t('วงเงินในบัตรไม่เพียงพอ', 'Insufficient credit limit')}</li>
@@ -173,7 +173,7 @@ const PaymentFailArea = () => {
                                         borderBottomRightRadius: showDetails ? 0 : '12px'
                                     }}
                                 >
-                                    <span style={{ color: '#6b7280', fontSize: '14px' }}>
+                                    <span style={{ color: '#6b7280', fontSize: '15px', fontWeight: '500' }}>
                                         <i className="fas fa-file-alt me-2"></i>
                                         {t('รายละเอียดข้อผิดพลาด', 'Error Details')}
                                     </span>
@@ -218,13 +218,12 @@ const PaymentFailArea = () => {
                                             gap: '10px',
                                             padding: '16px',
                                             borderRadius: '14px',
-                                            fontSize: '16px',
-                                            fontWeight: '600',
                                             background: 'linear-gradient(135deg, #004736 0%, #006B4F 100%)',
                                             color: '#fff',
                                             textDecoration: 'none',
                                             boxShadow: '0 4px 20px rgba(0, 71, 54, 0.3)'
                                         }}
+                                        className="payment-btn-main"
                                     >
                                         <i className="fas fa-redo-alt"></i>
                                         {t('ลองชำระเงินใหม่', 'Try Payment Again')}
@@ -241,13 +240,12 @@ const PaymentFailArea = () => {
                                                 gap: '10px',
                                                 padding: '16px',
                                                 borderRadius: '14px',
-                                                fontSize: '16px',
-                                                fontWeight: '600',
                                                 background: '#fff',
                                                 color: '#004736',
                                                 textDecoration: 'none',
                                                 border: '2px solid #004736'
                                             }}
+                                            className="payment-btn-main"
                                         >
                                             <i className="fas fa-qrcode"></i>
                                             {t('ชำระผ่าน QR Code แทน', 'Pay via QR Code Instead')}
@@ -262,13 +260,12 @@ const PaymentFailArea = () => {
                                                 gap: '10px',
                                                 padding: '16px',
                                                 borderRadius: '14px',
-                                                fontSize: '16px',
-                                                fontWeight: '600',
                                                 background: '#fff',
                                                 color: '#004736',
                                                 textDecoration: 'none',
                                                 border: '2px solid #004736'
                                             }}
+                                            className="payment-btn-main"
                                         >
                                             <i className="fas fa-credit-card"></i>
                                             {t('ชำระผ่านบัตรเครดิต/เดบิตแทน', 'Pay via Credit/Debit Card Instead')}

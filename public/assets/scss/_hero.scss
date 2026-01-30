@@ -9,7 +9,7 @@
         left: 0;
         z-index: 99;
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             display: none;
         }
     }
@@ -20,7 +20,7 @@
         right: 0;
         z-index: 99;
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             display: none;
         }
     }
@@ -71,11 +71,11 @@
                 background-position: center;
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 20px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 18px;
             }
 
@@ -94,23 +94,23 @@
             margin-bottom: 30px;
             margin-top: 20px;
 
-            @include breakpoint (max-xxl){
+            @include breakpoint (max-xxl) {
                 font-size: 80px;
             }
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 font-size: 70px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 font-size: 54px;
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 44px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 34px;
             }
         }
@@ -120,11 +120,11 @@
             font-size: 27px;
             font-weight: 400;
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 22px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 20px;
             }
         }
@@ -140,7 +140,7 @@
         position: relative;
         z-index: 9;
 
-        @include breakpoint (max-md){
+        @include breakpoint (max-md) {
             height: 630px;
 
             img {
@@ -148,7 +148,7 @@
             }
         }
 
-        @include breakpoint (max-md){
+        @include breakpoint (max-md) {
             height: 520px;
         }
 
@@ -166,12 +166,12 @@
             padding: 35px 50px;
             border-radius: 10px;
 
-            @include breakpoint (max-xl4){
+            @include breakpoint (max-xl4) {
                 bottom: 10px;
                 left: 10px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 padding: 30px 50px;
                 border-radius: 0;
             }
@@ -184,7 +184,7 @@
                 color: $theme-blue;
                 font-size: 65px;
 
-                @include breakpoint (max-md){
+                @include breakpoint (max-md) {
                     font-size: 40px;
                 }
             }
@@ -201,11 +201,11 @@
             @include flex;
             gap: 50px;
 
-            @include breakpoint (max-xl4){
+            @include breakpoint (max-xl4) {
                 right: 0px;
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 padding: 20px 30px;
                 display: grid;
                 gap: 10px;
@@ -215,8 +215,8 @@
             h2 {
                 font-size: 65px;
 
-                @include breakpoint (max-md){
-                   font-size: 40px;
+                @include breakpoint (max-md) {
+                    font-size: 40px;
                 }
             }
 
@@ -248,22 +248,22 @@
     padding: 80px 0 100px;
 
     .hero-content {
-        @include breakpoint (max-md){
-           text-align: center;
+        @include breakpoint (max-md) {
+            text-align: center;
         }
 
         h1 {
             font-size: 75px;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 font-size: 60px;
             }
-            
-            @include breakpoint (max-md){
+
+            @include breakpoint (max-md) {
                 font-size: 45px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 35px;
             }
 
@@ -276,8 +276,8 @@
                     bottom: -8px;
                     left: 0;
 
-                    @include breakpoint (max-lg){
-                       display: none;
+                    @include breakpoint (max-lg) {
+                        display: none;
                     }
                 }
             }
@@ -287,12 +287,12 @@
             font-size: 20px;
             margin-top: 40px;
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 18px;
                 margin-top: 30px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 16px;
                 margin-top: 20px;
             }
@@ -303,16 +303,16 @@
             margin-top: 40px;
             gap: 30px;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 flex-wrap: wrap;
             }
 
-            @include breakpoint (max-md){
-               justify-content: center;
+            @include breakpoint (max-md) {
+                justify-content: center;
             }
 
             .button-text {
-                
+
                 span {
                     font-size: 16px;
                     font-weight: 600;
@@ -320,7 +320,7 @@
                 }
 
                 .video-btn {
-                    width:55px;
+                    width: 55px;
                     height: 55px;
                     line-height: 55px;
                     display: inline-block;
@@ -339,22 +339,22 @@
         .hero-image {
             position: relative;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 img {
-                     @include imgw;
+                    @include imgw;
                 }
-             }
+            }
 
-             @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 img {
                     width: initial;
                     height: initial;
                 }
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 img {
-                     @include imgw;
+                    @include imgw;
                 }
             }
 
@@ -362,18 +362,18 @@
                 position: absolute;
                 top: 56%;
                 left: 50%;
-                transform: translate(-50%,-50%);
+                transform: translate(-50%, -50%);
                 z-index: -1;
 
-                @include breakpoint (max-xxl){
+                @include breakpoint (max-xxl) {
                     img {
                         width: initial;
                         height: initial;
                     }
                 }
 
-                @include breakpoint (max-sm){
-                   display: none;
+                @include breakpoint (max-sm) {
+                    display: none;
                 }
             }
 
@@ -387,24 +387,24 @@
                 border-radius: 10px;
                 box-shadow: (10px 4px 60px rgba(168, 168, 168, 0.25));
 
-                @include breakpoint (max-xxl){
-                  right: initial;
-                  left: 0;
+                @include breakpoint (max-xxl) {
+                    right: initial;
+                    left: 0;
                 }
 
-                @include breakpoint (max-lg){
+                @include breakpoint (max-lg) {
                     right: 0;
                     left: initial;
                 }
 
-                @include breakpoint (max-md){
+                @include breakpoint (max-md) {
                     display: none;
                 }
-    
+
                 p {
                     font-size: 18px;
                 }
-    
+
                 h2 {
                     color: $theme-blue;
                     font-size: 50px;
@@ -435,7 +435,7 @@
         transition: all 8s ease-out 0s;
     }
 
-    .overlay-bg  {
+    .overlay-bg {
         position: absolute;
         top: 0;
         left: 0;
@@ -453,7 +453,7 @@
         margin: 0 auto;
         text-align: center;
         padding: 180px 0 355px;
-        
+
         @include breakpoint (max-sm) {
             padding: 100px 0 120px;
         }
@@ -468,21 +468,21 @@
             position: relative;
             display: inline-block;
 
-			&::before {
-				position: absolute;
-				bottom: -8px;
-				left: 0;
-				right: 0;
-				content: "";
-				width: 100%;
-				height: 5px;
-				background-size: cover;
-				background-repeat: no-repeat;
-				background-image: url(../../assets/img/hero/white-bar.png);
-				animation: width 1.5s linear !important;
-				animation-fill-mode: both;
-				background-position: center;
-			}
+            &::before {
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                right: 0;
+                content: "";
+                width: 100%;
+                height: 5px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-image: url(../../assets/img/hero/white-bar.png);
+                animation: width 1.5s linear !important;
+                animation-fill-mode: both;
+                background-position: center;
+            }
         }
 
         h1 {
@@ -490,19 +490,19 @@
             font-size: 90px;
             line-height: 1;
 
-            @include breakpoint (max-xxl){
+            @include breakpoint (max-xxl) {
                 font-size: 80px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 font-size: 70px;
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 55px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 42px;
             }
         }
@@ -515,11 +515,11 @@
             color: $white;
             font-weight: 500;
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 18px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 16px;
             }
         }
@@ -529,8 +529,8 @@
         margin-top: 40px;
         text-align: center;
 
-        @include breakpoint (max-md){
-           margin-top: 30px;
+        @include breakpoint (max-md) {
+            margin-top: 30px;
         }
     }
 
@@ -555,11 +555,12 @@
             @include flex;
             justify-content: space-between;
 
-            @include breakpoint (max-xxl){
+            @include breakpoint (max-xxl) {
                 display: none;
             }
 
-            .array-prev,.array-next {
+            .array-prev,
+            .array-next {
                 width: 60px;
                 height: 60px;
                 line-height: 60px;
@@ -580,7 +581,7 @@
 
 // .hero-section-3 {
 //     .swiper-slide.swiper-slide-active {
-        
+
 //         .hero-content{
 //             opacity: 1;
 //             transform: translateY(0px);
@@ -600,15 +601,15 @@
     padding: 300px 0 350px;
     position: relative;
 
-    @include breakpoint (max-xxl){
+    @include breakpoint (max-xxl) {
         padding-top: 190px;
     }
 
-    @include breakpoint (max-md){
+    @include breakpoint (max-md) {
         padding-top: 170px;
     }
 
-    @include breakpoint (max-sm){
+    @include breakpoint (max-sm) {
         padding-top: 140px;
     }
 
@@ -617,7 +618,7 @@
         left: 0;
         top: 15%;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             display: none;
         }
     }
@@ -627,7 +628,7 @@
         right: 0;
         top: 15%;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             display: none;
         }
     }
@@ -637,7 +638,7 @@
         top: 15%;
         left: 25%;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             display: none;
         }
     }
@@ -647,7 +648,7 @@
         left: 315px;
         bottom: 150px;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             display: none;
         }
     }
@@ -657,7 +658,7 @@
         right: 20%;
         bottom: 20%;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             display: none;
         }
     }
@@ -667,7 +668,7 @@
         top: 15%;
         right: 25%;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             display: none;
         }
     }
@@ -675,15 +676,15 @@
     .container-fluid {
         padding: 0 90px;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             padding: 0 50px;
         }
 
-        @include breakpoint (max-xxl){
+        @include breakpoint (max-xxl) {
             padding: 0 40px;
         }
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             padding: 0 30px;
         }
     }
@@ -695,7 +696,7 @@
 
         h6 {
             color: $theme-yellow-3;
-			position: relative;
+            position: relative;
             display: inline-block;
 
             &::before {
@@ -721,19 +722,19 @@
             margin-top: 30px;
             margin-bottom: 25px;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 font-size: 66px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 font-size: 56px;
             }
 
-            @include breakpoint (max-md){
-               font-size: 45px;
+            @include breakpoint (max-md) {
+                font-size: 45px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 36px;
             }
         }
@@ -746,11 +747,11 @@
             max-width: 685px;
             margin: 0 auto;
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 18px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 16px;
             }
         }
@@ -761,24 +762,24 @@
             justify-content: center;
             margin-top: 50px;
 
-            @include breakpoint (max-xxxl){
+            @include breakpoint (max-xxxl) {
                 gap: 20px;
                 flex-wrap: wrap;
             }
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 gap: 30px;
                 justify-content: space-between;
             }
 
-            @include breakpoint (max-md){
-               justify-content: center;
-               display: grid;
-               text-align: center;
-               gap: 30px;
+            @include breakpoint (max-md) {
+                justify-content: center;
+                display: grid;
+                text-align: center;
+                gap: 30px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 margin-top: 30px;
             }
 
@@ -799,7 +800,7 @@
                     color: $white;
                     margin-right: 20px;
 
-                    @include breakpoint (max-md){
+                    @include breakpoint (max-md) {
                         display: block;
                         margin: 0 auto 20px;
                     }
@@ -814,7 +815,8 @@
                 background-color: $theme-orange;
                 color: $white;
 
-                &::before,&::after {
+                &::before,
+                &::after {
                     background-color: $white;
                 }
 
@@ -835,7 +837,7 @@
             position: absolute;
             top: 59%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             content: "";
             width: 368px;
             height: 368px;
@@ -843,7 +845,7 @@
             background-color: $theme-green-2;
             z-index: -1;
         }
-        
+
         img {
             border-radius: 0px 0px 167px 164px;
         }
@@ -858,7 +860,7 @@
             position: absolute;
             top: 54%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             content: "";
             width: 370px;
             height: 430px;
@@ -866,7 +868,7 @@
             background-color: $theme-yellow-3;
             z-index: -1;
         }
-        
+
         img {
             border-radius: 0px 0px 167px 164px;
         }
@@ -880,11 +882,11 @@
     background-position: bottom;
     position: relative;
 
-    @include breakpoint (max-xl){
+    @include breakpoint (max-xl) {
         padding-bottom: 200px;
     }
 
-    @include breakpoint (max-lg){
+    @include breakpoint (max-lg) {
         padding-bottom: 150px;
         background-position-x: 100%;
     }
@@ -925,8 +927,8 @@
         position: relative;
         z-index: 9;
 
-        @include breakpoint (max-md){
-           text-align: center;
+        @include breakpoint (max-md) {
+            text-align: center;
         }
 
         h6 {
@@ -935,39 +937,39 @@
             margin-bottom: 20px;
 
             &::before {
-				position: absolute;
-				bottom: -8px;
-				left: 0;
-				right: 0;
-				content: "";
-				width: 100%;
-				height: 5px;
-				background-size: cover;
-				background-repeat: no-repeat;
-				background-image: url(../../assets/img/hero/white-bar.png);
-				animation: width 1.5s linear !important;
-				animation-fill-mode: both;
-				background-position: center;
-			}
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                right: 0;
+                content: "";
+                width: 100%;
+                height: 5px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-image: url(../../assets/img/hero/white-bar.png);
+                animation: width 1.5s linear !important;
+                animation-fill-mode: both;
+                background-position: center;
+            }
         }
 
         h1 {
             font-size: 75px;
             margin-bottom: 25px;
 
-            @include breakpoint (max-xxl){
+            @include breakpoint (max-xxl) {
                 font-size: 65px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 font-size: 55px;
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 font-size: 45px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 font-size: 35px;
             }
         }
@@ -978,13 +980,13 @@
             max-width: 620px;
             margin-bottom: 40px;
 
-            @include breakpoint (max-md){
-               font-size: 18px;
+            @include breakpoint (max-md) {
+                font-size: 18px;
             }
 
-            @include breakpoint (max-sm){
-               font-size: 16px;
-               margin-bottom: 30px;
+            @include breakpoint (max-sm) {
+                font-size: 16px;
+                margin-bottom: 30px;
             }
         }
 
@@ -999,13 +1001,13 @@
         position: relative;
         z-index: 9;
 
-        @include breakpoint (max-lg){
-           margin-bottom: 0;
-           text-align: center;
+        @include breakpoint (max-lg) {
+            margin-bottom: 0;
+            text-align: center;
 
-           img {
+            img {
                 @include imgw;
-           }
+            }
         }
 
         img {

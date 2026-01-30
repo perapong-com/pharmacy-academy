@@ -1,21 +1,22 @@
 .about-wrapper {
-    @include breakpoint (max-lg){
-       margin-top: -29px;
+    @include breakpoint (max-lg) {
+        margin-top: -29px;
     }
 
-    @include breakpoint (max-md){
+    @include breakpoint (max-md) {
         margin-top: -104px;
     }
+
     .about-image {
         margin-left: 0%;
         max-width: 585px;
         margin-top: 80px;
 
-        @include breakpoint (max-xl){
-           margin-top: 0;
+        @include breakpoint (max-xl) {
+            margin-top: 0;
         }
 
-        @include breakpoint (max-lg){
+        @include breakpoint (max-lg) {
             max-width: 1000px;
         }
 
@@ -29,27 +30,27 @@
         margin-top: 37px;
         position: relative;
         z-index: 9;
-        
-        @include breakpoint (max-xl){
-          margin-top: 0;
+
+        @include breakpoint (max-xl) {
+            margin-top: 0;
         }
 
-        @include breakpoint (max-md){
-           margin-left: 10px;
-           margin-right: 10px;
-           text-align: center;
+        @include breakpoint (max-md) {
+            margin-left: 10px;
+            margin-right: 10px;
+            text-align: center;
         }
 
         p {
-            font-size: 20px;
+            font-size: 18px;
             color: $header-color;
             line-height: 175%;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 font-size: 16px;
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 text-align: center;
             }
         }
@@ -60,34 +61,34 @@
             justify-content: space-between;
             margin-bottom: 50px;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 flex-wrap: wrap;
                 gap: 30px;
                 margin-top: 30px;
                 margin-bottom: 30px;
             }
 
-            @include breakpoint (max-md){
-              justify-content: center;
+            @include breakpoint (max-md) {
+                justify-content: center;
             }
 
             .counter-content {
                 border-right: 1px solid $border-color;
                 padding-right: 150px;
 
-                @include breakpoint (max-xxl){
+                @include breakpoint (max-xxl) {
                     padding-right: 0;
                     border-right: none;
                 }
 
                 h2 {
-                    font-size: 85px;
+                    font-size: 65px;
 
-                    @include breakpoint (max-md){
-                       font-size: 60px;
+                    @include breakpoint (max-md) {
+                        font-size: 60px;
                     }
 
-                    @include breakpoint (max-sm){
+                    @include breakpoint (max-sm) {
                         font-size: 46px;
                     }
                 }
@@ -110,7 +111,8 @@
             color: $header-color;
             border: 1px solid $header-color;
 
-            &::before,&::after {
+            &::before,
+            &::after {
                 background-color: $theme-green;
             }
         }
@@ -121,28 +123,28 @@
         margin-right: -10px;
         text-align: right;
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             text-align: left;
         }
-        
+
         .about-image-2 {
             img {
                 border-radius: 7px;
                 object-fit: cover;
 
-                @include breakpoint (max-xl){
+                @include breakpoint (max-xl) {
                     @include imgw;
                     object-fit: cover;
                 }
 
-                @include breakpoint (max-md){
+                @include breakpoint (max-md) {
                     height: 600px;
                 }
 
-                @include breakpoint (max-sm){
+                @include breakpoint (max-sm) {
                     height: 500px;
                 }
-     
+
             }
         }
 
@@ -151,15 +153,15 @@
             bottom: -100px;
             left: -60px;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 bottom: 0;
                 left: 0;
             }
 
-            @include breakpoint (max-xl){
-               height: 300px;
+            @include breakpoint (max-xl) {
+                height: 300px;
             }
-            
+
             img {
                 @include imgw;
                 border-radius: 7px;
@@ -175,16 +177,16 @@
 
 .about-wrapper-2 {
     .about-content {
-        @include breakpoint (max-md){
-           text-align: center;
+        @include breakpoint (max-md) {
+            text-align: center;
         }
 
         p {
-            font-size: 20px;
+            font-size: 18px;
             color: $white;
             margin-bottom: 40px;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 font-size: 16px;
             }
         }
@@ -192,7 +194,8 @@
         .theme-btn {
             padding: 18px 30px;
 
-            &::before,&::after {
+            &::before,
+            &::after {
                 background-color: $white;
             }
 
@@ -206,30 +209,30 @@
             @include flex;
             gap: 70px;
 
-            @include breakpoint (max-xl){
-               flex-wrap: wrap;
-               gap: 30px;
+            @include breakpoint (max-xl) {
+                flex-wrap: wrap;
+                gap: 30px;
             }
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 flex-wrap: wrap;
                 justify-content: center;
                 align-items: center;
             }
 
             .counter-content {
-                &:not(:last-child){
+                &:not(:last-child) {
                     border-right: 1px solid $white;
                     padding-right: 70px;
 
-                    @include breakpoint (max-xl){
+                    @include breakpoint (max-xl) {
                         border-right: none;
                         padding-right: 0;
                     }
                 }
-                
+
                 h3 {
-                    font-size: 55px;
+                    font-size: 45px;
                     font-weight: 500;
                     color: $white;
                 }
@@ -239,8 +242,8 @@
                     margin-bottom: 0;
                     color: $white;
 
-                    @include breakpoint (max-xl){
-                       font-size: 16px;
+                    @include breakpoint (max-xl) {
+                        font-size: 16px;
                     }
                 }
             }
@@ -251,20 +254,20 @@
         position: relative;
         z-index: 1;
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             img {
                 @include imgw;
             }
         }
 
-        @include breakpoint (max-lg){
+        @include breakpoint (max-lg) {
             img {
                 width: initial;
                 height: initial;
             }
         }
 
-        @include breakpoint (max-sm){
+        @include breakpoint (max-sm) {
             img {
                 @include imgw;
             }
@@ -274,18 +277,18 @@
             position: absolute;
             top: 55%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             z-index: -1;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 display: none;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 display: block;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 display: none;
             }
         }
@@ -299,7 +302,7 @@
             padding: 30px 40px;
             border-radius: 10px;
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 bottom: 50px;
                 right: 0;
                 padding: 20px 20px;
@@ -308,8 +311,8 @@
             p {
                 font-size: 18px;
 
-                @include breakpoint (max-sm){
-                  font-size: 16px;
+                @include breakpoint (max-sm) {
+                    font-size: 16px;
                 }
             }
 
@@ -317,7 +320,7 @@
                 color: $theme-red;
                 font-size: 50px;
 
-                @include breakpoint (max-sm){
+                @include breakpoint (max-sm) {
                     font-size: 40px;
                 }
             }
@@ -333,8 +336,8 @@
             @include flex;
             justify-content: space-between;
             margin-top: 50px;
-            
-            @include breakpoint (max-md){
+
+            @include breakpoint (max-md) {
                 flex-wrap: wrap;
                 gap: 30px;
                 text-align: center;
@@ -348,14 +351,14 @@
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%,-50%);
-                 }
+                    transform: translate(-50%, -50%);
+                }
 
-                 .circle-animation {
+                .circle-animation {
                     animation: cir36 10s linear infinite;
-                 }
+                }
             }
-            
+
             .content {
                 max-width: 420px;
 
@@ -370,9 +373,9 @@
         text-align: center;
         position: relative;
 
-        @include breakpoint (max-lg){
-           margin-top: 30px;
-         }
+        @include breakpoint (max-lg) {
+            margin-top: 30px;
+        }
 
         .bg-shape {
             position: absolute;
@@ -381,10 +384,10 @@
             transform: translateY(-50%);
             z-index: -1;
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 left: 50%;
                 top: 50%;
-                transform: translate(-50%,-50%)
+                transform: translate(-50%, -50%)
             }
         }
     }
@@ -393,16 +396,16 @@
 .about-wrapper-4 {
     margin-bottom: 50px;
 
-    @include breakpoint (max-xxl){
-       margin-bottom: 0;
+    @include breakpoint (max-xxl) {
+        margin-bottom: 0;
     }
 
     .about-image {
         max-width: 440px;
         position: relative;
 
-        @include breakpoint (max-xxl){
-          max-width: 1200px;
+        @include breakpoint (max-xxl) {
+            max-width: 1200px;
         }
 
         img {
@@ -415,33 +418,34 @@
             right: -190px;
             bottom: -40%;
 
-            @include breakpoint (max-xxl){
+            @include breakpoint (max-xxl) {
                 bottom: 0;
                 right: 0;
                 max-width: 350px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 max-width: 440px;
-             }
-
-            @include breakpoint (max-md){
-               max-width: 350px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-md) {
+                max-width: 350px;
+            }
+
+            @include breakpoint (max-sm) {
                 max-width: 240px;
             }
         }
     }
+
     .about-content {
         margin-left: 80px;
 
-        @include breakpoint (max-xxl){
+        @include breakpoint (max-xxl) {
             margin-left: 0;
 
             .section-title {
-               text-align: left;
+                text-align: left;
             }
         }
 
@@ -452,65 +456,67 @@
             flex-wrap: wrap;
             margin-bottom: 30px;
 
-            @include breakpoint (max-xxl){
+            @include breakpoint (max-xxl) {
                 gap: 30px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 margin-top: 40px;
                 gap: 70px;
             }
 
-            @include breakpoint (max-lg){
+            @include breakpoint (max-lg) {
                 gap: 20px;
             }
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 margin-top: 30px;
                 flex-wrap: wrap;
                 gap: 10px;
             }
-           
-            .single-circle-bar{
+
+            .single-circle-bar {
                 @include flex;
                 gap: 10px;
-                
+
                 span {
-                    font-size: 16px;
+                    font-size: 18px;
                     line-height: 1;
                     font-weight: 700;
                 }
-                .content{
-                    h6{
+
+                .content {
+                    h6 {
                         display: block;
                         margin-bottom: 0;
                         font-weight: 600;
-                        font-size: 18px;
+                        font-size: 20px;
                         line-height: 135%;
                     }
 
                     br {
-                        @include breakpoint (max-sm){
+                        @include breakpoint (max-sm) {
                             display: block;
                         }
                     }
                 }
+
                 .circle-bar {
                     position: relative;
                     height: 120px;
                     width: 120px;
                 }
-                    
+
                 .circle-bar div {
                     position: absolute;
                     height: 100px;
                     width: 100px;
                     border-radius: 50%;
                 }
-                    
+
                 .circle-bar div span {
                     position: absolute;
-                    font-size: 30px;
+                    font-size: 24px;
                     line-height: 92px;
                     height: 90px;
                     width: 90px;
@@ -522,22 +528,22 @@
                     background-color: $white;
                     color: $header-color;
                 }
-                    
+
                 .circle-bar .background {
                     background-color: rgba(85, 60, 223, 0.10) !important;
                 }
-                
+
                 .circle-bar .rotate {
                     clip: rect(0 50px 100px 0);
                     background-color: $theme-blue-2 !important;
                 }
-                
+
                 .circle-bar .left {
                     clip: rect(0 50px 100px 0);
                     opacity: 1;
                     background-color: rgba(85, 60, 223, 0.10) !important;
                 }
-                
+
                 .circle-bar .right {
                     clip: rect(0 50px 100px 0);
                     -webkit-transform: rotate(180deg);
@@ -555,7 +561,7 @@
                 font-size: 18px;
                 font-weight: 500;
 
-                &:not(:last-child){
+                &:not(:last-child) {
                     margin-bottom: 15px;
                 }
 
@@ -571,7 +577,7 @@
             gap: 80px;
             margin-top: 50px;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 flex-wrap: wrap;
                 gap: 30px;
             }
@@ -582,7 +588,8 @@
                     border: 1px solid $theme-blue-2;
                     color: $theme-blue-2;
 
-                    &::before,&::after {
+                    &::before,
+                    &::after {
                         background-color: $theme-blue-2;
                     }
 
@@ -597,7 +604,7 @@
 
 .about-wrapper-5 {
     .about-content {
-        @include breakpoint (max-md){
+        @include breakpoint (max-md) {
             text-align: center;
         }
 
@@ -611,35 +618,35 @@
             @include flex;
             justify-content: space-between;
 
-            @include breakpoint (max-xl){
+            @include breakpoint (max-xl) {
                 flex-wrap: wrap;
                 gap: 30px;
                 margin-top: 30px;
                 margin-bottom: 30px;
             }
 
-            @include breakpoint (max-md){
-               justify-content: center;
-               gap: 15px;
+            @include breakpoint (max-md) {
+                justify-content: center;
+                gap: 15px;
             }
 
             .counter-content {
                 border-right: 1px solid $border-color;
                 padding-right: 90px;
 
-                @include breakpoint (max-xxl){
+                @include breakpoint (max-xxl) {
                     padding-right: 0;
                     border-right: none;
                 }
 
                 h2 {
-                    font-size: 85px;
+                    font-size: 65px;
 
-                    @include breakpoint (max-md){
-                       font-size: 60px;
+                    @include breakpoint (max-md) {
+                        font-size: 60px;
                     }
 
-                    @include breakpoint (max-sm){
+                    @include breakpoint (max-sm) {
                         font-size: 46px;
                     }
                 }
@@ -659,15 +666,17 @@
     }
 }
 
-.CircularProgressbar .CircularProgressbar-path{
+.CircularProgressbar .CircularProgressbar-path {
     stroke-width: 4% !important;
     stroke: #553cdf !important;
 }
+
 .CircularProgressbar .CircularProgressbar-trail {
     stroke-width: 4% !important;
     background-color: rgb(241 238 251) !important;
 }
-.CircularProgressbar .CircularProgressbar-text{
+
+.CircularProgressbar .CircularProgressbar-text {
     fill: #031f42 !important;
     // font-size: 30px !important;
     font-weight: 600 !important;

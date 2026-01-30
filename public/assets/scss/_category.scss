@@ -11,7 +11,7 @@
         border-right: 1px solid $border-color;
         border-top: 1px solid $border-color;
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             background: $white;
             box-shadow: 10px 4px 60px 0px rgba(0, 91, 255, 0.10);
             border: none !important;
@@ -35,10 +35,10 @@
 
             i {
                 padding-top: 25px;
-                margin-left: 15px;            
+                margin-left: 15px;
                 display: inline-block;
 
-                @include breakpoint (max-md){
+                @include breakpoint (max-md) {
                     margin-left: 0;
                 }
             }
@@ -53,9 +53,10 @@
             }
         }
 
-        
 
-        &:hover,&.active {
+
+        &:hover,
+        &.active {
             background: $white;
             box-shadow: 10px 4px 60px 0px rgba(0, 91, 255, 0.10);
 
@@ -72,13 +73,13 @@
 
 .top-category {
     p {
-        @include breakpoint (max-md){
+        @include breakpoint (max-md) {
             text-align: center;
         }
     }
 
     .top-category-button {
-        @include breakpoint (max-md){
+        @include breakpoint (max-md) {
             text-align: center;
         }
     }
@@ -96,7 +97,7 @@
             border: 1px solid $border-color;
             @include transition;
 
-            @include breakpoint (max-md){
+            @include breakpoint (max-md) {
                 padding: 30px;
                 margin: 0 auto;
                 text-align: center;
@@ -122,8 +123,8 @@
                 }
             }
 
-            
-            @include breakpoint (max-xl){
+
+            @include breakpoint (max-xl) {
                 background-color: $theme-blue;
                 border: none;
 
@@ -184,7 +185,7 @@
         left: 50%;
         transform: translateX(-50%);
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             position: relative;
             left: 0;
             transform: initial;
@@ -212,7 +213,7 @@
         position: relative;
         z-index: 9;
 
-        @include breakpoint (max-md){
+        @include breakpoint (max-md) {
             flex-wrap: wrap;
         }
 
@@ -246,14 +247,14 @@
     position: relative;
     z-index: 9;
 
-    @include breakpoint (max-xxl){
+    @include breakpoint (max-xxl) {
         flex-wrap: wrap;
         padding: 30px;
-        
+
     }
 
     &::before {
-        position: absolute; 
+        position: absolute;
         border-radius: 10px;
         top: 0;
         left: 0;
@@ -290,7 +291,7 @@
         @include flex;
         gap: 10px;
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             flex-wrap: wrap;
         }
 

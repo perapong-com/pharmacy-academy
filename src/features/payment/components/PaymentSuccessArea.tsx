@@ -47,21 +47,11 @@ const PaymentSuccessArea = () => {
                             </div>
 
                             {/* Title */}
-                            <h2 style={{
-                                color: '#22c55e',
-                                marginBottom: '12px',
-                                fontSize: '28px',
-                                fontWeight: '600'
-                            }}>
+                            <h2 className="payment-status-title" style={{ color: '#22c55e' }}>
                                 {t('ชำระเงินสำเร็จ!', 'Payment Successful!')}
                             </h2>
 
-                            <p style={{
-                                color: '#666',
-                                marginBottom: '32px',
-                                fontSize: '15px',
-                                lineHeight: '1.6'
-                            }}>
+                            <p className="payment-status-message" style={{ color: '#666' }}>
                                 {t(
                                     'การชำระเงินของคุณเสร็จสมบูรณ์ คุณจะได้รับอีเมลยืนยันในไม่ช้า',
                                     'Your payment has been processed successfully. You will receive a confirmation email shortly.'
@@ -79,15 +69,15 @@ const PaymentSuccessArea = () => {
                             }}>
                                 {/* Amount */}
                                 <div className="d-flex justify-content-between align-items-center mb-3 pb-3" style={{ borderBottom: '1px solid #f0f0f0' }}>
-                                    <span style={{ color: '#666', fontSize: '14px' }}>{t('ยอดชำระ', 'Amount')}</span>
-                                    <span style={{ color: '#333', fontSize: '20px', fontWeight: '600' }}>
+                                    <span className="payment-detail-label">{t('ยอดชำระ', 'Amount')}</span>
+                                    <span className="payment-detail-amount">
                                         ฿{transactionData.amount.toLocaleString()}
                                     </span>
                                 </div>
 
                                 {/* Transaction ID */}
                                 <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <span style={{ color: '#666', fontSize: '14px' }}>{t('รหัสธุรกรรม', 'Transaction ID')}</span>
+                                    <span style={{ color: '#666', fontSize: '16px' }}>{t('รหัสธุรกรรม', 'Transaction ID')}</span>
                                     <span style={{
                                         color: '#333',
                                         fontSize: '14px',
@@ -102,24 +92,24 @@ const PaymentSuccessArea = () => {
 
                                 {/* Payment Method */}
                                 <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <span style={{ color: '#666', fontSize: '14px' }}>{t('วิธีการชำระ', 'Payment Method')}</span>
-                                    <span style={{ color: '#333', fontSize: '14px' }}>
+                                    <span className="payment-detail-label">{t('วิธีการชำระ', 'Payment Method')}</span>
+                                    <span className="payment-detail-value">
                                         {transactionData.paymentMethod}
                                     </span>
                                 </div>
 
                                 {/* Date */}
                                 <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <span style={{ color: '#666', fontSize: '14px' }}>{t('วันที่', 'Date')}</span>
-                                    <span style={{ color: '#333', fontSize: '14px' }}>
+                                    <span className="payment-detail-label">{t('วันที่', 'Date')}</span>
+                                    <span className="payment-detail-value">
                                         {transactionData.date}
                                     </span>
                                 </div>
 
                                 {/* Merchant */}
                                 <div className="d-flex justify-content-between align-items-center">
-                                    <span style={{ color: '#666', fontSize: '14px' }}>{t('ผู้รับเงิน', 'Merchant')}</span>
-                                    <span style={{ color: '#333', fontSize: '14px', fontWeight: '500' }}>
+                                    <span className="payment-detail-label">{t('ผู้รับเงิน', 'Merchant')}</span>
+                                    <span className="payment-detail-value" style={{ fontWeight: '500' }}>
                                         {transactionData.merchant}
                                     </span>
                                 </div>
@@ -137,7 +127,7 @@ const PaymentSuccessArea = () => {
                                 gap: '8px'
                             }}>
                                 <i className="fas fa-envelope" style={{ color: '#22c55e' }}></i>
-                                <span style={{ color: '#22c55e', fontSize: '14px' }}>
+                                <span style={{ color: '#22c55e', fontSize: '15px' }}>
                                     {t('ใบเสร็จส่งไปที่', 'Receipt sent to')} {transactionData.email}
                                 </span>
                             </div>
@@ -156,12 +146,11 @@ const PaymentSuccessArea = () => {
                                     border: 'none',
                                     borderRadius: '12px',
                                     color: '#fff',
-                                    fontSize: '15px',
-                                    fontWeight: '500',
                                     textDecoration: 'none',
                                     marginBottom: '24px',
                                     transition: 'all 0.2s ease'
                                 }}
+                                className="payment-btn-main"
                             >
                                 <i className="fas fa-book-open"></i>
                                 {t('ไปที่คอร์สของฉัน', 'Go to My Courses')}

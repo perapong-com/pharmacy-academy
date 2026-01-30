@@ -138,7 +138,7 @@ const HeaderTwo = () => {
                                                 border: showSuggestions ? '2px solid #004736' : '2px solid transparent',
                                                 transition: 'all 0.2s ease',
                                             }}>
-                                                <i className="fas fa-search" style={{ color: '#999', marginRight: '8px', fontSize: '13px' }}></i>
+                                                <i className="fas fa-search" style={{ color: '#999', marginRight: '8px', fontSize: '16px' }}></i>
                                                 <input
                                                     type="text"
                                                     placeholder={t('ค้นหาคอร์ส...', 'Search...')}
@@ -153,7 +153,7 @@ const HeaderTwo = () => {
                                                         background: 'transparent',
                                                         outline: 'none',
                                                         width: '100%',
-                                                        fontSize: '13px',
+                                                        fontSize: '16px',
                                                         color: '#333',
                                                     }}
                                                 />
@@ -174,7 +174,7 @@ const HeaderTwo = () => {
                                                 overflow: 'hidden',
                                             }}>
                                                 {filteredCourses.length === 0 ? (
-                                                    <div style={{ padding: '16px', textAlign: 'center', color: '#666' }}>
+                                                    <div style={{ padding: '16px', textAlign: 'center', color: '#666', fontSize: '14px' }}>
                                                         {t('ไม่พบคอร์ส', 'No courses found')}
                                                     </div>
                                                 ) : (
@@ -196,10 +196,10 @@ const HeaderTwo = () => {
                                                             onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                                                         >
                                                             <div style={{ flex: 1, minWidth: 0 }}>
-                                                                <div style={{ fontSize: '13px', fontWeight: '500', color: '#333' }}>
+                                                                <div style={{ fontSize: '16px', fontWeight: '500', color: '#333' }}>
                                                                     {course.title}
                                                                 </div>
-                                                                <div style={{ fontSize: '11px', color: '#666' }}>
+                                                                <div style={{ fontSize: '14px', color: '#666' }}>
                                                                     ฿{course.price.toLocaleString()}
                                                                 </div>
                                                             </div>

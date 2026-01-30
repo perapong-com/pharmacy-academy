@@ -42,16 +42,28 @@
                 width: 100%;
                 color: $white;
                 text-align: center;
-                font-size: 18px;
-                font-weight: 600;
+                font-size: 24px;
+                font-weight: 700;
                 letter-spacing: -0.9px;
             }
 
             .arrow-items {
                 position: absolute;
-                left: 27px;
-                top: 44%;
-                @include flex;
+                left: 0;
+                width: 100%;
+                top: 50%;
+                transform: translateY(-50%);
+                display: grid;
+                place-items: center;
+                z-index: 2;
+
+                .GlidingArrow {
+                    grid-area: 1 / 1;
+
+                    img {
+                        transform: scale(1.5);
+                    }
+                }
             }
         }
 
@@ -267,7 +279,7 @@
 
             h4 {
                 color: $theme-yellow;
-                font-size: 32px;
+                font-size: 40px;
                 font-weight: 700;
                 padding: 4px 0;
                 margin: 0;
@@ -280,6 +292,7 @@
                 font-weight: 400;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
+                line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 line-height: 1.5;
@@ -399,44 +412,44 @@
     @-webkit-keyframes slide {
         0% {
             opacity: 0;
-            transform: translateX(-150);
+            transform: translateX(-150px);
         }
 
         20% {
             opacity: 1;
-            transform: translateX(-90);
+            transform: translateX(-90px);
         }
 
         80% {
             opacity: 1;
-            transform: translateX(+90);
+            transform: translateX(+90px);
         }
 
         100% {
             opacity: 0;
-            transform: translateX(+150);
+            transform: translateX(+150px);
         }
     }
 
     @keyframes slide {
         0% {
             opacity: 0;
-            transform: translateX(-150);
+            transform: translateX(-150px);
         }
 
         20% {
             opacity: 1;
-            transform: translateX(-90);
+            transform: translateX(-90px);
         }
 
         80% {
             opacity: 1;
-            transform: translateX(+90);
+            transform: translateX(+90px);
         }
 
         100% {
             opacity: 0;
-            transform: translateX(+150);
+            transform: translateX(+150px);
         }
     }
 }

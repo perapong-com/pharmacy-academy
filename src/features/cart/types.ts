@@ -12,6 +12,9 @@ export interface CartItem {
     image: string;
     category?: string;
     cpeCredits?: number;
+    rating?: number;
+    credits?: number;
+    cpe?: number;
 }
 
 /**

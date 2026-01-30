@@ -2,20 +2,19 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useCart } from '@/features/cart/hooks';
 import { useLanguage } from '@/features/i18n';
 import {
-    SAMPLE_CART_ITEMS,
     VOUCHER_CODES,
     createInitialAddressInfo,
     createInitialCompanyInfo,
-    type CartItem,
     type PaymentMethod,
     type ReceiptType,
 } from '../data/mockData';
 
 const CheckoutArea = () => {
     const { t } = useLanguage();
-    const [cartItems, setCartItems] = useState<CartItem[]>(SAMPLE_CART_ITEMS);
+    const { cartItems, removeFromCart, clearCart } = useCart();
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('promptpay');
     const [receiptType, setReceiptType] = useState<ReceiptType>('personal');
     const [companyInfo, setCompanyInfo] = useState(createInitialCompanyInfo());
@@ -28,13 +27,7 @@ const CheckoutArea = () => {
     const [appliedCode, setAppliedCode] = useState('');
 
 
-    const removeItem = (id: number) => {
-        setCartItems(cartItems.filter(item => item.id !== id));
-    };
 
-    const clearAll = () => {
-        setCartItems([]);
-    };
 
     const applyVoucher = () => {
         const code = voucherCode.toUpperCase().trim();
@@ -98,7 +91,7 @@ const CheckoutArea = () => {
                                 padding: '24px',
                                 boxShadow: '0 2px 12px rgba(0, 0, 0, 0.06)'
                             }}>
-                                <h5 style={{ color: '#014D40', marginBottom: '20px' }}>{t('เลือกช่องทางชำระเงิน', 'Select Payment Method')}</h5>
+                                <h5 className="payment-summary-title">{t('เลือกช่องทางชำระเงิน', 'Select Payment Method')}</h5>
 
                                 {/* Payment Methods - Horizontal Layout */}
                                 <div className="payment-methods d-flex gap-3 mb-4">
@@ -133,7 +126,7 @@ const CheckoutArea = () => {
                                             )}
                                         </div>
                                         <div>
-                                            <p style={{ margin: 0, fontWeight: '600', color: '#333', fontSize: '16px' }}>QR PromptPay</p>
+                                            <p style={{ margin: 0, fontWeight: '700', color: '#333', fontSize: '18px' }}>QR PromptPay</p>
                                             <img
                                                 src="assets/img/prompt-pay-logo.png"
                                                 alt="PromptPay"
@@ -180,7 +173,7 @@ const CheckoutArea = () => {
                                             )}
                                         </div>
                                         <div>
-                                            <p style={{ margin: 0, fontWeight: '600', color: '#333', fontSize: '16px' }}>Credit/Debit Card</p>
+                                            <p style={{ margin: 0, fontWeight: '700', color: '#333', fontSize: '18px' }}>Credit/Debit Card</p>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
                                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" style={{ height: '18px' }} />
                                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" style={{ height: '14px' }} />
@@ -228,7 +221,7 @@ const CheckoutArea = () => {
                                                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fff' }}></div>
                                                 )}
                                             </div>
-                                            <span style={{ fontSize: '15px', fontWeight: '500', color: '#333' }}>
+                                            <span style={{ fontSize: '18px', fontWeight: '700', color: '#333' }}>
                                                 {t('บุคคลธรรมดา', 'Personal')}
                                             </span>
                                             <input
@@ -269,7 +262,7 @@ const CheckoutArea = () => {
                                                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fff' }}></div>
                                                 )}
                                             </div>
-                                            <span style={{ fontSize: '15px', fontWeight: '500', color: '#333' }}>
+                                            <span style={{ fontSize: '18px', fontWeight: '700', color: '#333' }}>
                                                 {t('อื่นๆ', 'Other')}
                                             </span>
                                             <input
@@ -625,7 +618,7 @@ const CheckoutArea = () => {
                                 </button>
 
                                 {/* Terms */}
-                                <p className="text-center" style={{ fontSize: '12px', color: '#999', margin: 0 }}>
+                                <p className="text-center" style={{ fontSize: '14px', color: '#999', margin: 0 }}>
                                     {t('โดยการดำเนินการต่อ คุณยอมรับ', 'By proceeding, you agree to')}{' '}
                                     <Link href="#" style={{ color: '#014D40' }}>{t('เงื่อนไขการให้บริการ', 'Terms of Service')}</Link>
                                     {' '}{t('และ', 'and')}{' '}
@@ -649,7 +642,7 @@ const CheckoutArea = () => {
                                         {t('คอร์สเรียน', 'Courses')} ({cartItems.length})
                                     </h5>
                                     <button
-                                        onClick={clearAll}
+                                        onClick={clearCart}
                                         style={{
                                             background: 'transparent',
                                             border: 'none',
@@ -698,14 +691,14 @@ const CheckoutArea = () => {
                                                     <h6 style={{
                                                         color: '#014D40',
                                                         marginBottom: '2px',
-                                                        fontSize: '13px',
+                                                        fontSize: '16px',
                                                         whiteSpace: 'nowrap',
                                                         overflow: 'hidden',
                                                         textOverflow: 'ellipsis'
                                                     }}>
                                                         {item.title}
                                                     </h6>
-                                                    <p style={{ color: '#666', fontSize: '11px', marginBottom: '4px' }}>
+                                                    <p style={{ color: '#666', fontSize: '14px', marginBottom: '4px' }}>
                                                         Instructors: {item.instructor}
                                                     </p>
                                                     <span style={{
@@ -713,7 +706,7 @@ const CheckoutArea = () => {
                                                         color: '#014D40',
                                                         padding: '2px 8px',
                                                         borderRadius: '12px',
-                                                        fontSize: '10px'
+                                                        fontSize: '12px'
                                                     }}>
                                                         {item.credits} Credit
                                                     </span>
@@ -722,7 +715,7 @@ const CheckoutArea = () => {
                                                 {/* Price & Remove */}
                                                 <div className="text-end" style={{ minWidth: '80px' }}>
                                                     <button
-                                                        onClick={() => removeItem(item.id)}
+                                                        onClick={() => removeFromCart(item.id)}
                                                         style={{
                                                             background: 'transparent',
                                                             border: 'none',
@@ -748,7 +741,7 @@ const CheckoutArea = () => {
                                                         )}
                                                         <p style={{
                                                             color: '#014D40',
-                                                            fontSize: '13px',
+                                                            fontSize: '16px',
                                                             fontWeight: '600',
                                                             margin: 0
                                                         }}>
@@ -763,7 +756,7 @@ const CheckoutArea = () => {
 
                                 {/* Voucher Code Section */}
                                 <div className="voucher-section mb-3">
-                                    <label style={{ color: '#333', fontSize: '13px', marginBottom: '8px', display: 'block', fontWeight: '500' }}>
+                                    <label style={{ color: '#333', fontSize: '16px', marginBottom: '8px', display: 'block', fontWeight: '500' }}>
                                         {t('โค้ดส่วนลด / VOUCHER', 'Discount Code / VOUCHER')}
                                     </label>
                                     {!discountApplied ? (
@@ -782,7 +775,7 @@ const CheckoutArea = () => {
                                                     padding: '10px 12px',
                                                     border: '1px solid #e0e0e0',
                                                     borderRadius: '6px',
-                                                    fontSize: '13px',
+                                                    fontSize: '16px',
                                                     color: '#333'
                                                 }}
                                             />
@@ -832,11 +825,11 @@ const CheckoutArea = () => {
 
                                 {/* Order Summary */}
                                 <div className="order-summary">
-                                    <h6 style={{ color: '#333', marginBottom: '12px', fontWeight: '500' }}>{t('สรุปยอดชำระ', 'Order Summary')}</h6>
+                                    <h6 style={{ color: '#333', marginBottom: '12px', fontWeight: '500', fontSize: '18px' }}>{t('สรุปยอดชำระ', 'Order Summary')}</h6>
 
                                     <div className="d-flex justify-content-between mb-2">
-                                        <span style={{ color: '#666', fontSize: '13px' }}>{t('ราคารวม', 'Subtotal')} ({cartItems.length} {t('รายการ', 'items')})</span>
-                                        <span style={{ fontSize: '13px' }}>{subtotal.toLocaleString()} {t('บาท', 'THB')}</span>
+                                        <span style={{ color: '#666', fontSize: '16px' }}>{t('ราคารวม', 'Subtotal')} ({cartItems.length} {t('รายการ', 'items')})</span>
+                                        <span style={{ fontSize: '16px' }}>{subtotal.toLocaleString()} {t('บาท', 'THB')}</span>
                                     </div>
 
                                     {discount > 0 && (
@@ -849,13 +842,13 @@ const CheckoutArea = () => {
                                     )}
 
                                     <div className="d-flex justify-content-between mb-3">
-                                        <span style={{ color: '#666', fontSize: '13px' }}>{t('ภาษี (7%)', 'VAT 7%')}</span>
-                                        <span style={{ color: '#999', fontSize: '12px', textDecoration: 'underline' }}>{t('รวมในราคาขายแล้ว', 'Included in price')}</span>
+                                        <span style={{ color: '#666', fontSize: '16px' }}>{t('ภาษี (7%)', 'VAT 7%')}</span>
+                                        <span style={{ color: '#999', fontSize: '14px', textDecoration: 'underline' }}>{t('รวมในราคาขายแล้ว', 'Included in price')}</span>
                                     </div>
 
                                     <div className="d-flex justify-content-between pt-2" style={{ borderTop: '1px solid #e0e0e0' }}>
-                                        <strong style={{ color: '#333', fontSize: '14px' }}>{t('ยอดสุทธิ', 'Total')}</strong>
-                                        <strong style={{ color: '#014D40', fontSize: '18px' }}>
+                                        <strong style={{ color: '#333', fontSize: '18px' }}>{t('ยอดสุทธิ', 'Total')}</strong>
+                                        <strong style={{ color: '#014D40', fontSize: '24px' }}>
                                             {total.toLocaleString()} {t('บาท', 'THB')}
                                         </strong>
                                     </div>

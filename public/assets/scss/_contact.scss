@@ -17,6 +17,7 @@
         font-weight: 500;
         margin-bottom: 10px;
     }
+
     .image {
         margin-bottom: 25px;
     }
@@ -24,7 +25,7 @@
     h4 {
         line-height: 150%;
     }
-    
+
 }
 
 .map-area {
@@ -32,15 +33,15 @@
         height: 715px;
         width: 100%;
 
-        @include breakpoint (max-lg){
+        @include breakpoint (max-lg) {
             height: 650px;
         }
 
-        @include breakpoint (max-md){
+        @include breakpoint (max-md) {
             height: 530px;
         }
 
-        @include breakpoint (max-sm){
+        @include breakpoint (max-sm) {
             height: 430px;
         }
     }
@@ -51,15 +52,15 @@
     .container-fluid {
         padding: 0px 115px;
 
-        @include breakpoint (max-xxxl){
+        @include breakpoint (max-xxxl) {
             padding: 0 50px;
         }
 
-        @include breakpoint (max-xxl){
+        @include breakpoint (max-xxl) {
             padding: 0 40px;
         }
 
-        @include breakpoint (max-xl){
+        @include breakpoint (max-xl) {
             padding: 0 30px;
         }
     }
@@ -74,19 +75,19 @@
     position: relative;
     z-index: 9;
 
-    @include breakpoint (max-xl){
-     margin-top: 0;
+    @include breakpoint (max-xl) {
+        margin-top: 0;
     }
 
-    @include breakpoint (max-lg){
+    @include breakpoint (max-lg) {
         padding: 60px 50px;
     }
 
-    @include breakpoint (max-md){
+    @include breakpoint (max-md) {
         padding: 50px 40px;
     }
 
-    @include breakpoint (max-sm){
+    @include breakpoint (max-sm) {
         padding: 40px 30px;
     }
 
@@ -109,7 +110,8 @@
     .form-clt {
         position: relative;
 
-        input,textarea {
+        input,
+        textarea {
             padding: 16px 30px;
             border: none;
             outline: none;
@@ -120,15 +122,15 @@
             text-transform: capitalize;
             color: $text-color;
 
-            @include breakpoint (max-sm){
-               padding: 12px 20px;
+            @include breakpoint (max-sm) {
+                padding: 12px 20px;
             }
         }
 
         textarea {
             padding: 18px 30px 110px;
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 padding: 12px 20px 90px;
             }
         }
@@ -160,15 +162,15 @@
     position: relative;
     z-index: 9;
 
-    @include breakpoint (max-lg){
+    @include breakpoint (max-lg) {
         padding: 60px 50px;
     }
 
-    @include breakpoint (max-md){
+    @include breakpoint (max-md) {
         padding: 50px 40px;
     }
 
-    @include breakpoint (max-sm){
+    @include breakpoint (max-sm) {
         padding: 40px 30px;
     }
 
@@ -190,7 +192,8 @@
             color: #031F42;
         }
 
-        input,textarea {
+        input,
+        textarea {
             padding: 16px 30px;
             border: none;
             outline: none;
@@ -202,13 +205,15 @@
             color: $text-color;
             border: 1px solid rgba(0, 91, 255, 0.20);
 
-            @include breakpoint (max-sm){
-               padding: 12px 20px;
+            @include breakpoint (max-sm) {
+                padding: 12px 20px;
             }
         }
 
         &.style-2 {
-            input,textarea {
+
+            input,
+            textarea {
                 border: 1px solid $theme-blue;
             }
         }
@@ -216,7 +221,7 @@
         textarea {
             padding: 18px 30px 110px;
 
-            @include breakpoint (max-sm){
+            @include breakpoint (max-sm) {
                 padding: 12px 20px 90px;
             }
         }
@@ -254,6 +259,7 @@
             justify-content: right;
         }
     }
+
     .theme-btn {
         background-color: $theme-blue;
         color: $white;
