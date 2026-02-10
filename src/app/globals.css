@@ -132,7 +132,7 @@ button {
 html,
 body {
   font-family: "THSarabunNew", sans-serif;
-  font-size: 24px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -175,81 +175,11 @@ html.lang-en i[class*="fab"] {
    Font Size Boost for Components (+2px)
    ======================================== */
 
-/* Header - increase all text by 2px */
-header,
-.header-section,
-.header-section-2,
-.header-unified,
-.header-top,
-.header-main,
-.main-menu,
-.mean-nav {
-  font-size: calc(1em + 2px) !important;
-}
-
-/* Navigation menu items */
-.main-menu a,
-.main-menu span,
-.mean-nav a {
-  font-size: 18px !important;
-}
-
-/* Footer - increase all text by 2px */
-footer,
-.footer-section,
-.footer-area,
-.footer-widget {
-  font-size: calc(1em + 2px) !important;
-}
+/* Font Size Boost for Components - REMOVED TO ALLOW TAILWIND CONTROL */
+/* header, footer, etc. overrides removed */
 
 /* Sidebar - increase all text by 2px */
-.sidebar,
-.sidebar-widget,
-.widget,
-aside {
-  font-size: calc(1em + 2px) !important;
-}
-
-/* Components - increase all text by 2px */
-.card,
-.course-item,
-.courses-card,
-.event-card,
-.team-card,
-.testimonial-item,
-.feature-item,
-.accordion,
-.faq-item,
-.shop-cart,
-.courses-grid,
-.courses-details,
-.contact-section,
-.breadcrumb {
-  font-size: calc(1em + 2px) !important;
-}
-
-/* Buttons - increase by 2px */
-.theme-btn,
-.btn,
-button:not(.close):not([class*="slick"]) {
-  font-size: 18px !important;
-}
-
-/* Form inputs and labels */
-input,
-textarea,
-select,
-label,
-.form-control {
-  font-size: 18px !important;
-}
-
-/* Dropdown and select menus */
-.nice-select,
-.dropdown-menu,
-.submenu {
-  font-size: 18px !important;
-}
+/* Components generic overrides removed */
 
 /* Breadcrumb text */
 .breadcrumb-title,
@@ -422,32 +352,33 @@ label[for] {
 
 @media (max-width: 576px) {
   .hero-section.hero-2 .hero-button {
-    gap: 10px !important;
+    gap: 12px !important;
     justify-content: center !important;
   }
 
   .hero-section.hero-2 .hero-button .theme-btn {
-    padding: 10px 16px !important;
-    font-size: 12px !important;
-    height: 42px !important;
+    padding: 10px 28px !important;
+    font-size: 20px !important;
+    height: 60px !important;
   }
 
   .hero-section.hero-2 .hero-button .button-text {
-    height: 42px !important;
+    height: 60px !important;
   }
 
   .hero-section.hero-2 .hero-button .video-btn {
-    width: 42px !important;
-    height: 42px !important;
-    min-width: 42px !important;
-    min-height: 42px !important;
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px !important;
+    min-height: 60px !important;
+    line-height: 60px !important;
   }
 
   .hero-section.hero-2 .hero-button .d-line,
   .hero-section.hero-2 .hero-button .ms-3 {
-    font-size: 11px !important;
-    height: 42px !important;
-    margin-left: 6px !important;
+    font-size: 18px !important;
+    height: 60px !important;
+    margin-left: 14px !important;
     white-space: nowrap !important;
   }
 }
@@ -455,33 +386,36 @@ label[for] {
 /* Very small mobile - 360px and below */
 @media (max-width: 400px) {
   .hero-section.hero-2 .hero-button {
-    gap: 8px !important;
+    gap: 10px !important;
   }
 
   .hero-section.hero-2 .hero-button .theme-btn {
-    padding: 8px 12px !important;
-    font-size: 11px !important;
-    height: 38px !important;
+    padding: 10px 20px !important;
+    font-size: 18px !important;
+    height: 52px !important;
   }
 
   .hero-section.hero-2 .hero-button .button-text {
-    height: 38px !important;
+    height: 52px !important;
   }
 
   .hero-section.hero-2 .hero-button .video-btn {
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+    line-height: 52px !important;
   }
 
   .hero-section.hero-2 .hero-button .d-line,
   .hero-section.hero-2 .hero-button .ms-3 {
-    font-size: 10px !important;
-    height: 38px !important;
-    margin-left: 5px !important;
-    white-space: nowrap !important;
+    font-size: 16px !important;
+    height: 52px !important;
+    margin-left: 10px !important;
   }
 }
+
+
 
 /* ========================================
    Hero Counter Box - Fixed Inside Image
@@ -602,14 +536,6 @@ label[for] {
     min-width: 105px !important;
     padding: 10px 8px !important;
   }
-
-  .hero-2 .hero-image-items .hero-image .counter-box h2 {
-    font-size: 26px !important;
-  }
-
-  .hero-2 .hero-image-items .hero-image .counter-box p {
-    font-size: 10px !important;
-  }
 }
 
 /* Small mobile - 576px and below */
@@ -654,10 +580,15 @@ label[for] {
 }
 
 .category-bottom-title .theme-btn {
-  display: flex !important;
+  display: inline-flex !important;
   justify-content: center !important;
   align-items: center !important;
   text-align: center !important;
+  width: auto !important;
+  min-width: 200px;
+  max-width: 300px;
+  font-size: 22px !important;
+  margin-top: 10px;
 }
 
 /* Desktop styles - Larger fonts */
@@ -710,7 +641,7 @@ label[for] {
   }
 
   .profile-section h4 {
-    font-size: 24px !important;
+    /* font-size: 24px !important; - Removed */
     /* Section Headers */
   }
 
@@ -730,7 +661,7 @@ label[for] {
 
   /* Header & Navigation (Desktop) */
   .main-menu ul li a {
-    font-size: 20px !important;
+    /* font-size: 20px !important; - Removed */
     font-weight: 700 !important;
     /* Bold */
   }
@@ -742,7 +673,7 @@ label[for] {
 
   .header-right input::placeholder,
   .header-right input {
-    font-size: 18px !important;
+    /* font-size: 18px !important; */
     font-weight: 500 !important;
     /* Semi-bold for input */
   }
@@ -876,6 +807,51 @@ label[for] {
   justify-content: center !important;
   align-items: center !important;
   text-align: center !important;
+}
+
+/* ====================================
+   Responsive Typography Utils (Clamp)
+   ==================================== */
+
+/* Headings */
+.text-resp-h1 {
+  font-size: clamp(32px, 6vw, 52px) !important;
+  line-height: 1.2;
+}
+
+.text-resp-h2 {
+  font-size: clamp(26px, 5vw, 40px) !important;
+  line-height: 1.3;
+}
+
+.text-resp-h3 {
+  font-size: clamp(22px, 4vw, 32px) !important;
+  line-height: 1.4;
+}
+
+/* Body Text */
+.text-resp-body-lg {
+  font-size: clamp(18px, 2.5vw, 22px) !important;
+  line-height: 1.5;
+}
+
+.text-resp-body {
+  font-size: clamp(15px, 2vw, 18px) !important;
+  line-height: 1.6;
+}
+
+/* Buttons & Links */
+.text-resp-btn {
+  font-size: clamp(18px, 2.5vw, 26px) !important;
+}
+
+.text-resp-link {
+  font-size: clamp(16px, 2vw, 20px) !important;
+}
+
+/* Small Info Text */
+.text-resp-info {
+  font-size: clamp(14px, 1.5vw, 16px) !important;
 }
 
 /* ========================================
@@ -3990,4 +3966,47 @@ label[for] {
   .payment-btn-main {
     font-size: 16px !important;
   }
+}
+
+/* ========================================
+   Force Typography Utilities (Created for Consistency)
+   ======================================== */
+.text-force-22 {
+  font-size: 22px !important;
+}
+
+.text-force-20 {
+  font-size: 20px !important;
+}
+
+.text-force-18 {
+  font-size: 18px !important;
+}
+
+.text-force-24 {
+  font-size: 24px !important;
+}
+
+.text-force-26 {
+  font-size: 26px !important;
+}
+
+.text-force-28 {
+  font-size: 28px !important;
+}
+
+.text-force-30 {
+  font-size: 30px !important;
+}
+
+.text-force-36 {
+  font-size: 36px !important;
+}
+
+.text-force-16 {
+  font-size: 16px !important;
+}
+
+.text-force-bold {
+  font-weight: 700 !important;
 }

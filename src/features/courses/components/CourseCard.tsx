@@ -18,7 +18,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     const { t } = useLanguage();
 
     return (
-        <div className="courses-card-main-items" style={{ maxHeight: '380px' }}>
+        <div className="courses-card-main-items">
             {/* Default card state */}
             <div className="courses-card-items" style={{ marginTop: '15px' }}>
                 <div className="courses-image">
@@ -27,7 +27,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                         alt={course.title}
                         style={{ maxHeight: '140px', objectFit: 'cover' }}
                     />
-                    <h3 className="courses-title">{course.categoryEn}</h3>
+                    <h3 className="courses-title" style={{ fontSize: '30px' }}>{course.categoryEn}</h3>
                     <h4 className="topic-title">{course.cpe} CPE</h4>
                     <div className="arrow-items">
                         {[1, 2, 3, 4, 5, 6].map((num) => (
@@ -43,7 +43,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                 <div className="courses-content">
                     <ul className="post-cat">
                         <li>
-                            <Link href="/courses-grid">{course.category}</Link>
+                            <Link href="/courses-grid" style={{ fontSize: '16px' }}>{course.category}</Link>
                         </li>
                         <li>
                             {[1, 2, 3, 4, 5].map((star) => (
@@ -82,13 +82,14 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                     padding: '18px 20px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    height: '450px'
                 }}
             >
                 <div className="courses-content" style={{ width: '100%' }}>
-                    <ul className="post-cat">
+                    <ul className="post-cat" style={{ marginBottom: '5px' }}>
                         <li>
-                            <Link href="/courses-grid">{course.category}</Link>
+                            <Link href="/courses-grid" style={{ fontSize: '18px' }}>{course.category}</Link>
                         </li>
                         <li>
                             {[1, 2, 3, 4, 5].map((star) => (
@@ -96,14 +97,14 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                             ))}
                         </li>
                     </ul>
-                    <h5>
+                    <h5 style={{ marginBottom: '-12px' }}>
                         <span style={{ fontSize: '20px', fontWeight: 700 }}>
                             {course.title}
                         </span>
                     </h5>
-                    <h4>฿{course.price.toLocaleString()}</h4>
-                    <span>{course.description}</span>
-                    <div className="client-items">
+                    <h4 className="text-force-20 text-force-bold" style={{ marginBottom: '-4px' }}>฿{course.price.toLocaleString()}</h4>
+                    <span className="text-force-16" style={{ display: 'block', marginBottom: '2px', lineHeight: '1.4' }}>{course.description}</span>
+                    <div className="client-items" style={{ marginTop: '0' }}>
                         <div
                             className="client-img bg-cover"
                             style={{ background: `url(/assets/img/courses/client-1.png)` }}
@@ -121,7 +122,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                         </li>
                     </ul>
                     <EnrollButton courseId={course.id} className="theme-btn yellow-btn">
-                        {t('สมัครเรียน', 'Enroll Now')}
+                        <span className="text-force-20 text-force-bold" style={{ lineHeight: '1' }}>
+                            {t('สมัครเรียน', 'Enroll Now')}
+                        </span>
                     </EnrollButton>
                 </div>
             </div>

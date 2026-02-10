@@ -23,41 +23,42 @@ const PaymentHistoryArea = () => {
                             boxShadow: '0 10px 40px rgba(0, 71, 54, 0.1)'
                         }}>
                             <div className="d-flex justify-content-between align-items-center mb-4">
-                                <h3 style={{ color: '#004736', marginBottom: '0' }}>{t('ประวัติการชำระเงิน', 'Payment History')}</h3>
+                                <h3 className="text-resp-h3 text-force-bold" style={{ color: '#004736', marginBottom: '0' }}>{t('ประวัติการชำระเงิน', 'Payment History')}</h3>
                             </div>
 
                             <div className="table-responsive">
                                 <table className="table" style={{ marginBottom: '0' }}>
                                     <thead>
                                         <tr style={{ background: '#f8f9fa' }}>
-                                            <th style={{ color: '#004736', padding: '15px' }}>{t('รหัสคำสั่งซื้อ', 'Order ID')}</th>
-                                            <th style={{ color: '#004736', padding: '15px' }}>{t('คอร์ส', 'Course')}</th>
-                                            <th style={{ color: '#004736', padding: '15px' }}>{t('วันที่', 'Date')}</th>
-                                            <th style={{ color: '#004736', padding: '15px' }}>{t('ยอดเงิน', 'Amount')}</th>
-                                            <th style={{ color: '#004736', padding: '15px' }}>{t('สถานะ', 'Status')}</th>
-                                            <th style={{ color: '#004736', padding: '15px' }}>{t('การดำเนินการ', 'Action')}</th>
+                                            <th className="text-resp-body-lg text-force-bold" style={{ color: '#004736', padding: '15px' }}>{t('รหัสคำสั่งซื้อ', 'Order ID')}</th>
+                                            <th className="text-resp-body-lg text-force-bold" style={{ color: '#004736', padding: '15px' }}>{t('คอร์ส', 'Course')}</th>
+                                            <th className="text-resp-body-lg text-force-bold" style={{ color: '#004736', padding: '15px' }}>{t('วันที่', 'Date')}</th>
+                                            <th className="text-resp-body-lg text-force-bold" style={{ color: '#004736', padding: '15px' }}>{t('ยอดเงิน', 'Amount')}</th>
+                                            <th className="text-resp-body-lg text-force-bold" style={{ color: '#004736', padding: '15px' }}>{t('สถานะ', 'Status')}</th>
+                                            <th className="text-resp-body-lg text-force-bold" style={{ color: '#004736', padding: '15px' }}>{t('การดำเนินการ', 'Action')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {payments.map((payment, index) => (
                                             <tr key={index} style={{ borderBottom: '1px solid #e0e0e0' }}>
-                                                <td style={{ padding: '15px', color: '#004736' }}>{payment.id}</td>
-                                                <td style={{ padding: '15px', color: '#333' }}>{payment.course}</td>
-                                                <td style={{ padding: '15px', color: '#666' }}>{payment.date}</td>
-                                                <td style={{ padding: '15px', color: '#004736', fontWeight: '600' }}>฿{payment.amount.toLocaleString()}</td>
+                                                <td className="text-resp-body-lg text-force-bold" style={{ padding: '15px', color: '#004736' }}>{payment.id}</td>
+                                                <td className="text-resp-body-lg" style={{ padding: '15px', color: '#333' }}>{payment.course}</td>
+                                                <td className="text-resp-body" style={{ padding: '15px', color: '#666' }}>{payment.date}</td>
+                                                <td className="text-resp-body-lg text-force-bold" style={{ padding: '15px', color: '#004736' }}>฿{payment.amount.toLocaleString()}</td>
                                                 <td style={{ padding: '15px' }}>
                                                     <span style={{
                                                         background: '#E8F8F4',
                                                         color: '#40C7A9',
-                                                        padding: '5px 15px',
+                                                        padding: '6px 16px',
                                                         borderRadius: '20px',
-                                                        fontSize: '14px'
+                                                        fontSize: '14px',
+                                                        fontWeight: 'bold'
                                                     }}>
                                                         {t('สำเร็จ', 'Success')}
                                                     </span>
                                                 </td>
                                                 <td style={{ padding: '15px' }}>
-                                                    <Link href="#" style={{ color: '#004736' }}>
+                                                    <Link href="#" className="text-resp-body" style={{ color: '#004736', fontWeight: '500' }}>
                                                         <i className="fas fa-download me-1"></i> {t('ใบเสร็จ', 'Receipt')}
                                                     </Link>
                                                 </td>
@@ -162,17 +163,17 @@ const PaymentHistoryArea = () => {
                                     flexWrap: 'nowrap',
                                     gap: '0'
                                 }}>
-                                    <div style={{ flex: 1, textAlign: 'center', padding: '8px', borderRight: '1px solid rgba(0, 71, 54, 0.1)' }}>
-                                        <h5 style={{ color: '#004736', fontSize: '22px', marginBottom: '4px' }}>฿4,700</h5>
-                                        <p style={{ color: '#666', marginBottom: '0', fontSize: '11px' }}>{t('ยอดรวมทั้งหมด', 'Total Amount')}</p>
+                                    <div style={{ flex: 1, textAlign: 'center', padding: '15px', borderRight: '1px solid rgba(0, 71, 54, 0.1)' }}>
+                                        <h5 className="text-resp-h3 text-force-bold" style={{ color: '#004736', marginBottom: '4px' }}>฿4,700</h5>
+                                        <p className="text-resp-body" style={{ color: '#666', marginBottom: '0' }}>{t('ยอดรวมทั้งหมด', 'Total Amount')}</p>
                                     </div>
-                                    <div style={{ flex: 1, textAlign: 'center', padding: '8px', borderRight: '1px solid rgba(0, 71, 54, 0.1)' }}>
-                                        <h5 style={{ color: '#004736', fontSize: '22px', marginBottom: '4px' }}>3</h5>
-                                        <p style={{ color: '#666', marginBottom: '0', fontSize: '11px' }}>{t('คอร์สที่ซื้อ', 'Courses Purchased')}</p>
+                                    <div style={{ flex: 1, textAlign: 'center', padding: '15px', borderRight: '1px solid rgba(0, 71, 54, 0.1)' }}>
+                                        <h5 className="text-resp-h3 text-force-bold" style={{ color: '#004736', marginBottom: '4px' }}>3</h5>
+                                        <p className="text-resp-body" style={{ color: '#666', marginBottom: '0' }}>{t('คอร์สที่ซื้อ', 'Courses Purchased')}</p>
                                     </div>
-                                    <div style={{ flex: 1, textAlign: 'center', padding: '8px' }}>
-                                        <h5 style={{ color: '#004736', fontSize: '22px', marginBottom: '4px' }}>7.5</h5>
-                                        <p style={{ color: '#666', marginBottom: '0', fontSize: '11px' }}>{t('หน่วยกิต CPE', 'CPE Credits')}</p>
+                                    <div style={{ flex: 1, textAlign: 'center', padding: '15px' }}>
+                                        <h5 className="text-resp-h3 text-force-bold" style={{ color: '#004736', marginBottom: '4px' }}>7.5</h5>
+                                        <p className="text-resp-body" style={{ color: '#666', marginBottom: '0' }}>{t('หน่วยกิต CPE', 'CPE Credits')}</p>
                                     </div>
                                 </div>
                             </div>

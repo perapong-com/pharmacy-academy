@@ -13,7 +13,7 @@ const NavMenu = () => {
       <ul>
         {menu_data.map((item, i) => (
           <li className="has-dropdown menu-thumb" key={i}>
-            <Link href={item.link}>
+            <Link href={item.link} style={{ fontSize: '18px', fontWeight: '500' }}>
               <span className="head-icon"><i className={item.icon}></i></span>
               {language === 'th' ? item.title_th : item.title_en}
               {item.img_dropdown || item.has_dropdown ? <i className="fas fa-chevron-down"></i> : null}
@@ -51,7 +51,7 @@ const NavMenu = () => {
                   <React.Fragment key={sub_index}>
                     {sub_item?.link && (
                       <li>
-                        <Link href={sub_item.link}>
+                        <Link href={sub_item.link} style={{ fontSize: '16px' }}>
                           {language === 'th' ? sub_item.title_th : sub_item.title_en}
                         </Link>
                       </li>

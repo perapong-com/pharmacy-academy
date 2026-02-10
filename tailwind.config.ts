@@ -54,6 +54,8 @@ const config: Config = {
             },
             fontFamily: {
                 sans: ["THSarabunNew", "sans-serif"],
+                heading: ["THSarabunNew", "sans-serif"],
+                body: ["THSarabunNew", "sans-serif"],
             },
         },
     },

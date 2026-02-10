@@ -1,4 +1,4 @@
-"use client";
+    "use client";
 
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
@@ -306,9 +306,9 @@ const CourseLearningArea = () => {
                                     }}>
                                         <i className="fas fa-book-medical" style={{ fontSize: '18px' }}></i>
                                     </div>
-                                    <h6 style={{ margin: 0, fontSize: '15px', fontWeight: '600', color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>{courseName}</h6>
+                                    <h6 className="mobile-course-name" style={{ margin: 0, fontWeight: '600', color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>{courseName}</h6>
                                 </div>
-                                <div style={{ marginBottom: '8px', display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
+                                <div className="mobile-progress-text" style={{ marginBottom: '8px', display: 'flex', justifyContent: 'space-between' }}>
                                     <span>{t('ความคืบหน้า', 'Progress')}</span>
                                     <span>{completedCount}/{lessons.length} {t('บท', 'lessons')} ({courseProgress}%)</span>
                                 </div>
@@ -373,35 +373,31 @@ const CourseLearningArea = () => {
                                                 ) : lesson.isQuiz ? (
                                                     <i className="fas fa-question" style={{ fontSize: '12px', color: currentLesson === lesson.id ? '#fff' : '#666' }}></i>
                                                 ) : (
-                                                    <span style={{
-                                                        fontSize: '12px',
+                                                    <span className="mobile-lesson-index" style={{
                                                         fontWeight: '600',
                                                         color: currentLesson === lesson.id ? '#fff' : '#666'
                                                     }}>{index + 1}</span>
                                                 )}
                                             </div>
                                             <div style={{ flex: 1 }}>
-                                                <p style={{
+                                                <p className="mobile-lesson-title" style={{
                                                     marginBottom: '2px',
-                                                    fontSize: '13px',
                                                     fontWeight: '500',
                                                     lineHeight: '1.3'
                                                 }}>{lesson.title}</p>
                                                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                                    <small style={{
+                                                    <small className="mobile-lesson-meta" style={{
                                                         opacity: currentLesson === lesson.id ? 0.8 : 0.6,
-                                                        fontSize: '12px'
                                                     }}>
                                                         <i className="fas fa-clock" style={{ marginRight: '4px', fontSize: '10px' }}></i>
                                                         {lesson.duration}
                                                     </small>
                                                     {lesson.videoQuizzes && lesson.videoQuizzes.length > 0 && (
-                                                        <small style={{
+                                                        <small className="mobile-lesson-badge" style={{
                                                             background: currentLesson === lesson.id ? 'rgba(255,255,255,0.2)' : '#fef3c7',
                                                             color: currentLesson === lesson.id ? '#fff' : '#92400e',
                                                             padding: '2px 6px',
                                                             borderRadius: '4px',
-                                                            fontSize: '10px',
                                                             fontWeight: '600'
                                                         }}>
                                                             🎯 {lesson.videoQuizzes.length} คำถาม
@@ -433,7 +429,7 @@ const CourseLearningArea = () => {
                                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
                                     marginBottom: '24px'
                                 }}>
-                                    <p style={{ color: '#666', marginBottom: '8px', fontSize: '14px' }}>คำถามที่ 1 จาก 10</p>
+                                    <p style={{ color: '#666', marginBottom: '8px', fontSize: '16px' }}>คำถามที่ 1 จาก 10</p>
                                     <h5 style={{ color: '#014D40', marginBottom: '24px', lineHeight: '1.5' }}>
                                         กระบวนการใดที่เกี่ยวข้องกับการดูดซึมยาเข้าสู่กระแสเลือด?
                                     </h5>
@@ -466,7 +462,7 @@ const CourseLearningArea = () => {
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     justifyContent: 'center',
-                                                    fontSize: '14px'
+                                                    fontSize: '16px'
                                                 }}>
                                                     {String.fromCharCode(65 + index)}
                                                 </span>
@@ -557,15 +553,15 @@ const CourseLearningArea = () => {
                                                     >
                                                         <i className="fas fa-pause" style={{ fontSize: '20px' }}></i>
                                                     </div>
-                                                    <p style={{ fontSize: '18px', marginBottom: '8px' }}>{t('กำลังเล่นวิดีโอ...', 'Playing video...')}</p>
+                                                    <p style={{ fontSize: '22px', marginBottom: '8px' }}>{t('กำลังเล่นวิดีโอ...', 'Playing video...')}</p>
                                                     <p style={{ fontSize: '32px', fontWeight: 'bold', color: '#40C7A9' }}>
                                                         {formatTime(videoTime)}
                                                     </p>
-                                                    <p style={{ fontSize: '13px', color: '#888', marginTop: '8px' }}>
+                                                    <p style={{ fontSize: '17px', color: '#888', marginTop: '8px' }}>
                                                         {t('คลิกเพื่อหยุดวิดีโอ', 'Click to pause')}
                                                     </p>
                                                     {currentLessonData?.videoQuizzes && currentLessonData.videoQuizzes.length > 0 && (
-                                                        <p style={{ fontSize: '14px', color: '#888', marginTop: '12px' }}>
+                                                        <p style={{ fontSize: '18px', color: '#888', marginTop: '12px' }}>
                                                             🎯 {t('คำถามถัดไปที่', 'Next question at')}: {formatTime(
                                                                 currentLessonData.videoQuizzes.find(q => q.timeInSeconds > videoTime && !answeredQuizzes.includes(q.timeInSeconds))?.timeInSeconds || 0
                                                             )}
@@ -627,7 +623,7 @@ const CourseLearningArea = () => {
                                                     ))}
                                                 </div>
 
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'rgba(255,255,255,0.7)', fontSize: '16px' }}>
                                                     <span>{formatTime(videoTime)}</span>
                                                     <span>01:00</span>
                                                 </div>
@@ -646,7 +642,7 @@ const CourseLearningArea = () => {
                                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
                                         }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                                                <h4 style={{ color: '#014D40', margin: 0, fontSize: '20px' }}>
+                                                <h4 className="mobile-main-title" style={{ color: '#014D40', margin: 0 }}>
                                                     {currentLessonData?.title}
                                                 </h4>
                                                 <div style={{ display: 'flex', gap: '8px' }}>
@@ -656,7 +652,7 @@ const CourseLearningArea = () => {
                                                             color: '#92400e',
                                                             padding: '6px 12px',
                                                             borderRadius: '20px',
-                                                            fontSize: '12px',
+                                                            fontSize: '14px',
                                                             fontWeight: '600',
                                                         }}>
                                                             🎯 {answeredQuizzes.length}/{currentLessonData.videoQuizzes.length} คำถาม
@@ -667,14 +663,14 @@ const CourseLearningArea = () => {
                                                         color: '#fff',
                                                         padding: '6px 12px',
                                                         borderRadius: '20px',
-                                                        fontSize: '12px',
+                                                        fontSize: '14px',
                                                         fontWeight: '600',
                                                     }}>
                                                         {currentLessonData?.completed ? '✓ เรียนจบแล้ว' : '📖 กำลังเรียน'}
                                                     </span>
                                                 </div>
                                             </div>
-                                            <p style={{ color: '#666', margin: 0, fontSize: '14px', lineHeight: '1.6' }}>
+                                            <p className="mobile-desc" style={{ color: '#666', margin: 0, lineHeight: '1.6' }}>
                                                 {currentLessonData?.description}
                                             </p>
                                         </div>
@@ -692,9 +688,9 @@ const CourseLearningArea = () => {
                                                     key={lesson.id}
                                                     onClick={() => { setCurrentLesson(lesson.id); }}
                                                     style={{
-                                                        padding: '14px 16px',
+                                                        padding: '16px',
                                                         borderRadius: '12px',
-                                                        marginBottom: '8px',
+                                                        marginBottom: '10px',
                                                         cursor: 'pointer',
                                                         background: currentLesson === lesson.id
                                                             ? 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)'
@@ -707,8 +703,8 @@ const CourseLearningArea = () => {
                                                 >
                                                     <div className="d-flex align-items-center gap-3">
                                                         <div style={{
-                                                            width: '32px',
-                                                            height: '32px',
+                                                            width: '40px',
+                                                            height: '40px',
                                                             borderRadius: '50%',
                                                             background: lesson.completed
                                                                 ? '#22c55e'
@@ -721,39 +717,37 @@ const CourseLearningArea = () => {
                                                             flexShrink: 0,
                                                         }}>
                                                             {lesson.completed ? (
-                                                                <i className="fas fa-check" style={{ fontSize: '12px', color: '#fff' }}></i>
+                                                                <i className="fas fa-check mobile-icon-check" style={{ color: '#fff' }}></i>
                                                             ) : lesson.isQuiz ? (
-                                                                <i className="fas fa-question" style={{ fontSize: '12px', color: currentLesson === lesson.id ? '#fff' : '#666' }}></i>
+                                                                <i className="fas fa-question mobile-icon-quiz" style={{ color: currentLesson === lesson.id ? '#fff' : '#666' }}></i>
                                                             ) : (
-                                                                <span style={{
-                                                                    fontSize: '12px',
+                                                                <span className="mobile-lesson-index" style={{
                                                                     fontWeight: '600',
                                                                     color: currentLesson === lesson.id ? '#fff' : '#666'
                                                                 }}>{index + 1}</span>
                                                             )}
                                                         </div>
                                                         <div style={{ flex: 1 }}>
-                                                            <p style={{
-                                                                marginBottom: '2px',
-                                                                fontSize: '13px',
-                                                                fontWeight: '500',
-                                                                lineHeight: '1.3'
+                                                            <p className="mobile-lesson-title" style={{
+                                                                marginBottom: '4px',
+                                                                fontWeight: '600',
+                                                                lineHeight: '1.4'
                                                             }}>{lesson.title}</p>
-                                                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                                                <small style={{
-                                                                    opacity: currentLesson === lesson.id ? 0.8 : 0.6,
-                                                                    fontSize: '12px'
+                                                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                                                <small className="mobile-lesson-meta" style={{
+                                                                    opacity: currentLesson === lesson.id ? 0.9 : 0.7,
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
                                                                 }}>
-                                                                    <i className="fas fa-clock" style={{ marginRight: '4px', fontSize: '10px' }}></i>
+                                                                    <i className="fas fa-clock" style={{ marginRight: '6px' }}></i>
                                                                     {lesson.duration}
                                                                 </small>
                                                                 {lesson.videoQuizzes && lesson.videoQuizzes.length > 0 && (
-                                                                    <small style={{
+                                                                    <small className="mobile-lesson-badge" style={{
                                                                         background: currentLesson === lesson.id ? 'rgba(255,255,255,0.2)' : '#fef3c7',
                                                                         color: currentLesson === lesson.id ? '#fff' : '#92400e',
-                                                                        padding: '2px 6px',
-                                                                        borderRadius: '4px',
-                                                                        fontSize: '10px',
+                                                                        padding: '4px 10px',
+                                                                        borderRadius: '6px',
                                                                         fontWeight: '600'
                                                                     }}>
                                                                         🎯 {lesson.videoQuizzes.length} คำถาม
@@ -788,7 +782,7 @@ const CourseLearningArea = () => {
                                                         color: '#014D40',
                                                         fontWeight: '600',
                                                         borderBottom: '3px solid #014D40',
-                                                        fontSize: '14px',
+                                                        fontSize: '18px',
                                                         textAlign: 'center'
                                                     }}
                                                 >
@@ -821,8 +815,8 @@ const CourseLearningArea = () => {
                                                                 <i className="fas fa-file-pdf" style={{ color: '#ef4444', fontSize: '20px' }}></i>
                                                             </div>
                                                             <div style={{ flex: 1 }}>
-                                                                <p style={{ margin: 0, fontWeight: '500' }}>{doc.name}</p>
-                                                                <small style={{ color: '#888' }}>{doc.size}</small>
+                                                                <p className="mobile-doc-text" style={{ margin: 0, fontWeight: '500' }}>{doc.name}</p>
+                                                                <small className="mobile-doc-sub" style={{ color: '#888' }}>{doc.size}</small>
                                                             </div>
                                                             <button style={{
                                                                 padding: '10px 16px',
@@ -831,7 +825,7 @@ const CourseLearningArea = () => {
                                                                 border: 'none',
                                                                 borderRadius: '8px',
                                                                 cursor: 'pointer',
-                                                                fontSize: '13px'
+                                                                fontSize: '16px'
                                                             }}>
                                                                 <i className="fas fa-download"></i> ดาวน์โหลด
                                                             </button>
@@ -948,18 +942,18 @@ const CourseLearningArea = () => {
                             }}>
                                 <i className="fas fa-pause" style={{ fontSize: '24px', color: '#fff' }}></i>
                             </div>
-                            <p style={{ color: '#f59e0b', fontWeight: '600', marginBottom: '4px', fontSize: '14px' }}>
+                            <p style={{ color: '#f59e0b', fontWeight: '600', marginBottom: '4px', fontSize: '16px' }}>
                                 ⏸️ วิดีโอหยุดชั่วคราว
                             </p>
                             <h4 style={{ color: '#014D40', margin: 0 }}>
                                 🎯 คำถามระหว่างเรียน
                             </h4>
-                            <p style={{ color: '#888', fontSize: '13px', marginTop: '4px' }}>
+                            <p style={{ color: '#888', fontSize: '15px', marginTop: '4px' }}>
                                 ตอบคำถามให้ถูกต้องเพื่อเล่นวิดีโอต่อ
                             </p>
                         </div>
 
-                        <p style={{ color: '#333', marginBottom: '24px', fontSize: '16px', lineHeight: '1.6', fontWeight: '500' }}>
+                        <p style={{ color: '#333', marginBottom: '24px', fontSize: '18px', lineHeight: '1.6', fontWeight: '500' }}>
                             {currentQuiz.question}
                         </p>
 
@@ -1004,13 +998,13 @@ const CourseLearningArea = () => {
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             fontWeight: '600',
-                                            fontSize: '14px'
+                                            fontSize: '16px'
                                         }}>
                                             {answerResult && i === currentQuiz.correctAnswer ? '✓' :
                                                 answerResult === 'wrong' && i === selectedAnswer ? '✕' :
                                                     String.fromCharCode(65 + i)}
                                         </span>
-                                        <span style={{ color: '#333' }}>{opt}</span>
+                                        <span style={{ color: '#333', fontSize: '16px' }}>{opt}</span>
                                     </button>
                                 ))}
                             </div>
@@ -1030,7 +1024,7 @@ const CourseLearningArea = () => {
                                     gap: '8px'
                                 }}>
                                     <i className="fas fa-pen" style={{ color: '#0ea5e9' }}></i>
-                                    <span style={{ color: '#0369a1', fontSize: '14px' }}>
+                                    <span style={{ color: '#0369a1', fontSize: '16px' }}>
                                         {t('กรุณาพิมพ์คำตอบของคุณ', 'Please type your answer')}
                                     </span>
                                 </div>
@@ -1045,7 +1039,7 @@ const CourseLearningArea = () => {
                                         padding: '16px',
                                         border: answerResult === 'submitted' ? '2px solid #22c55e' : '2px solid #e5e7eb',
                                         borderRadius: '12px',
-                                        fontSize: '15px',
+                                        fontSize: '18px',
                                         lineHeight: '1.6',
                                         resize: 'vertical',
                                         fontFamily: 'inherit',
@@ -1106,7 +1100,7 @@ const CourseLearningArea = () => {
                             }}>
                                 ✅ ส่งคำตอบเรียบร้อย! กำลังเล่นวิดีโอต่อ...
                                 {currentQuiz.sampleAnswer && (
-                                    <p style={{ fontWeight: 'normal', marginTop: '8px', fontSize: '13px' }}>
+                                    <p style={{ fontWeight: 'normal', marginTop: '8px', fontSize: '15px' }}>
                                         💡 ตัวอย่างคำตอบ: {currentQuiz.sampleAnswer}
                                     </p>
                                 )}
@@ -1136,7 +1130,7 @@ const CourseLearningArea = () => {
                                     cursor: (currentQuiz.type === 'multiple_choice' ? selectedAnswer === null : false)
                                         ? 'not-allowed'
                                         : 'pointer',
-                                    fontSize: '16px'
+                                    fontSize: '20px'
                                 }}
                             >
                                 {currentQuiz.type === 'written' ? 'ส่งคำตอบ' : 'ตรวจคำตอบ'}
@@ -1146,7 +1140,7 @@ const CourseLearningArea = () => {
                 </div>
             )}
 
-            <style jsx>{`
+            <style jsx global>{`
                 @keyframes fadeIn {
                     from { opacity: 0; }
                     to { opacity: 1; }
@@ -1159,6 +1153,44 @@ const CourseLearningArea = () => {
                     0%, 100% { transform: scale(1); opacity: 1; }
                     50% { transform: scale(1.05); opacity: 0.8; }
                 }
+
+
+                @media (max-width: 991px) {
+                    /* TEXT SIZES - KEPT LARGE */
+                    .mobile-main-title { font-size: 26px !important; line-height: 1.3 !important; }
+                    .mobile-desc { font-size: 18px !important; line-height: 1.6 !important; }
+                    .mobile-lesson-title { font-size: 20px !important; font-weight: 600 !important; }
+                    .mobile-lesson-meta { font-size: 16px !important; }
+                    .mobile-lesson-badge { font-size: 14px !important; }
+                    .mobile-doc-text { font-size: 18px !important; }
+                    .mobile-doc-sub { font-size: 16px !important; }
+                    .mobile-course-name { font-size: 22px !important; }
+                    .mobile-progress-text { font-size: 18px !important; }
+                    .mobile-lesson-index { font-size: 18px !important; font-weight: 600 !important; }
+                    
+                    /* ICON SIZES - REVERTED TO NORMAL */
+                    .mobile-icon-check { font-size: 14px !important; }
+                    .mobile-icon-quiz { font-size: 14px !important; }
+                    .course-learning-section i { font-size: 14px !important; }
+                    
+                    /* Aggressive Text Overrides */
+                    .course-learning-section h4 { font-size: 26px !important; }
+                    .course-learning-section h5 { font-size: 24px !important; }
+                    .course-learning-section h6 { font-size: 20px !important; }
+                    .course-learning-section p { font-size: 18px !important; }
+                    
+                    /* Adjust specific spacing for better layout with large text */
+                    .lesson-sidebar { padding: 16px !important; }
+                }
+                
+                /* Default sizes for desktop */
+                .mobile-main-title { font-size: 22px; }
+                .mobile-desc { font-size: 18px; }
+                .mobile-lesson-title { font-size: 18px; }
+                .mobile-lesson-meta { font-size: 14px; }
+                .mobile-lesson-badge { font-size: 14px; }
+                .mobile-doc-text { font-size: 18px; }
+                .mobile-doc-sub { font-size: 15px; }
             `}</style>
         </section>
     );

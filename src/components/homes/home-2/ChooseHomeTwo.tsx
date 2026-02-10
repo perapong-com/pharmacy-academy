@@ -11,10 +11,10 @@ const ChooseHomeTwo = () => {
                         <div className="row g-4 align-items-center">
                             <div className="col-xxl-5 col-xl-6">
                                 <div className="section-title mb-0">
-                                    <h6 className="yellow-text wow fadeInUp">
+                                    <h6 className="yellow-text wow fadeInUp text-resp-body font-semibold uppercase tracking-wider">
                                         Why Choose Us
                                     </h6>
-                                    <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
+                                    <h2 className="text-white wow fadeInUp text-resp-h2 font-bold mt-2 leading-tight" data-wow-delay=".3s">
                                         Smart Choice
                                         Online Learning
                                         Excellence
@@ -30,10 +30,10 @@ const ChooseHomeTwo = () => {
                                                     <i className="fas fa-user-graduate"></i>
                                                 </div>
                                                 <div className="content">
-                                                    <h2><span className="odometer" data-count="48.5">
+                                                    <h2><span className="odometer text-resp-h1 font-bold" data-count="48.5">
                                                         <Count number={48} text='.5k' />
                                                     </span></h2>
-                                                    <p>Student Enrolled</p>
+                                                    <p className="text-resp-info opacity-80">Student Enrolled</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -43,10 +43,10 @@ const ChooseHomeTwo = () => {
                                                     <i className="fas fa-chalkboard-teacher"></i>
                                                 </div>
                                                 <div className="content">
-                                                    <h2><span className="odometer" data-count="250">
+                                                    <h2><span className="odometer text-resp-h1 font-bold" data-count="250">
                                                         <Count number={250} text='+' />
                                                     </span></h2>
-                                                    <p>SInstructors</p>
+                                                    <p className="text-resp-info opacity-80">SInstructors</p>
                                                 </div>
                                             </div>
                                         </div>

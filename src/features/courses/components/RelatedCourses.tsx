@@ -4,47 +4,47 @@ import Link from 'next/link';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
- 
+
 
 const RelatedCourses = () => {
-  return (
-    <>
-      <section className="popular-courses-section fix section-padding pt-0">
-            <div className="container">
-                <div className="section-title text-center">
-                    <h2 className="wow fadeInUp">Related Courses</h2>
-                </div>
-                <Swiper
-                spaceBetween={30}
-                speed={1500}
-                loop={true}
-                autoplay={{
-                  delay: 1500,
-                  disableOnInteraction: false
-                }}
-                pagination={{
-                  el: ".dot",
-                  clickable: true
-                }}
-                modules={[ Autoplay]}
-                breakpoints={ {
-                      1199: {
-                          slidesPerView: 3,
-                      },
-                      991: {
-                          slidesPerView: 2,
-                      },
-                      767: {
-                          slidesPerView: 2,
-                      },
-                      575: {
-                          slidesPerView: 1,
-                      },
-                      0: {
-                          slidesPerView: 1,
-                      },
-                  }}
-                 className="swiper courses-slider"> 
+    return (
+        <>
+            <section className="popular-courses-section fix section-padding pt-0">
+                <div className="container">
+                    <div className="section-title text-center">
+                        <h2 className="wow fadeInUp">Related Courses</h2>
+                    </div>
+                    <Swiper
+                        spaceBetween={30}
+                        speed={1500}
+                        loop={true}
+                        autoplay={{
+                            delay: 1500,
+                            disableOnInteraction: false
+                        }}
+                        pagination={{
+                            el: ".dot",
+                            clickable: true
+                        }}
+                        modules={[Autoplay]}
+                        breakpoints={{
+                            1199: {
+                                slidesPerView: 3,
+                            },
+                            991: {
+                                slidesPerView: 2,
+                            },
+                            767: {
+                                slidesPerView: 2,
+                            },
+                            575: {
+                                slidesPerView: 1,
+                            },
+                            0: {
+                                slidesPerView: 1,
+                            },
+                        }}
+                        className="swiper courses-slider">
 
                         <SwiperSlide className="swiper-slide">
                             <div className="courses-card-main-items">
@@ -94,7 +94,7 @@ const RelatedCourses = () => {
                                             </Link>
                                         </h3>
                                         <div className="client-items">
-                                            <div className="client-img bg-cover" style={{background: `url(/assets/img/courses/client-1.png)`}}></div>
+                                            <div className="client-img bg-cover" style={{ background: `url(/assets/img/courses/client-1.png)` }}></div>
                                             <p>Paul C. Deleon</p>
                                         </div>
                                         <ul className="post-class">
@@ -158,11 +158,11 @@ const RelatedCourses = () => {
                                         <h3>
                                             <Link href="/courses-details">
                                                 Finance Management Building
-                                                Wealth Security 
+                                                Wealth Security
                                             </Link>
                                         </h3>
                                         <div className="client-items">
-                                            <div className="client-img bg-cover" style={{background: `url(/assets/img/courses/client-1.png)`}}></div>
+                                            <div className="client-img bg-cover" style={{ background: `url(/assets/img/courses/client-1.png)` }}></div>
                                             <p>Paul C. Deleon</p>
                                         </div>
                                         <ul className="post-class">
@@ -229,7 +229,7 @@ const RelatedCourses = () => {
                                             </Link>
                                         </h3>
                                         <div className="client-items">
-                                            <div className="client-img bg-cover" style={{background: `url(/assets/img/courses/client-1.png)`}}></div>
+                                            <div className="client-img bg-cover" style={{ background: `url(/assets/img/courses/client-1.png)` }}></div>
                                             <p>Paul C. Deleon</p>
                                         </div>
                                         <ul className="post-class">
@@ -296,7 +296,7 @@ const RelatedCourses = () => {
                                             </Link>
                                         </h3>
                                         <div className="client-items">
-                                            <div className="client-img bg-cover" style={{background: `url(/assets/img/courses/client-1.png)`}}></div>
+                                            <div className="client-img bg-cover" style={{ background: `url(/assets/img/courses/client-1.png)` }}></div>
                                             <p>Paul C. Deleon</p>
                                         </div>
                                         <ul className="post-class">
@@ -316,12 +316,12 @@ const RelatedCourses = () => {
                                 </div>
                             </div>
                         </SwiperSlide>
-                    
-                </Swiper>
-            </div>
-        </section>
-    </>
-  );
+
+                    </Swiper>
+                </div>
+            </section>
+        </>
+    );
 };
 
 export default RelatedCourses;

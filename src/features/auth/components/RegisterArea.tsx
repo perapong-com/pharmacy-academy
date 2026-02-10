@@ -42,10 +42,9 @@ const RegisterArea: React.FC = () => {
 
     const inputStyle: React.CSSProperties = {
         width: '100%',
-        padding: '11px 14px',
-        borderRadius: '8px',
+        padding: '16px 20px',
+        borderRadius: '12px',
         border: '1px solid #D1D5DB',
-        fontSize: '14px',
         outline: 'none',
         transition: 'border-color 0.2s, box-shadow 0.2s',
         backgroundColor: '#F9FAFB',
@@ -54,10 +53,9 @@ const RegisterArea: React.FC = () => {
 
     const labelStyle: React.CSSProperties = {
         display: 'block',
-        marginBottom: '5px',
-        fontWeight: '500',
+        marginBottom: '10px',
+        fontWeight: 'bold',
         color: '#374151',
-        fontSize: '13px',
     };
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -74,17 +72,15 @@ const RegisterArea: React.FC = () => {
         <AuthLayout>
             {/* Header */}
             <div style={{ marginBottom: '22px' }}>
-                <h1 style={{
-                    fontSize: '26px',
-                    fontWeight: '700',
+                <h1 className="text-resp-h1" style={{
+                    fontWeight: 'bold',
                     color: '#111827',
-                    marginBottom: '6px',
+                    marginBottom: '8px',
                 }}>
                     {t('สมัครสมาชิก', 'Sign Up')}
                 </h1>
-                <p style={{
+                <p className="text-resp-body-lg" style={{
                     color: '#6B7280',
-                    fontSize: '14px',
                 }}>
                     {t('กรอกข้อมูลเพื่อสร้างบัญชีใหม่', 'Fill in your details to create an account')}
                 </p>
@@ -110,13 +106,13 @@ const RegisterArea: React.FC = () => {
                         color: activeTab === "general" ? '#ffffff' : '#6B7280',
                         border: 'none',
                         borderRadius: '7px',
-                        fontSize: '14px',
                         fontWeight: '600',
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
                         whiteSpace: 'nowrap',
                         textAlign: 'center',
                     }}
+                    className="text-resp-btn"
                 >
                     {t('บุคคลทั่วไป', 'General')}
                 </button>
@@ -130,13 +126,13 @@ const RegisterArea: React.FC = () => {
                         color: activeTab === "pharmacist" ? '#ffffff' : '#6B7280',
                         border: 'none',
                         borderRadius: '7px',
-                        fontSize: '14px',
                         fontWeight: '600',
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
                         whiteSpace: 'nowrap',
                         textAlign: 'center',
                     }}
+                    className="text-resp-btn"
                 >
                     {t('เภสัชกร', 'Pharmacist')}
                 </button>
@@ -145,7 +141,7 @@ const RegisterArea: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 {/* Full Name */}
                 <div style={{ marginBottom: '14px' }}>
-                    <label style={labelStyle}>{t('ชื่อ-นามสกุล', 'Name-Last Name')}</label>
+                    <label className="text-resp-body-lg" style={labelStyle}>{t('ชื่อ-นามสกุล', 'Name-Last Name')}</label>
                     <input
                         type="text"
                         placeholder={t('ชื่อ-นามสกุล', 'Name-Last Name')}
@@ -153,6 +149,7 @@ const RegisterArea: React.FC = () => {
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
                         required
                         style={inputStyle}
+                        className="text-resp-body-lg"
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                     />
@@ -160,7 +157,7 @@ const RegisterArea: React.FC = () => {
 
                 {/* Email */}
                 <div style={{ marginBottom: '14px' }}>
-                    <label style={labelStyle}>{t('อีเมล', 'Email')}</label>
+                    <label className="text-resp-body-lg" style={labelStyle}>{t('อีเมล', 'Email')}</label>
                     <input
                         type="email"
                         placeholder={t('กรอกอีเมลของคุณ', 'Enter your email')}
@@ -168,6 +165,7 @@ const RegisterArea: React.FC = () => {
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         required
                         style={inputStyle}
+                        className="text-resp-body-lg"
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                     />
@@ -175,7 +173,7 @@ const RegisterArea: React.FC = () => {
 
                 {/* Password */}
                 <div style={{ marginBottom: '14px' }}>
-                    <label style={labelStyle}>{t('รหัสผ่าน', 'Password')}</label>
+                    <label className="text-resp-body-lg" style={labelStyle}>{t('รหัสผ่าน', 'Password')}</label>
                     <div style={{ position: 'relative' }}>
                         <input
                             type={showPassword ? "text" : "password"}
@@ -183,7 +181,8 @@ const RegisterArea: React.FC = () => {
                             value={formData.password}
                             onChange={(e) => handleInputChange('password', e.target.value)}
                             required
-                            style={{ ...inputStyle, paddingRight: '40px' }}
+                            style={{ ...inputStyle, paddingRight: '60px' }}
+                            className="text-resp-body-lg"
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                         />
@@ -211,7 +210,7 @@ const RegisterArea: React.FC = () => {
 
                 {/* Confirm Password */}
                 <div style={{ marginBottom: '14px' }}>
-                    <label style={labelStyle}>{t('ยืนยันรหัสผ่าน', 'Confirm Password')}</label>
+                    <label className="text-resp-body-lg" style={labelStyle}>{t('ยืนยันรหัสผ่าน', 'Confirm Password')}</label>
                     <div style={{ position: 'relative' }}>
                         <input
                             type={showConfirmPassword ? "text" : "password"}
@@ -219,7 +218,8 @@ const RegisterArea: React.FC = () => {
                             value={formData.confirmPassword}
                             onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                             required
-                            style={{ ...inputStyle, paddingRight: '40px' }}
+                            style={{ ...inputStyle, paddingRight: '60px' }}
+                            className="text-resp-body-lg"
                             onFocus={handleFocus}
                             onBlur={handleBlur}
                         />
@@ -249,7 +249,7 @@ const RegisterArea: React.FC = () => {
                 {activeTab === "pharmacist" && (
                     <>
                         <div style={{ marginBottom: '14px' }}>
-                            <label style={labelStyle}>{t('เลขที่ใบอนุญาตประกอบวิชาชีพ', 'Professional License Number')}</label>
+                            <label className="text-resp-body-lg" style={labelStyle}>{t('เลขที่ใบอนุญาตประกอบวิชาชีพ', 'Professional License Number')}</label>
                             <input
                                 type="text"
                                 placeholder={t('เลขที่ใบอนุญาตประกอบวิชาชีพ (ภ.)', 'Professional license number')}
@@ -257,6 +257,7 @@ const RegisterArea: React.FC = () => {
                                 onChange={(e) => handleInputChange('licenseNumber', e.target.value)}
                                 required
                                 style={inputStyle}
+                                className="text-resp-body-lg"
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
                             />
@@ -270,18 +271,18 @@ const RegisterArea: React.FC = () => {
                     disabled={isSubmitting}
                     style={{
                         width: '100%',
-                        padding: '12px',
+                        padding: '16px',
                         marginTop: '6px',
                         backgroundColor: '#014D40',
                         color: '#ffffff',
                         border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '15px',
-                        fontWeight: '600',
+                        borderRadius: '12px',
+                        fontWeight: 'bold',
                         cursor: isSubmitting ? 'not-allowed' : 'pointer',
                         opacity: isSubmitting ? 0.7 : 1,
                         transition: 'all 0.2s ease',
                     }}
+                    className="text-resp-btn"
                 >
                     {isSubmitting ? t('กำลังสมัครสมาชิก...', 'Signing up...') : t('สมัครสมาชิก', 'Sign Up')}
                 </button>
@@ -289,15 +290,16 @@ const RegisterArea: React.FC = () => {
 
             {/* Login Link */}
             <div style={{ textAlign: 'center', marginTop: '22px' }}>
-                <p style={{ color: '#6B7280', fontSize: '14px' }}>
+                <p className="text-resp-body" style={{ color: '#6B7280' }}>
                     {t('มีบัญชีอยู่แล้ว?', 'Already have an account?')}{" "}
                     <Link
                         href="/sign-in"
                         style={{
                             color: '#014D40',
-                            fontWeight: '600',
+                            fontWeight: 'bold',
                             textDecoration: 'none',
                         }}
+                        className="text-resp-link"
                     >
                         {t('เข้าสู่ระบบ', 'Login')}
                     </Link>

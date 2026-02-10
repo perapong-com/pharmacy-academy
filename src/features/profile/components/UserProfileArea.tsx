@@ -78,7 +78,7 @@ const UserProfileArea = () => {
                             <div className="row align-items-center">
                                 <div className="col-md-8">
                                     <div className="d-flex align-items-center gap-4">
-                                        <div style={{
+                                        <div className="text-resp-h1" style={{
                                             width: '100px',
                                             height: '100px',
                                             borderRadius: '20px',
@@ -86,7 +86,6 @@ const UserProfileArea = () => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            fontSize: '40px',
                                             color: '#004736',
                                             fontWeight: 'bold'
                                         }}>
@@ -101,7 +100,7 @@ const UserProfileArea = () => {
                                             </p>
                                             {/* CPE for mobile - inside info section */}
                                             <div className="cpe-mobile" style={{ display: 'none' }}>
-                                                <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{stats.totalCPE}</span>
+                                                <span className="text-resp-body-lg" style={{ fontWeight: 'bold' }}>{stats.totalCPE}</span>
                                                 <span style={{ fontSize: '12px', opacity: 0.8, marginLeft: '3px' }}>CPE</span>
                                                 <span style={{ fontSize: '11px', opacity: 0.7, marginLeft: '8px' }}>{t('หน่วยกิตสะสม', 'Accumulated Credits')}</span>
                                             </div>
@@ -118,9 +117,9 @@ const UserProfileArea = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-4 text-md-end mt-4 mt-md-0 cpe-desktop">
-                                    <div style={{ fontSize: '48px', fontWeight: 'bold' }}>
+                                    <div className="text-resp-h1" style={{ fontWeight: 'bold' }}>
                                         {stats.totalCPE}
-                                        <span style={{ fontSize: '18px', opacity: 0.8, marginLeft: '5px' }}>CPE</span>
+                                        <span className="text-resp-body-lg" style={{ opacity: 0.8, marginLeft: '5px' }}>CPE</span>
                                     </div>
                                     <p style={{ margin: 0, opacity: 0.8 }}>{t('หน่วยกิตสะสม', 'Accumulated Credits')}</p>
                                 </div>
@@ -141,19 +140,20 @@ const UserProfileArea = () => {
                         }}>
                             <div className="d-flex align-items-center gap-3">
                                 <div style={{
-                                    width: '50px',
-                                    height: '50px',
-                                    borderRadius: '12px',
+                                    width: '60px',
+                                    height: '60px',
+                                    borderRadius: '16px',
                                     background: '#e8f8f4',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
+                                    flexShrink: 0
                                 }}>
-                                    <i className="fas fa-book" style={{ color: '#004736', fontSize: '20px' }}></i>
+                                    <i className="fas fa-book" style={{ color: '#004736', fontSize: '24px' }}></i>
                                 </div>
                                 <div>
-                                    <h3 style={{ margin: 0, color: '#004736', fontWeight: 'bold' }}>{stats.totalCourses}</h3>
-                                    <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>{t('คอร์สทั้งหมด', 'Total Courses')}</p>
+                                    <h3 className="text-resp-h3" style={{ margin: 0, color: '#004736', fontWeight: 'bold' }}>{stats.totalCourses}</h3>
+                                    <p className="text-resp-body-lg" style={{ margin: 0, color: '#666' }}>{t('คอร์สทั้งหมด', 'Total Courses')}</p>
                                 </div>
                             </div>
                         </div>
@@ -168,19 +168,20 @@ const UserProfileArea = () => {
                         }}>
                             <div className="d-flex align-items-center gap-3">
                                 <div style={{
-                                    width: '50px',
-                                    height: '50px',
-                                    borderRadius: '12px',
+                                    width: '60px',
+                                    height: '60px',
+                                    borderRadius: '16px',
                                     background: '#fef3c7',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
+                                    flexShrink: 0
                                 }}>
-                                    <i className="fas fa-spinner" style={{ color: '#f59e0b', fontSize: '20px' }}></i>
+                                    <i className="fas fa-spinner" style={{ color: '#f59e0b', fontSize: '24px' }}></i>
                                 </div>
                                 <div>
-                                    <h3 style={{ margin: 0, color: '#f59e0b', fontWeight: 'bold' }}>{stats.inProgress}</h3>
-                                    <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>{t('กำลังเรียน', 'In Progress')}</p>
+                                    <h3 className="text-resp-h3" style={{ margin: 0, color: '#f59e0b', fontWeight: 'bold' }}>{stats.inProgress}</h3>
+                                    <p className="text-resp-body-lg" style={{ margin: 0, color: '#666' }}>{t('กำลังเรียน', 'In Progress')}</p>
                                 </div>
                             </div>
                         </div>
@@ -195,19 +196,20 @@ const UserProfileArea = () => {
                         }}>
                             <div className="d-flex align-items-center gap-3">
                                 <div style={{
-                                    width: '50px',
-                                    height: '50px',
-                                    borderRadius: '12px',
+                                    width: '60px',
+                                    height: '60px',
+                                    borderRadius: '16px',
                                     background: '#dcfce7',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
+                                    flexShrink: 0
                                 }}>
-                                    <i className="fas fa-check-circle" style={{ color: '#22c55e', fontSize: '20px' }}></i>
+                                    <i className="fas fa-check-circle" style={{ color: '#22c55e', fontSize: '24px' }}></i>
                                 </div>
                                 <div>
-                                    <h3 style={{ margin: 0, color: '#22c55e', fontWeight: 'bold' }}>{stats.completed}</h3>
-                                    <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>{t('เรียนจบแล้ว', 'Completed')}</p>
+                                    <h3 className="text-resp-h3" style={{ margin: 0, color: '#22c55e', fontWeight: 'bold' }}>{stats.completed}</h3>
+                                    <p className="text-resp-body-lg" style={{ margin: 0, color: '#666' }}>{t('เรียนจบแล้ว', 'Completed')}</p>
                                 </div>
                             </div>
                         </div>
@@ -222,19 +224,20 @@ const UserProfileArea = () => {
                         }}>
                             <div className="d-flex align-items-center gap-3">
                                 <div style={{
-                                    width: '50px',
-                                    height: '50px',
-                                    borderRadius: '12px',
+                                    width: '60px',
+                                    height: '60px',
+                                    borderRadius: '16px',
                                     background: '#ede9fe',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
+                                    flexShrink: 0
                                 }}>
-                                    <i className="fas fa-certificate" style={{ color: '#8b5cf6', fontSize: '20px' }}></i>
+                                    <i className="fas fa-certificate" style={{ color: '#8b5cf6', fontSize: '24px' }}></i>
                                 </div>
                                 <div>
-                                    <h3 style={{ margin: 0, color: '#8b5cf6', fontWeight: 'bold' }}>{stats.totalCPE}</h3>
-                                    <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>{t('CPE สะสม', 'CPE Credits')}</p>
+                                    <h3 className="text-resp-h3" style={{ margin: 0, color: '#8b5cf6', fontWeight: 'bold' }}>{stats.totalCPE}</h3>
+                                    <p className="text-resp-body-lg" style={{ margin: 0, color: '#666' }}>{t('CPE สะสม', 'CPE Credits')}</p>
                                 </div>
                             </div>
                         </div>
@@ -251,8 +254,8 @@ const UserProfileArea = () => {
                             boxShadow: '0 5px 20px rgba(0,0,0,0.05)'
                         }}>
                             <div className="d-flex justify-content-between align-items-center mb-4">
-                                <h4 style={{ margin: 0, color: '#333' }}>{t('คอร์สเรียนของฉัน', 'My Courses')}</h4>
-                                <Link href="/courses-grid" className="theme-btn" style={{ padding: '10px 20px' }}>
+                                <h4 className="text-resp-h3" style={{ margin: 0, color: '#333', fontWeight: 'bold' }}>{t('คอร์สเรียนของฉัน', 'My Courses')}</h4>
+                                <Link href="/courses-grid" className="theme-btn text-resp-btn" style={{ padding: '12px 24px', fontWeight: 'bold' }}>
                                     {t('ค้นหาคอร์สเพิ่ม', 'Find More Courses')}
                                 </Link>
                             </div>
@@ -287,7 +290,7 @@ const UserProfileArea = () => {
                                         {/* Course Info */}
                                         <div className="course-card-info" style={{ flex: 1, minWidth: 0 }}>
                                             <div className="course-card-header" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                                                <h5 className="course-card-title" style={{ margin: 0, color: '#333', fontSize: '16px', fontWeight: '600' }}>
+                                                <h5 className="course-card-title text-resp-body-lg" style={{ margin: 0, color: '#333', fontWeight: '600' }}>
                                                     {course.title}
                                                 </h5>
                                                 {course.status === 'completed' && (
@@ -307,9 +310,9 @@ const UserProfileArea = () => {
                                                     <span className="course-card-badge in-progress" style={{
                                                         background: '#fef3c7',
                                                         color: '#f59e0b',
-                                                        padding: '3px 10px',
+                                                        padding: '4px 12px',
                                                         borderRadius: '20px',
-                                                        fontSize: '11px',
+                                                        fontSize: '14px',
                                                         fontWeight: '600',
                                                         whiteSpace: 'nowrap'
                                                     }}>
@@ -317,7 +320,7 @@ const UserProfileArea = () => {
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="course-card-meta" style={{ margin: '0 0 10px', color: '#666', fontSize: '13px' }}>
+                                            <p className="course-card-meta text-resp-body-lg" style={{ margin: '0 0 10px', color: '#666' }}>
                                                 <i className="fas fa-user me-2"></i>{course.instructor}
                                                 <span style={{ margin: '0 10px', color: '#ddd' }}>|</span>
                                                 <i className="fas fa-certificate me-1"></i>{course.cpe} {t('หน่วยกิต', 'Credits')}
@@ -353,15 +356,14 @@ const UserProfileArea = () => {
                                             ) : (
                                                 <Link
                                                     href={`/course-learning?id=${course.id}`}
-                                                    className="course-card-btn"
+                                                    className="course-card-btn text-resp-btn"
                                                     style={{
-                                                        padding: '10px 24px',
+                                                        padding: '12px 24px',
                                                         background: '#004736',
                                                         color: '#fff',
                                                         borderRadius: '8px',
                                                         textDecoration: 'none',
-                                                        fontWeight: '500',
-                                                        fontSize: '14px',
+                                                        fontWeight: 'bold',
                                                         whiteSpace: 'nowrap'
                                                     }}
                                                 >
@@ -398,7 +400,6 @@ const DownloadButton = ({ t }: { t: any }) => {
                 border: 'none',
                 borderRadius: '8px',
                 fontWeight: '500',
-                fontSize: '14px',
                 whiteSpace: 'nowrap',
                 cursor: 'pointer',
                 display: 'flex',

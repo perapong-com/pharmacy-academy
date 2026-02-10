@@ -115,10 +115,8 @@ const PaymentCardArea = () => {
                                     background: 'linear-gradient(135deg, #014D40 0%, #014D40 100%)',
                                     color: '#fff',
                                     borderRadius: '30px',
-                                    fontWeight: '600',
-                                    fontSize: '20px',
                                     boxShadow: '0 4px 15px rgba(1, 77, 64, 0.3)',
-                                }}>
+                                }} className="text-xl font-semibold">
                                     <i className="far fa-clock"></i>
                                     {formatTime(timeLeft)}
                                 </div>
@@ -127,7 +125,7 @@ const PaymentCardArea = () => {
                             <form onSubmit={handleSubmit}>
                                 {/* Card Number */}
                                 <div className="mb-4">
-                                    <label className="payment-label">
+                                    <label className="payment-label text-force-20 text-force-bold">
                                         {t('หมายเลขบัตร', 'Card Number')}
                                     </label>
                                     <div style={{ position: 'relative' }}>
@@ -143,7 +141,7 @@ const PaymentCardArea = () => {
                                                 border: '1px solid #e0e0e0',
                                                 outline: 'none'
                                             }}
-                                            className="payment-input"
+                                            className="payment-input text-force-20 text-force-bold"
                                         />
                                         <div style={{
                                             position: 'absolute',
@@ -161,7 +159,7 @@ const PaymentCardArea = () => {
 
                                 {/* Card Name */}
                                 <div className="mb-4">
-                                    <label className="payment-label">
+                                    <label className="payment-label text-force-20 text-force-bold">
                                         {t('ชื่อบนบัตร', 'Name on Card')}
                                     </label>
                                     <input
@@ -176,17 +174,17 @@ const PaymentCardArea = () => {
                                             padding: '16px 20px',
                                             border: '1px solid #e0e0e0',
                                             borderRadius: '12px',
-                                            fontSize: '18px',
                                             color: '#333',
                                             outline: 'none'
                                         }}
+                                        className="text-force-20 text-force-bold w-full"
                                     />
                                 </div>
 
                                 {/* Expiry & CVV */}
                                 <div className="row">
                                     <div className="col-6 mb-4">
-                                        <label className="payment-label">
+                                        <label className="payment-label text-force-20 text-force-bold">
                                             {t('วันหมดอายุ', 'Expiry Date')}
                                         </label>
                                         <input
@@ -201,11 +199,11 @@ const PaymentCardArea = () => {
                                                 border: '1px solid #e0e0e0',
                                                 outline: 'none'
                                             }}
-                                            className="payment-input"
+                                            className="payment-input text-force-20 text-force-bold"
                                         />
                                     </div>
                                     <div className="col-6 mb-4">
-                                        <label className="payment-label">
+                                        <label className="payment-label text-force-20 text-force-bold">
                                             CVV
                                         </label>
                                         <input
@@ -220,7 +218,7 @@ const PaymentCardArea = () => {
                                                 border: '1px solid #e0e0e0',
                                                 outline: 'none'
                                             }}
-                                            className="payment-input"
+                                            className="payment-input text-force-20 text-force-bold"
                                         />
                                     </div>
                                 </div>
@@ -242,7 +240,7 @@ const PaymentCardArea = () => {
                                         justifyContent: 'center',
                                         gap: '8px'
                                     }}
-                                    className="payment-btn-main"
+                                    className="payment-btn-main text-force-20 text-force-bold"
                                 >
                                     {isProcessing ? (
                                         <>
@@ -273,21 +271,7 @@ const PaymentCardArea = () => {
                                 </a>
                             </div>
 
-                            {/* Security Note */}
-                            <div className="mt-4 p-3" style={{
-                                background: '#f8f9fa',
-                                borderRadius: '8px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '12px'
-                            }}>
-                                <i className="fas fa-lock" style={{ color: '#014D40', fontSize: '20px' }}></i>
-                                <div>
-                                    <p style={{ margin: 0, fontSize: '13px', color: '#666' }}>
-                                        {t('การชำระเงินของคุณปลอดภัยด้วยการเข้ารหัส SSL 256-bit', 'Your payment is secure with SSL 256-bit encryption')}
-                                    </p>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
@@ -298,7 +282,7 @@ const PaymentCardArea = () => {
                             borderRadius: '16px',
                             padding: '32px'
                         }}>
-                            <h5 className="payment-summary-title">{t('สรุปรายการ', 'Order Summary')}</h5>
+                            <h5 className="payment-summary-title text-force-22 text-force-bold">{t('สรุปรายการ', 'Order Summary')}</h5>
 
                             {/* Order Items */}
                             {orderItems.map((item, index) => (
@@ -308,11 +292,11 @@ const PaymentCardArea = () => {
                                     style={{ borderBottom: index < orderItems.length - 1 ? '1px solid #e0e0e0' : 'none' }}
                                 >
                                     <div style={{ flex: 1 }}>
-                                        <p className="payment-summary-item" style={{ margin: 0, color: '#333' }}>
+                                        <p className="payment-summary-item text-force-18" style={{ margin: 0, color: '#333' }}>
                                             {language === 'th' ? item.name : item.nameEn}
                                         </p>
                                     </div>
-                                    <span className="payment-summary-price">
+                                    <span className="payment-summary-price text-force-18 text-force-bold">
                                         ฿{item.price.toLocaleString()}
                                     </span>
                                 </div>
@@ -322,19 +306,19 @@ const PaymentCardArea = () => {
 
                             {/* Totals */}
                             <div className="d-flex justify-content-between mb-2">
-                                <span className="payment-summary-sublabel">{t('ราคารวม', 'Subtotal')}</span>
-                                <span className="payment-summary-item" style={{ fontWeight: '500' }}>฿{total.toLocaleString()}</span>
+                                <span className="payment-summary-sublabel text-force-18">{t('ราคารวม', 'Subtotal')}</span>
+                                <span className="payment-summary-item text-force-18 text-force-bold">฿{total.toLocaleString()}</span>
                             </div>
                             <div className="d-flex justify-content-between mb-2">
-                                <span className="payment-summary-sublabel">{t('ส่วนลด', 'Discount')}</span>
-                                <span className="payment-summary-item" style={{ color: '#ed0606ff', fontWeight: '500' }}>-฿0</span>
+                                <span className="payment-summary-sublabel text-force-18">{t('ส่วนลด', 'Discount')}</span>
+                                <span className="payment-summary-item text-force-18 text-force-bold" style={{ color: '#ed0606ff' }}>-฿0</span>
                             </div>
 
                             <hr style={{ margin: '16px 0' }} />
 
                             <div className="d-flex justify-content-between">
-                                <strong className="payment-total-label">{t('รวมทั้งหมด', 'Total')}</strong>
-                                <strong className="payment-total-amount">฿{total.toLocaleString()}</strong>
+                                <strong className="payment-total-label text-force-22 text-force-bold">{t('รวมทั้งหมด', 'Total')}</strong>
+                                <strong className="payment-total-amount text-force-30 text-force-bold">฿{total.toLocaleString()}</strong>
                             </div>
 
                             {/* Back Link */}
@@ -346,9 +330,8 @@ const PaymentCardArea = () => {
                                     marginTop: '24px',
                                     color: '#666',
                                     textDecoration: 'none',
-                                    fontSize: '16px',
-                                    fontWeight: '500'
                                 }}
+                                className="text-force-16 font-medium"
                             >
                                 <i className="fas fa-arrow-left me-2"></i>
                                 {t('กลับไปหน้าตะกร้า', 'Back to Cart')}

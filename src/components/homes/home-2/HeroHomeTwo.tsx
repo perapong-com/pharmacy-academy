@@ -18,18 +18,18 @@ const HeroHomeTwo = () => {
                     <div className="row g-4">
                         <div className="col-12 col-lg-6">
                             <div className="hero-content">
-                                <h1 className="wow fadeInUp" data-wow-delay=".3s">
+                                <h1 className="wow fadeInUp text-resp-h1 font-bold mb-4 leading-tight" data-wow-delay=".3s">
                                     {t('ศูนย์การเรียนรู้ออนไลน์สำหรับ', 'Online Learning Center for')}
                                     <span>{t('เภสัชกร', 'Pharmacists')} <img src="assets/img/hero/bar-shape-2.png" alt="shape-img" /></span>
                                 </h1>
-                                <p className="wow fadeInUp" data-wow-delay=".5s">
+                                <p className="wow fadeInUp text-resp-body-lg mb-8 text-gray-600" data-wow-delay=".5s">
                                     {t(
                                         'สะสมหน่วยกิตการศึกษาต่อเนื่อง (CPE) ได้ง่ายๆ ผ่านคอร์สออนไลน์คุณภาพที่ได้รับการรับรอง',
                                         'Easily accumulate Continuing Pharmacy Education (CPE) credits through certified quality online courses'
                                     )}
                                 </p>
                                 <div className="hero-button">
-                                    <Link href="/courses-grid" className="theme-btn wow fadeInUp" data-wow-delay=".3s">
+                                    <Link href="/courses-grid" className="theme-btn text-resp-btn wow fadeInUp" data-wow-delay=".3s">
                                         {t('ค้นหาคอร์สเรียน', 'Find Courses')}
                                     </Link>
                                     <span className="button-text wow fadeInUp" data-wow-delay=".5s">
@@ -63,11 +63,11 @@ const HeroHomeTwo = () => {
                                         <img src="assets/img/hero/hero-shape.png" alt="img" className="wow img-custom-anim-top" data-wow-duration="1.5s" data-wow-delay="0.2s" />
                                     </div>
                                     <div className="counter-box">
-                                        <p>{t('มากกว่า', 'More than')}</p>
-                                        <h2><span className="odometer" data-count="100">
+                                        <p className="text-resp-info">{t('มากกว่า', 'More than')}</p>
+                                        <h2 className="text-resp-h2 font-bold"><span className="odometer" data-count="100">
                                             <Count number={100} text='+' />
                                         </span></h2>
-                                        <p>{t('คอร์สคุณภาพ', 'Quality Courses')}</p>
+                                        <p className="text-resp-info">{t('คอร์สคุณภาพ', 'Quality Courses')}</p>
                                     </div>
                                 </div>
                             </div>

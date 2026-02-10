@@ -17,8 +17,8 @@ const CoursesDetailsArea = () => {
     const courseData: CartItem = {
         id: 999, // Arbitrary ID for this static page
         title: "Web Development",
-        price: 156,
-        originalPrice: 200, // Assuming original price
+        price: 1500,
+        originalPrice: 2000, // Assuming original price
         image: "assets/img/courses/22.jpg",
         instructor: "Mario S. Davis",
         rating: 4.8,
@@ -65,41 +65,41 @@ const CoursesDetailsArea = () => {
                                         </a>
                                     </div>
                                     <div className="courses-details-content">
-                                        <ul className="nav">
-                                            <li className="nav-item wow fadeInUp" data-wow-delay=".3s">
-                                                <a href="#Course" data-bs-toggle="tab" className="nav-link active">
+                                        <ul className="nav" role="tablist">
+                                            <li className="nav-item wow fadeInUp" data-wow-delay=".3s" role="presentation">
+                                                <a href="#Course" data-bs-toggle="tab" className="nav-link active" style={{ fontSize: '30px', fontWeight: 'bold' }} role="tab" aria-selected="true" tabIndex={0}>
                                                     Course Info
                                                 </a>
                                             </li>
-                                            <li className="nav-item wow fadeInUp" data-wow-delay=".5s">
-                                                <a href="#Curriculum" data-bs-toggle="tab" className="nav-link">
+                                            <li className="nav-item wow fadeInUp" data-wow-delay=".5s" role="presentation">
+                                                <a href="#Curriculum" data-bs-toggle="tab" className="nav-link" style={{ fontSize: '30px', fontWeight: 'bold' }} role="tab" aria-selected="false" tabIndex={-1}>
                                                     Curriculum
                                                 </a>
                                             </li>
-                                            <li className="nav-item wow fadeInUp" data-wow-delay=".5s">
-                                                <a href="#Instructors" data-bs-toggle="tab" className="nav-link">
+                                            <li className="nav-item wow fadeInUp" data-wow-delay=".5s" role="presentation">
+                                                <a href="#Instructors" data-bs-toggle="tab" className="nav-link" style={{ fontSize: '30px', fontWeight: 'bold' }} role="tab" aria-selected="false" tabIndex={-1}>
                                                     Instructors
                                                 </a>
                                             </li>
-                                            <li className="nav-item wow fadeInUp" data-wow-delay=".5s">
-                                                <a href="#Reviews" data-bs-toggle="tab" className="nav-link bb-none">
+                                            <li className="nav-item wow fadeInUp" data-wow-delay=".5s" role="presentation">
+                                                <a href="#Reviews" data-bs-toggle="tab" className="nav-link bb-none" style={{ fontSize: '30px', fontWeight: 'bold' }} role="tab" aria-selected="false" tabIndex={-1}>
                                                     Reviews
                                                 </a>
                                             </li>
                                         </ul>
                                         <div className="tab-content">
-                                            <div id="Course" className="tab-pane fade show active">
+                                            <div id="Course" className="tab-pane fade show active" role="tabpanel">
                                                 <div className="description-content">
-                                                    <h3>Description</h3>
-                                                    <p className="mb-3">
+                                                    <h3 className="font-bold" style={{ fontSize: '30px' }}>Description</h3>
+                                                    <p className="mb-3" style={{ fontSize: '20px', lineHeight: '1.6' }}>
                                                         UX/UI design focuses on creating user-friendly and visually appealing digital experiences, ensuring
                                                         that products such as websites and apps are both intuitive and enjoyable UX (User Experience) Design involves understanding the needs, behaviors, and pain points of users to create a seamless, effective experience process includes conducting user research, mapping user journeys.
                                                     </p>
-                                                    <p>
+                                                    <p style={{ fontSize: '20px', lineHeight: '1.6' }}>
                                                         UI (User Interface) Design is the process of creating the visual elements of a product, including layout, color schemes, typography, and interactive features like buttons and icons.
                                                     </p>
-                                                    <h3 className="mt-5">What you'll learn in this course?</h3>
-                                                    <p className="mb-4">
+                                                    <h3 className="mt-5 font-bold" style={{ fontSize: '30px' }}>What you'll learn in this course?</h3>
+                                                    <p className="mb-4" style={{ fontSize: '20px', lineHeight: '1.6' }}>
                                                         Together, UX and UI design ensure that digital products are not only functional and accessible but also engaging and visually coherent, enhancing both usability and overall user satisfaction.
                                                     </p>
                                                     <div className="row g-4 mb-5">
@@ -107,11 +107,11 @@ const CoursesDetailsArea = () => {
                                                             <ul className="list-item">
                                                                 <li>
                                                                     <i className="fas fa-check-circle"></i>
-                                                                    Introduction to UX/UI Design
+                                                                    <span className="text-force-18">Introduction to UX/UI Design</span>
                                                                 </li>
                                                                 <li>
                                                                     <i className="fas fa-check-circle"></i>
-                                                                    Design Thinking & User Research
+                                                                    <span className="text-force-18">Design Thinking & User Research</span>
                                                                 </li>
                                                                 <li>
                                                                     <i className="fas fa-check-circle"></i>
@@ -159,9 +159,9 @@ const CoursesDetailsArea = () => {
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div id="Curriculum" className="tab-pane fade">
+                                            <div id="Curriculum" className="tab-pane fade" role="tabpanel">
                                                 <div className="course-curriculum-items">
-                                                    <h3>Course Curriculum</h3>
+                                                    <h3 className="font-bold mb-4" style={{ fontSize: '30px' }}>Course Curriculum</h3>
                                                     <div className="courses-faq-items">
                                                         <div className="accordion" id="accordionExample">
                                                             <div className="accordion-item">
@@ -322,7 +322,7 @@ const CoursesDetailsArea = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="Instructors" className="tab-pane fade">
+                                            <div id="Instructors" className="tab-pane fade" role="tabpanel">
                                                 <div className="instructors-items">
                                                     <h3>Instructors</h3>
                                                     <div className="instructors-box-items">
@@ -365,13 +365,13 @@ const CoursesDetailsArea = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="Reviews" className="tab-pane fade">
+                                            <div id="Reviews" className="tab-pane fade" role="tabpanel">
                                                 <div className="courses-reviews-items">
                                                     <h3>Course Reviews</h3>
                                                     <div className="courses-reviews-box-items">
                                                         <div className="courses-reviews-box">
                                                             <div className="reviews-box">
-                                                                <h2><span className="count">4.8</span></h2>
+                                                                <h2 className="text-5xl font-bold text-primary mb-2"><span className="count">4.8</span></h2>
                                                                 <div className="star">
                                                                     <i className="fas fa-star"></i>
                                                                     <i className="fas fa-star"></i>
@@ -504,74 +504,74 @@ const CoursesDetailsArea = () => {
                                             </div>
                                         </div>
                                         <div className="courses-content">
-                                            <h3>$156.00</h3>
-                                            <p>
+                                            <h3 className="text-force-bold mb-2" style={{ color: '#014d40', fontSize: '36px' }}>฿1,500</h3>
+                                            <p style={{ fontSize: '18px' }}>
                                                 UX (User Experience) Design the involves understanding needs, behaviors.
                                             </p>
                                             <div className="courses-btn">
-                                                <button onClick={handleAddToCart} className="theme-btn">Add to Cart</button>
-                                                <button onClick={handleBuyCourse} className="theme-btn style-2">Buy Course</button>
+                                                <button onClick={handleAddToCart} className="theme-btn" style={{ fontSize: '22px', width: '100%', padding: '14px', fontWeight: 'bold' }}>Add to Cart</button>
+                                                <button onClick={handleBuyCourse} className="theme-btn style-2" style={{ fontSize: '22px', width: '100%', padding: '14px', fontWeight: 'bold' }}>Buy Course</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="courses-category-items">
                                         <h5>Course Includes:</h5>
-                                        <ul>
-                                            <li>
+                                        <ul style={{ fontSize: '18px' }}>
+                                            <li style={{ marginBottom: '12px' }}>
                                                 <span>
-                                                    <i className="far fa-chalkboard-teacher"></i>
+                                                    <i className="far fa-chalkboard-teacher" style={{ fontSize: '20px' }}></i>
                                                     Instructor
                                                 </span>
-                                                <span className="text">Mario S. Davis</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>Mario S. Davis</span>
                                             </li>
-                                            <li>
+                                            <li style={{ marginBottom: '12px' }}>
                                                 <span>
-                                                    <i className="far fa-user"></i>
+                                                    <i className="far fa-user" style={{ fontSize: '20px' }}></i>
                                                     Lesson
                                                 </span>
-                                                <span className="text">15</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>15</span>
                                             </li>
-                                            <li>
+                                            <li style={{ marginBottom: '12px' }}>
                                                 <span>
-                                                    <i className="far fa-clock"></i>
+                                                    <i className="far fa-clock" style={{ fontSize: '20px' }}></i>
                                                     Duration
                                                 </span>
-                                                <span className="text">40h</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>40h</span>
                                             </li>
-                                            <li>
+                                            <li style={{ marginBottom: '12px' }}>
                                                 <span>
-                                                    <i className="far fa-user"></i>
+                                                    <i className="far fa-user" style={{ fontSize: '20px' }}></i>
                                                     Students
                                                 </span>
-                                                <span className="text">50+</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>50+</span>
                                             </li>
-                                            <li>
+                                            <li style={{ marginBottom: '12px' }}>
                                                 <span>
-                                                    <i className="far fa-globe"></i>
+                                                    <i className="far fa-globe" style={{ fontSize: '20px' }}></i>
                                                     Language
                                                 </span>
-                                                <span className="text">English</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>English</span>
                                             </li>
-                                            <li>
+                                            <li style={{ marginBottom: '12px' }}>
                                                 <span>
-                                                    <i className="far fa-calendar-alt"></i>
+                                                    <i className="far fa-calendar-alt" style={{ fontSize: '20px' }}></i>
                                                     Deadline
                                                 </span>
-                                                <span className="text">15 December 2024</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>15 December 2024</span>
                                             </li>
-                                            <li>
+                                            <li style={{ marginBottom: '12px' }}>
                                                 <span>
-                                                    <i className="far fa-signal-alt"></i>
+                                                    <i className="far fa-signal-alt" style={{ fontSize: '20px' }}></i>
                                                     Skill Level
                                                 </span>
-                                                <span className="text">All Level</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>All Level</span>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <i className="fal fa-medal"></i>
+                                                    <i className="fal fa-medal" style={{ fontSize: '20px' }}></i>
                                                     Certifications
                                                 </span>
-                                                <span className="text">Yes</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>Yes</span>
                                             </li>
                                         </ul>
                                         <Link href="/courses-details" className="share-btn"><i className="fas fa-share"></i> Share this courses</Link>

@@ -37,19 +37,19 @@ const RegisterPharmacistArea = () => {
                             boxShadow: '0 10px 40px rgba(0, 71, 54, 0.1)'
                         }}>
                             <div className="text-center mb-4">
-                                <h2 style={{ color: '#004736', marginBottom: '10px' }}>ลงทะเบียนเภสัชกร</h2>
-                                <p style={{ color: '#666' }}>สำหรับเภสัชกรที่ต้องการสะสมหน่วยกิต CPE</p>
+                                <h2 className="text-resp-h2" style={{ color: '#004736', marginBottom: '10px' }}>ลงทะเบียนเภสัชกร</h2>
+                                <p className="text-resp-body" style={{ color: '#666' }}>สำหรับเภสัชกรที่ต้องการสะสมหน่วยกิต CPE</p>
                             </div>
 
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
-                                    <label className="form-label" style={{ color: '#004736', fontWeight: '500' }}>
+                                    <label className="form-label text-resp-body-lg" style={{ color: '#004736', fontWeight: '500' }}>
                                         ชื่อ-นามสกุล
                                     </label>
                                     <input
                                         type="text"
                                         name="name"
-                                        className="form-control"
+                                        className="form-control text-resp-body-lg"
                                         placeholder="กรอกชื่อ-นามสกุล"
                                         value={formData.name}
                                         onChange={handleChange}
@@ -63,13 +63,13 @@ const RegisterPharmacistArea = () => {
                                 </div>
 
                                 <div className="mb-4">
-                                    <label className="form-label" style={{ color: '#004736', fontWeight: '500' }}>
+                                    <label className="form-label text-resp-body-lg" style={{ color: '#004736', fontWeight: '500' }}>
                                         เลขที่ใบอนุญาตประกอบวิชาชีพ
                                     </label>
                                     <input
                                         type="text"
                                         name="licenseNumber"
-                                        className="form-control"
+                                        className="form-control text-resp-body-lg"
                                         placeholder="กรอกเลขที่ใบอนุญาต ภ."
                                         value={formData.licenseNumber}
                                         onChange={handleChange}
@@ -83,13 +83,13 @@ const RegisterPharmacistArea = () => {
                                 </div>
 
                                 <div className="mb-4">
-                                    <label className="form-label" style={{ color: '#004736', fontWeight: '500' }}>
+                                    <label className="form-label text-resp-body-lg" style={{ color: '#004736', fontWeight: '500' }}>
                                         อีเมล
                                     </label>
                                     <input
                                         type="email"
                                         name="email"
-                                        className="form-control"
+                                        className="form-control text-resp-body-lg"
                                         placeholder="กรอกอีเมลของคุณ"
                                         value={formData.email}
                                         onChange={handleChange}
@@ -103,13 +103,13 @@ const RegisterPharmacistArea = () => {
                                 </div>
 
                                 <div className="mb-4">
-                                    <label className="form-label" style={{ color: '#004736', fontWeight: '500' }}>
+                                    <label className="form-label text-resp-body-lg" style={{ color: '#004736', fontWeight: '500' }}>
                                         เบอร์โทรศัพท์
                                     </label>
                                     <input
                                         type="tel"
                                         name="phone"
-                                        className="form-control"
+                                        className="form-control text-resp-body-lg"
                                         placeholder="กรอกเบอร์โทรศัพท์"
                                         value={formData.phone}
                                         onChange={handleChange}
@@ -123,13 +123,13 @@ const RegisterPharmacistArea = () => {
                                 </div>
 
                                 <div className="mb-4">
-                                    <label className="form-label" style={{ color: '#004736', fontWeight: '500' }}>
+                                    <label className="form-label text-resp-body-lg" style={{ color: '#004736', fontWeight: '500' }}>
                                         รหัสผ่าน
                                     </label>
                                     <input
                                         type="password"
                                         name="password"
-                                        className="form-control"
+                                        className="form-control text-resp-body-lg"
                                         placeholder="สร้างรหัสผ่าน"
                                         value={formData.password}
                                         onChange={handleChange}
@@ -143,13 +143,13 @@ const RegisterPharmacistArea = () => {
                                 </div>
 
                                 <div className="mb-4">
-                                    <label className="form-label" style={{ color: '#004736', fontWeight: '500' }}>
+                                    <label className="form-label text-resp-body-lg" style={{ color: '#004736', fontWeight: '500' }}>
                                         ยืนยันรหัสผ่าน
                                     </label>
                                     <input
                                         type="password"
                                         name="confirmPassword"
-                                        className="form-control"
+                                        className="form-control text-resp-body-lg"
                                         placeholder="ยืนยันรหัสผ่านอีกครั้ง"
                                         value={formData.confirmPassword}
                                         onChange={handleChange}
@@ -164,18 +164,17 @@ const RegisterPharmacistArea = () => {
 
                                 <div className="form-check mb-4">
                                     <input type="checkbox" className="form-check-input" id="terms" required />
-                                    <label className="form-check-label" htmlFor="terms" style={{ color: '#666' }}>
-                                        ยอมรับ <Link href="#" style={{ color: '#004736' }}>เงื่อนไขการใช้งาน</Link> และยินยอมให้ตรวจสอบข้อมูลใบอนุญาต
+                                    <label className="form-check-label text-resp-body" htmlFor="terms" style={{ color: '#666' }}>
+                                        ยอมรับ <Link href="#" className="text-resp-link" style={{ color: '#004736' }}>เงื่อนไขการใช้งาน</Link> และยินยอมให้ตรวจสอบข้อมูลใบอนุญาต
                                     </label>
                                 </div>
 
                                 <button
                                     type="submit"
-                                    className="theme-btn w-100"
+                                    className="theme-btn w-100 text-resp-btn"
                                     style={{
                                         padding: '15px',
                                         borderRadius: '10px',
-                                        fontSize: '16px'
                                     }}
                                 >
                                     ลงทะเบียนเภสัชกร
@@ -185,7 +184,7 @@ const RegisterPharmacistArea = () => {
                             <div className="text-center mt-4">
                                 <p style={{ color: '#666' }}>
                                     มีบัญชีอยู่แล้ว? {' '}
-                                    <Link href="/sign-in" style={{ color: '#004736', fontWeight: '600' }}>
+                                    <Link href="/sign-in" className="text-resp-link" style={{ color: '#004736', fontWeight: '600' }}>
                                         เข้าสู่ระบบ
                                     </Link>
                                 </p>
@@ -194,7 +193,7 @@ const RegisterPharmacistArea = () => {
                             <div className="text-center mt-3">
                                 <p style={{ color: '#666', fontSize: '14px' }}>
                                     ไม่ใช่เภสัชกร? {' '}
-                                    <Link href="/register" style={{ color: '#004736', fontWeight: '600' }}>
+                                    <Link href="/register" className="text-resp-link" style={{ color: '#004736', fontWeight: '600' }}>
                                         สมัครสมาชิกทั่วไป
                                     </Link>
                                 </p>

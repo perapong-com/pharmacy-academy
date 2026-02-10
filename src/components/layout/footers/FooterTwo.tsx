@@ -25,14 +25,14 @@ const FooterTwo = () => {
                             <div className="col-lg-6">
                                 <div className="footer-banner">
                                     <div className="content">
-                                        <h3 className="wow fadeInUp">{t('ลงทะเบียน', 'Register')}</h3>
-                                        <p className="wow fadeInUp" data-wow-delay=".3s">
+                                        <h3 className="wow fadeInUp" style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '15px' }}>{t('ลงทะเบียน', 'Register')}</h3>
+                                        <p className="wow fadeInUp" data-wow-delay=".3s" style={{ fontSize: '18px', lineHeight: '1.6', marginBottom: '25px' }}>
                                             {t(
                                                 'ลงทะเบียนเรียนกับเรา เพิ่มพูนความรู้และประสบการณ์ด้านเภสัชกรรม',
                                                 'Register with us to enhance your pharmacy knowledge and experience'
                                             )}
                                         </p>
-                                        <Link href="/register" className="theme-btn wow fadeInUp" data-wow-delay=".5s">
+                                        <Link href="/register" className="theme-btn wow fadeInUp" data-wow-delay=".5s" style={{ fontSize: '20px', padding: '14px 28px', fontWeight: 'bold' }}>
                                             {t('ลงทะเบียน', 'Register')}
                                         </Link>
                                     </div>
@@ -44,14 +44,14 @@ const FooterTwo = () => {
                             <div className="col-lg-6">
                                 <div className="footer-banner style-2">
                                     <div className="content">
-                                        <h3 className="wow fadeInUp">{t('เริ่มเรียนกับเรา', 'Start Learning')}</h3>
-                                        <p className="wow fadeInUp" data-wow-delay=".3s">
+                                        <h3 className="wow fadeInUp" style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '15px' }}>{t('เริ่มเรียนกับเรา', 'Start Learning')}</h3>
+                                        <p className="wow fadeInUp" data-wow-delay=".3s" style={{ fontSize: '18px', lineHeight: '1.6', marginBottom: '25px' }}>
                                             {t(
                                                 'สะสมหน่วยกิต CPE ได้ง่ายๆ กับคอร์สออนไลน์คุณภาพ',
                                                 'Easily accumulate CPE credits with quality online courses'
                                             )}
                                         </p>
-                                        <Link href="/courses-grid" className="theme-btn wow fadeInUp" data-wow-delay=".5s">
+                                        <Link href="/courses-grid" className="theme-btn wow fadeInUp" data-wow-delay=".5s" style={{ fontSize: '20px', padding: '14px 28px', fontWeight: 'bold' }}>
                                             {t('ดูคอร์สทั้งหมด', 'View All Courses')}
                                         </Link>
                                     </div>
@@ -68,11 +68,11 @@ const FooterTwo = () => {
                                 <div className="single-footer-widget">
                                     <div className="widget-head">
                                         <Link href="/">
-                                            <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#fff' }}>Pharmacy Academy</span>
+                                            <span style={{ fontSize: '30px', fontWeight: 'bold', color: '#fff' }}>Pharmacy Academy</span>
                                         </Link>
                                     </div>
                                     <div className="footer-content">
-                                        <p>
+                                        <p style={{ fontSize: '16px', lineHeight: '1.6' }}>
                                             {t(
                                                 'ศูนย์การเรียนรู้ออนไลน์สำหรับเภสัชกร สะสมหน่วยกิตการศึกษาต่อเนื่อง (CPE) ได้ง่ายๆ',
                                                 'Online learning center for pharmacists. Easily accumulate Continuing Education (CPE) credits'
@@ -90,40 +90,40 @@ const FooterTwo = () => {
                             <div className="col-xl-3 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp" data-wow-delay=".4s">
                                 <div className="single-footer-widget">
                                     <div className="widget-head">
-                                        <h3>{t('หมวดหมู่คอร์ส', 'Course Categories')}</h3>
+                                        <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>{t('หมวดหมู่คอร์ส', 'Course Categories')}</h3>
                                     </div>
-                                    <ul className="list-area">
-                                        <li><Link href="/courses-grid">{t('วิทยาลัยเภสัชบำบัด', 'The College of Pharmcotherapy')}</Link></li>
-                                        <li><Link href="/courses-grid">{t('วิทยาลัยการคุ้มครองผู้บริโภคด้านยาและสุขภาพ', 'The College of Pharmaceutical and Health Consumer Protection')}</Link></li>
-                                        <li><Link href="/courses-grid">{t('วิทยาลัยเภสัชกรรมสมุนไพร', 'The College of Herbal Pharmacy')}</Link></li>
-                                        <li><Link href="/courses-grid">{t('วิทยาลัยเภสัชกรรมอุตสาหการ', 'The College of Industrial Pharmacy')}</Link></li>
-                                        <li><Link href="/courses-grid">{t('วิทยาลัยการบริหารเภสัชกิจ', 'The College of Community Pharmacy')}</Link></li>
-                                        <li><Link href="/courses-grid">{t('วิทยาลัยเภสัชกรรมชุมชน', 'The College of Pharmacy Adimnistration')}</Link></li>
-                                        <li><Link href="/courses-grid">{t('วิทยาลัยเภสัชพันธุศาสตร์และเภสัชกรรมแม่นยำ', 'The College of Pharmacogenomics and Precision Medicine')}</Link></li>
+                                    <ul className="list-area" style={{ fontSize: '16px' }}>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('วิทยาลัยเภสัชบำบัด', 'The College of Pharmcotherapy')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('วิทยาลัยการคุ้มครองผู้บริโภคด้านยาและสุขภาพ', 'The College of Pharmaceutical and Health Consumer Protection')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('วิทยาลัยเภสัชกรรมสมุนไพร', 'The College of Herbal Pharmacy')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('วิทยาลัยเภสัชกรรมอุตสาหการ', 'The College of Industrial Pharmacy')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('วิทยาลัยการบริหารเภสัชกิจ', 'The College of Community Pharmacy')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('วิทยาลัยเภสัชกรรมชุมชน', 'The College of Pharmacy Adimnistration')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('วิทยาลัยเภสัชพันธุศาสตร์และเภสัชกรรมแม่นยำ', 'The College of Pharmacogenomics and Precision Medicine')}</Link></li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="col-xl-3 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp" data-wow-delay=".6s">
                                 <div className="single-footer-widget">
                                     <div className="widget-head">
-                                        <h3>{t('ลิงก์ด่วน', 'Quick Links')}</h3>
+                                        <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>{t('ลิงก์ด่วน', 'Quick Links')}</h3>
                                     </div>
-                                    <ul className="list-area">
-                                        <li><Link href="/">{t('หน้าแรก', 'Home')}</Link></li>
-                                        <li><Link href="/courses-grid">{t('คอร์สทั้งหมด', 'All Courses')}</Link></li>
-                                        <li><Link href="/shop-cart">{t('ตะกร้าสินค้า', 'Cart')}</Link></li>
-                                        <li><Link href="#">{t('เกี่ยวกับเรา', 'About Us')}</Link></li>
-                                        <li><Link href="#">{t('คำถามที่พบบ่อย', 'FAQ')}</Link></li>
+                                    <ul className="list-area" style={{ fontSize: '16px' }}>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/">{t('หน้าแรก', 'Home')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/courses-grid">{t('คอร์สทั้งหมด', 'All Courses')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="/shop-cart">{t('ตะกร้าสินค้า', 'Cart')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="#">{t('เกี่ยวกับเรา', 'About Us')}</Link></li>
+                                        <li style={{ marginBottom: '10px' }}><Link href="#">{t('คำถามที่พบบ่อย', 'FAQ')}</Link></li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="col-xl-3 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp" data-wow-delay=".8s">
                                 <div className="single-footer-widget">
                                     <div className="widget-head">
-                                        <h3>{t('ติดต่อเรา', 'Contact Us')}</h3>
+                                        <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>{t('ติดต่อเรา', 'Contact Us')}</h3>
                                     </div>
                                     <div className="footer-content">
-                                        <ul className="contact-info">
+                                        <ul className="contact-info" style={{ fontSize: '16px' }}>
                                             <li>
                                                 {t('สถาบันเภสัชกรรม', 'Pharmacy Institute')}
                                                 <br />
@@ -142,7 +142,7 @@ const FooterTwo = () => {
                         </div>
                     </div>
                     <div className="footer-bottom style-2">
-                        <p>{t('สงวนลิขสิทธิ์', 'Copyright')} © <Link href="/">Pharmacy Academy</Link></p>
+                        <p style={{ fontSize: '16px' }}>{t('สงวนลิขสิทธิ์', 'Copyright')} © <Link href="/">Pharmacy Academy</Link></p>
                     </div>
                 </div>
             </footer>

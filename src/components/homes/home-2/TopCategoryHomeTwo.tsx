@@ -90,10 +90,10 @@ const TopCategoryHomeTwo = () => {
                 </div>
                 <div className="container">
                     <div className="section-title text-center">
-                        <h6 className="text-white wow fadeInUp">
+                        <h6 className="text-white wow fadeInUp text-resp-body font-semibold uppercase tracking-wider">
                             {t('หมวดหมู่ยอดนิยม', 'Top Categories')}
                         </h6>
-                        <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
+                        <h2 className="text-white wow fadeInUp text-resp-h2 font-bold mt-2" data-wow-delay=".3s">
                             {t('สำรวจคอร์สเรียนตามหมวดหมู่', 'Explore Courses by Category')}
                         </h2>
                     </div>
@@ -108,8 +108,8 @@ const TopCategoryHomeTwo = () => {
                                                     {cat.icon}
                                                 </div>
                                                 <div className="content">
-                                                    <h6>{cat.name}</h6>
-                                                    <p>({cat.courses.toString().padStart(2, '0')}) {t('คอร์ส', 'Courses')}</p>
+                                                    <h6 className="text-resp-body-lg font-bold mb-1">{cat.name}</h6>
+                                                    <p className="text-resp-info opacity-80 mb-0">({cat.courses.toString().padStart(2, '0')}) {t('คอร์ส', 'Courses')}</p>
                                                 </div>
                                             </Link>
                                         </div>
@@ -119,8 +119,8 @@ const TopCategoryHomeTwo = () => {
                         </div>
                     </div>
                     <div className="category-bottom-title wow fadeInUp" data-wow-delay=".3s">
-                        <h3>{t('ค้นหาคอร์สที่เหมาะกับคุณ', 'Find the Right Course for You')}</h3>
-                        <Link href="/courses-grid" className="theme-btn hover-white">{t('เริ่มเรียนเลย', 'Start Learning')}</Link>
+                        <h3 className="text-resp-h3 font-bold mb-4">{t('ค้นหาคอร์สที่เหมาะกับคุณ', 'Find the Right Course for You')}</h3>
+                        <Link href="/courses-grid" className="theme-btn text-resp-btn hover-white">{t('เริ่มเรียนเลย', 'Start Learning')}</Link>
                     </div>
                 </div>
                 <div className="mycustom-marque">

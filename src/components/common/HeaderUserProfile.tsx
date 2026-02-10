@@ -56,7 +56,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                         borderRadius: '8px',
                         color: '#014D40',
                         fontWeight: '600',
-                        fontSize: '14px',
+                        fontSize: '16px',
                         textDecoration: 'none',
                         transition: 'all 0.3s ease',
                         whiteSpace: 'nowrap',
@@ -93,7 +93,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                         borderRadius: '8px',
                         color: '#fff',
                         fontWeight: '600',
-                        fontSize: '14px',
+                        fontSize: '16px',
                         textDecoration: 'none',
                         transition: 'all 0.3s ease',
                         boxShadow: '0 2px 8px rgba(1, 77, 64, 0.2)',
@@ -162,8 +162,8 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                 }}>
                     {/* User Info Header */}
                     <div style={{ padding: '12px', borderBottom: '1px solid #f0f0f0', marginBottom: '8px' }}>
-                        <p style={{ margin: 0, color: '#014D40', fontWeight: '600', fontSize: '14px' }}>{user.name}</p>
-                        <p style={{ margin: '2px 0 0', color: '#666', fontSize: '11px' }}>{user.email}</p>
+                        <p style={{ margin: 0, color: '#014D40', fontWeight: '600', fontSize: '16px' }}>{user.name}</p>
+                        <p style={{ margin: '2px 0 0', color: '#666', fontSize: '13px' }}>{user.email}</p>
                     </div>
 
                     <Link href="/profile" onClick={() => setDropdownOpen(false)} style={{
@@ -255,7 +255,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                         margin: 0,
                         color: '#fff',
                         fontWeight: '600',
-                        fontSize: '14px',
+                        fontSize: '16px',
                         lineHeight: '1.3',
                         letterSpacing: '0.01em',
                     }}>
@@ -264,7 +264,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                     <p style={{
                         margin: 0,
                         color: 'rgba(255,255,255,0.65)',
-                        fontSize: '12px',
+                        fontSize: '14px',
                         lineHeight: '1.3',
                     }}>
                         {user.email}

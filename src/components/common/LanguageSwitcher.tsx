@@ -30,8 +30,8 @@ const LanguageSwitcher = () => {
                 borderRadius: '6px',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                fontSize: isMobile ? '10px' : '11px',
-                fontWeight: '600',
+                fontSize: isMobile ? '14px' : '16px',
+                fontWeight: '700',
                 color: '#014D40',
                 flexShrink: 0,
             }}
@@ -50,12 +50,12 @@ const LanguageSwitcher = () => {
                 alignItems: 'center',
             }}>
                 <span style={{
-                    fontWeight: language === 'th' ? '700' : '400',
+                    fontWeight: language === 'th' ? '800' : '600',
                     opacity: language === 'th' ? 1 : 0.6
                 }}>TH</span>
                 <span style={{ opacity: 0.4 }}>|</span>
                 <span style={{
-                    fontWeight: language === 'en' ? '700' : '400',
+                    fontWeight: language === 'en' ? '800' : '600',
                     opacity: language === 'en' ? 1 : 0.6
                 }}>EN</span>
             </span>

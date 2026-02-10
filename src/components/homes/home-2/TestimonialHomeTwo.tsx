@@ -14,10 +14,10 @@ const TestimonialHomeTwo = () => {
                             <div className="col-xxl-6 col-xl-6 col-lg-6">
                                 <div className="testimonial-content">
                                     <div className="section-title">
-                                        <h6 className="wow fadeInUp">
+                                        <h6 className="wow fadeInUp text-resp-body font-semibold uppercase tracking-wider text-primary">
                                             Students Reviews
                                         </h6>
-                                        <h2 className="wow fadeInUp" data-wow-delay=".3s">
+                                        <h2 className="wow fadeInUp text-resp-h2 font-bold mt-2" data-wow-delay=".3s">
                                             Students Say About <br />
                                             Our Courses
                                         </h2>
@@ -52,13 +52,13 @@ const TestimonialHomeTwo = () => {
                                                     <i className="fas fa-star"></i>
                                                     <i className="fas fa-star"></i>
                                                 </div>
-                                                <h3>
+                                                <h3 className="text-resp-h3 italic font-medium leading-relaxed mb-4">
                                                     "The course content was and easy to follow instructors were
                                                     available answer questions "
                                                 </h3>
                                                 <div className="client-info">
-                                                    <h4>Richard C. Andre</h4>
-                                                    <p>Web Designer</p>
+                                                    <h4 className="text-resp-body-lg font-bold mb-1">Richard C. Andre</h4>
+                                                    <p className="text-resp-info text-gray-500 mb-0">Web Designer</p>
                                                 </div>
                                             </div>
                                         </SwiperSlide>

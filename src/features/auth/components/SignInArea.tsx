@@ -50,17 +50,15 @@ const SignInArea: React.FC = () => {
         <AuthLayout>
             {/* Header */}
             <div style={{ marginBottom: '28px' }}>
-                <h1 style={{
-                    fontSize: '26px',
-                    fontWeight: '700',
+                <h1 className="text-resp-h1" style={{
+                    fontWeight: 'bold',
                     color: '#111827',
-                    marginBottom: '6px',
+                    marginBottom: '8px',
                 }}>
                     {t('เข้าสู่ระบบ', 'Login')}
                 </h1>
-                <p style={{
+                <p className="text-resp-body-lg" style={{
                     color: '#6B7280',
-                    fontSize: '14px',
                 }}>
                     {t('กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ', 'Please login to your account first')}
                 </p>
@@ -68,14 +66,13 @@ const SignInArea: React.FC = () => {
 
             {/* Error Message */}
             {error && (
-                <div style={{
+                <div className="text-resp-body" style={{
                     padding: '12px 16px',
                     backgroundColor: '#FEF2F2',
                     border: '1px solid #FECACA',
                     borderRadius: '8px',
                     marginBottom: '18px',
                     color: '#DC2626',
-                    fontSize: '14px',
                 }}>
                     <i className="fas fa-exclamation-circle" style={{ marginRight: '8px' }}></i>
                     {error}
@@ -83,19 +80,18 @@ const SignInArea: React.FC = () => {
             )}
 
             {/* Demo Credentials */}
-            <div style={{
-                padding: '12px 16px',
+            <div className="text-resp-info" style={{
+                padding: '16px 20px',
                 backgroundColor: '#F0FDF4',
                 border: '1px solid #BBF7D0',
                 borderRadius: '8px',
-                marginBottom: '18px',
-                fontSize: '13px',
+                marginBottom: '24px',
             }}>
-                <p style={{ margin: 0, color: '#166534', fontWeight: '500' }}>
-                    <i className="fas fa-info-circle" style={{ marginRight: '6px' }}></i>
+                <p className="text-resp-body" style={{ margin: 0, color: '#166534', fontWeight: 'bold' }}>
+                    <i className="fas fa-info-circle" style={{ marginRight: '8px' }}></i>
                     {t('บัญชีทดสอบ', 'Demo Account')}:
                 </p>
-                <p style={{ margin: '4px 0 0', color: '#166534' }}>
+                <p style={{ margin: '8px 0 0', color: '#166534' }}>
                     Email: <strong>andrew.johnson@gmail.com</strong><br />
                     Password: <strong>123456</strong>
                 </p>
@@ -104,12 +100,11 @@ const SignInArea: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 {/* Email */}
                 <div style={{ marginBottom: '18px' }}>
-                    <label style={{
+                    <label className="text-resp-body-lg" style={{
                         display: 'block',
-                        marginBottom: '6px',
-                        fontWeight: '500',
+                        marginBottom: '10px',
+                        fontWeight: 'bold',
                         color: '#374151',
-                        fontSize: '14px',
                     }}>
                         {t('อีเมล', 'Email')}
                     </label>
@@ -121,15 +116,15 @@ const SignInArea: React.FC = () => {
                         required
                         style={{
                             width: '100%',
-                            padding: '12px 14px',
-                            borderRadius: '8px',
+                            padding: '16px 20px',
+                            borderRadius: '12px',
                             border: '1px solid #D1D5DB',
-                            fontSize: '14px',
                             outline: 'none',
                             transition: 'border-color 0.2s, box-shadow 0.2s',
                             backgroundColor: '#F9FAFB',
                             color: '#111827',
                         }}
+                        className="text-resp-body-lg"
                         onFocus={(e) => {
                             e.target.style.borderColor = '#014D40';
                             e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
@@ -143,12 +138,11 @@ const SignInArea: React.FC = () => {
 
                 {/* Password */}
                 <div style={{ marginBottom: '14px' }}>
-                    <label style={{
+                    <label className="text-resp-body-lg" style={{
                         display: 'block',
-                        marginBottom: '6px',
-                        fontWeight: '500',
+                        marginBottom: '10px',
+                        fontWeight: 'bold',
                         color: '#374151',
-                        fontSize: '14px',
                     }}>
                         {t('รหัสผ่าน', 'Password')}
                     </label>
@@ -161,15 +155,15 @@ const SignInArea: React.FC = () => {
                             required
                             style={{
                                 width: '100%',
-                                padding: '12px 44px 12px 14px',
-                                borderRadius: '8px',
+                                padding: '16px 50px 16px 20px',
+                                borderRadius: '12px',
                                 border: '1px solid #D1D5DB',
-                                fontSize: '14px',
                                 outline: 'none',
                                 transition: 'border-color 0.2s, box-shadow 0.2s',
                                 backgroundColor: '#F9FAFB',
                                 color: '#111827',
                             }}
+                            className="text-resp-body-lg"
                             onFocus={(e) => {
                                 e.target.style.borderColor = '#014D40';
                                 e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
@@ -209,10 +203,10 @@ const SignInArea: React.FC = () => {
                 <div style={{ textAlign: 'right', marginBottom: '20px' }}>
                     <Link
                         href="#"
+                        className="text-resp-link"
                         style={{
                             color: '#014D40',
-                            fontSize: '13px',
-                            fontWeight: '500',
+                            fontWeight: '600',
                             textDecoration: 'none',
                         }}
                     >
@@ -226,18 +220,18 @@ const SignInArea: React.FC = () => {
                     disabled={isSubmitting}
                     style={{
                         width: '100%',
-                        padding: '12px',
+                        padding: '16px',
                         backgroundColor: '#014D40',
                         color: '#ffffff',
                         border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '15px',
-                        fontWeight: '600',
+                        borderRadius: '12px',
+                        fontWeight: 'bold',
                         cursor: isSubmitting ? 'not-allowed' : 'pointer',
                         opacity: isSubmitting ? 0.7 : 1,
                         transition: 'all 0.2s ease',
-                        marginBottom: '20px',
+                        marginBottom: '24px',
                     }}
+                    className="text-resp-btn"
                 >
                     {isSubmitting ? t('กำลังเข้าสู่ระบบ...', 'Logging in...') : t('เข้าสู่ระบบ', 'Login')}
                 </button>
@@ -250,7 +244,7 @@ const SignInArea: React.FC = () => {
                     marginBottom: '20px',
                 }}>
                     <div style={{ flex: 1, height: '1px', backgroundColor: '#E5E7EB' }} />
-                    <span style={{ color: '#9CA3AF', fontSize: '13px' }}>{t('หรือเข้าสู่ระบบด้วย Google', 'Or login with Google')}</span>
+                    <span className="text-resp-info" style={{ color: '#9CA3AF' }}>{t('หรือเข้าสู่ระบบด้วย Google', 'Or login with Google')}</span>
                     <div style={{ flex: 1, height: '1px', backgroundColor: '#E5E7EB' }} />
                 </div>
 
@@ -258,15 +252,15 @@ const SignInArea: React.FC = () => {
                 <button
                     type="button"
                     onClick={handleGoogleLogin}
+                    className="text-resp-btn"
                     style={{
                         width: '100%',
-                        padding: '12px',
+                        padding: '14px',
                         backgroundColor: '#ffffff',
                         color: '#374151',
                         border: '1px solid #D1D5DB',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontWeight: '500',
+                        borderRadius: '10px',
+                        fontWeight: '600',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -287,13 +281,14 @@ const SignInArea: React.FC = () => {
 
             {/* Sign Up Link */}
             <div style={{ textAlign: 'center', marginTop: '24px' }}>
-                <p style={{ color: '#6B7280', fontSize: '14px' }}>
+                <p className="text-resp-body" style={{ color: '#6B7280' }}>
                     {t('ยังไม่มีบัญชี?', "Don't have an account?")}{" "}
                     <Link
                         href="/register"
+                        className="text-resp-link"
                         style={{
                             color: '#014D40',
-                            fontWeight: '600',
+                            fontWeight: 'bold',
                             textDecoration: 'none',
                         }}
                     >

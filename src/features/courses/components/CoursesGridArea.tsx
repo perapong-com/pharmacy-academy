@@ -49,7 +49,7 @@ const CoursesGridArea = () => {
                                         {/* Search */}
                                         <div className="courses-sidebar-items">
                                             <div className="wid-title style-2">
-                                                <h5>{t('ค้นหา', 'Search')}</h5>
+                                                <h5 style={{ fontSize: '20px', fontWeight: 'bold' }}>{t('ค้นหา', 'Search')}</h5>
                                             </div>
                                             <div className="search-widget">
                                                 <form onSubmit={e => e.preventDefault()}>
@@ -58,7 +58,7 @@ const CoursesGridArea = () => {
                                                         placeholder={t('ค้นหาคอร์สเรียน', 'Search courses')}
                                                         value={searchQuery}
                                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                                        style={{ color: '#333' }}
+                                                        style={{ color: '#333', fontSize: '18px' }}
                                                     />
                                                     <button type="submit"><i className="fal fa-search"></i></button>
                                                 </form>
@@ -68,7 +68,7 @@ const CoursesGridArea = () => {
                                         {/* Price Range Filter */}
                                         <div className="courses-sidebar-items">
                                             <div className="wid-title">
-                                                <h5>{t('ช่วงราคา', 'Price Range')}</h5>
+                                                <h5 style={{ fontSize: '20px', fontWeight: 'bold' }}>{t('ช่วงราคา', 'Price Range')}</h5>
                                             </div>
                                             <div className="courses-list">
                                                 {PRICE_RANGES.map((range, index) => (
@@ -83,7 +83,7 @@ const CoursesGridArea = () => {
                                                                 />
                                                                 <span className="checkmark d-center"></span>
                                                             </span>
-                                                            <span className="text-color">
+                                                            <span className="text-color" style={{ fontSize: '18px' }}>
                                                                 {language === 'th' ? range.label : range.labelEn}
                                                             </span>
                                                         </span>
@@ -95,7 +95,7 @@ const CoursesGridArea = () => {
                                         {/* Category Filter */}
                                         <div className="courses-sidebar-items">
                                             <div className="wid-title">
-                                                <h5>{t('หมวดหมู่', 'Category')}</h5>
+                                                <h5 style={{ fontSize: '20px', fontWeight: 'bold' }}>{t('หมวดหมู่', 'Category')}</h5>
                                             </div>
                                             <div className="courses-list" style={{ maxHeight: '300px', overflowY: 'auto' }}>
                                                 {CATEGORIES.map((cat) => (
@@ -109,14 +109,14 @@ const CoursesGridArea = () => {
                                                                 />
                                                                 <span className="checkmark d-center"></span>
                                                             </span>
-                                                            <span className="text-color">{language === 'th' ? cat.label : cat.labelEn}</span>
+                                                            <span className="text-color" style={{ fontSize: '20px' }}>{language === 'th' ? cat.label : cat.labelEn}</span>
                                                         </span>
                                                     </label>
                                                 ))}
                                             </div>
                                         </div>
                                     </div>
-                                    <button onClick={clearFilters} className="theme-btn" style={{ width: '100%' }}>
+                                    <button onClick={clearFilters} className="theme-btn" style={{ width: '100%', fontSize: '20px', fontWeight: 'bold' }}>
                                         <i className="far fa-times-circle me-2"></i>{t('ล้างตัวกรอง', 'Clear Filters')}
                                     </button>
                                 </div>

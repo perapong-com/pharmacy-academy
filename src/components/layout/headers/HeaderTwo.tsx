@@ -90,7 +90,7 @@ const HeaderTwo = () => {
                                     <span
                                         className="header-logo-text"
                                         style={{
-                                            fontSize: sticky ? '18px' : '22px',
+                                            fontSize: sticky ? '20px' : '24px',
                                             fontWeight: 'bold',
                                             color: '#004736',
                                             whiteSpace: 'nowrap',
@@ -138,7 +138,7 @@ const HeaderTwo = () => {
                                                 border: showSuggestions ? '2px solid #004736' : '2px solid transparent',
                                                 transition: 'all 0.2s ease',
                                             }}>
-                                                <i className="fas fa-search" style={{ color: '#999', marginRight: '8px', fontSize: '16px' }}></i>
+                                                <i className="fas fa-search" style={{ color: '#999', marginRight: '8px', fontSize: '18px' }}></i>
                                                 <input
                                                     type="text"
                                                     placeholder={t('ค้นหาคอร์ส...', 'Search...')}
@@ -153,7 +153,7 @@ const HeaderTwo = () => {
                                                         background: 'transparent',
                                                         outline: 'none',
                                                         width: '100%',
-                                                        fontSize: '16px',
+                                                        fontSize: '18px',
                                                         color: '#333',
                                                     }}
                                                 />
@@ -196,10 +196,10 @@ const HeaderTwo = () => {
                                                             onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                                                         >
                                                             <div style={{ flex: 1, minWidth: 0 }}>
-                                                                <div style={{ fontSize: '16px', fontWeight: '500', color: '#333' }}>
+                                                                <div style={{ fontSize: '18px', fontWeight: '500', color: '#333' }}>
                                                                     {course.title}
                                                                 </div>
-                                                                <div style={{ fontSize: '14px', color: '#666' }}>
+                                                                <div style={{ fontSize: '16px', color: '#666' }}>
                                                                     ฿{course.price.toLocaleString()}
                                                                 </div>
                                                             </div>
@@ -241,7 +241,7 @@ const HeaderTwo = () => {
                                             if (icon) (icon as HTMLElement).style.color = '#014D40';
                                         }}
                                     >
-                                        <i className="fas fa-shopping-cart" style={{ color: '#014D40', fontSize: '16px' }}></i>
+                                        <i className="fas fa-shopping-cart" style={{ color: '#014D40', fontSize: '18px' }}></i>
                                         {cartItems.length > 0 && (
                                             <span style={{
                                                 position: 'absolute',
@@ -279,7 +279,7 @@ const HeaderTwo = () => {
                         </div>
                     </div>
                 </div>
-            </header>
+            </header >
             <OffCanvas openCanvas={openCanvas} setOpenCanvas={setOpenCanvas} />
         </>
     );
