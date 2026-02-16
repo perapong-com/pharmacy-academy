@@ -1,4 +1,4 @@
-    "use client";
+"use client";
 
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
@@ -276,14 +276,10 @@ const CourseLearningArea = () => {
             <div className="container-fluid" style={{ padding: 0 }}>
                 <div className="row g-0">
                     {/* Sidebar */}
-                    <div className="col-lg-3 col-md-4" style={{
-                        background: '#fff',
-                        borderRight: '1px solid #e5e7eb',
-                        minHeight: 'calc(100vh - 80px)',
-                    }}>
+                    <div className="col-xl-3 order-2 order-xl-1 course-sidebar-responsive">
                         <div className="lesson-sidebar" style={{ padding: '24px' }}>
                             {/* Course Header */}
-                            <div className="course-info mb-4" style={{
+                            <div className="course-info mb-4 d-none d-xl-block" style={{
                                 background: 'linear-gradient(135deg, #004736 0%, #006B5A 100%)',
                                 borderRadius: '16px',
                                 padding: '20px',
@@ -328,92 +324,97 @@ const CourseLearningArea = () => {
                                 </div>
                             </div>
 
-                            {/* Lessons List */}
-                            <h6 style={{ color: '#014D40', marginBottom: '16px', fontWeight: '600' }}>
-                                <i className="fas fa-list-ul" style={{ marginRight: '8px' }}></i>
-                                {t('เนื้อหาการเรียน', 'Course Content')}
-                            </h6>
+                            {/* Lessons List - Hide on mobile to prevent duplication */}
+                            <div className="d-none d-xl-block">
+                                <h6 style={{ color: '#014D40', marginBottom: '16px', fontWeight: '600' }}>
+                                    <i className="fas fa-list-ul" style={{ marginRight: '8px' }}></i>
+                                    {t('เนื้อหาการเรียน', 'Course Content')}
+                                </h6>
 
-                            <div style={{ maxHeight: 'calc(100vh - 350px)', overflowY: 'auto' }}>
-                                {lessons.map((lesson, index) => (
-                                    <div
-                                        key={lesson.id}
-                                        onClick={() => { setCurrentLesson(lesson.id); }}
-                                        style={{
-                                            padding: '14px 16px',
-                                            borderRadius: '12px',
-                                            marginBottom: '8px',
-                                            cursor: 'pointer',
-                                            background: currentLesson === lesson.id
-                                                ? 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)'
-                                                : lesson.completed ? '#e8f8f4' : '#f9fafb',
-                                            color: currentLesson === lesson.id ? '#fff' : '#333',
-                                            border: currentLesson === lesson.id ? 'none' : '1px solid #e5e7eb',
-                                            transition: 'all 0.3s ease',
-                                            boxShadow: currentLesson === lesson.id ? '0 4px 12px rgba(1, 77, 64, 0.2)' : 'none',
-                                        }}
-                                    >
-                                        <div className="d-flex align-items-center gap-3">
-                                            <div style={{
-                                                width: '32px',
-                                                height: '32px',
-                                                borderRadius: '50%',
-                                                background: lesson.completed
-                                                    ? '#22c55e'
-                                                    : currentLesson === lesson.id
-                                                        ? 'rgba(255,255,255,0.2)'
-                                                        : '#e5e7eb',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                flexShrink: 0,
-                                            }}>
-                                                {lesson.completed ? (
-                                                    <i className="fas fa-check" style={{ fontSize: '12px', color: '#fff' }}></i>
-                                                ) : lesson.isQuiz ? (
-                                                    <i className="fas fa-question" style={{ fontSize: '12px', color: currentLesson === lesson.id ? '#fff' : '#666' }}></i>
-                                                ) : (
-                                                    <span className="mobile-lesson-index" style={{
-                                                        fontWeight: '600',
-                                                        color: currentLesson === lesson.id ? '#fff' : '#666'
-                                                    }}>{index + 1}</span>
-                                                )}
-                                            </div>
-                                            <div style={{ flex: 1 }}>
-                                                <p className="mobile-lesson-title" style={{
-                                                    marginBottom: '2px',
-                                                    fontWeight: '500',
-                                                    lineHeight: '1.3'
-                                                }}>{lesson.title}</p>
-                                                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                                    <small className="mobile-lesson-meta" style={{
-                                                        opacity: currentLesson === lesson.id ? 0.8 : 0.6,
-                                                    }}>
-                                                        <i className="fas fa-clock" style={{ marginRight: '4px', fontSize: '10px' }}></i>
-                                                        {lesson.duration}
-                                                    </small>
-                                                    {lesson.videoQuizzes && lesson.videoQuizzes.length > 0 && (
-                                                        <small className="mobile-lesson-badge" style={{
-                                                            background: currentLesson === lesson.id ? 'rgba(255,255,255,0.2)' : '#fef3c7',
-                                                            color: currentLesson === lesson.id ? '#fff' : '#92400e',
-                                                            padding: '2px 6px',
-                                                            borderRadius: '4px',
-                                                            fontWeight: '600'
-                                                        }}>
-                                                            🎯 {lesson.videoQuizzes.length} คำถาม
-                                                        </small>
+                                <div style={{ maxHeight: 'calc(100vh - 350px)', overflowY: 'auto' }}>
+                                    {lessons.map((lesson, index) => (
+                                        <div
+                                            key={lesson.id}
+                                            onClick={() => { setCurrentLesson(lesson.id); }}
+                                            style={{
+                                                padding: '14px 16px',
+                                                borderRadius: '12px',
+                                                marginBottom: '8px',
+                                                cursor: 'pointer',
+                                                background: currentLesson === lesson.id
+                                                    ? 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)'
+                                                    : lesson.completed ? '#e8f8f4' : '#f9fafb',
+                                                color: currentLesson === lesson.id ? '#fff' : '#333',
+                                                border: currentLesson === lesson.id ? 'none' : '1px solid #e5e7eb',
+                                                transition: 'all 0.3s ease',
+                                                boxShadow: currentLesson === lesson.id ? '0 4px 12px rgba(1, 77, 64, 0.2)' : 'none',
+                                            }}
+                                        >
+                                            <div className="d-flex align-items-center gap-3">
+                                                <div style={{
+                                                    width: '32px',
+                                                    height: '32px',
+                                                    borderRadius: '50%',
+                                                    background: lesson.completed
+                                                        ? '#22c55e'
+                                                        : currentLesson === lesson.id
+                                                            ? 'rgba(255,255,255,0.2)'
+                                                            : '#e5e7eb',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    flexShrink: 0,
+                                                }}>
+                                                    {lesson.completed ? (
+                                                        <i className="fas fa-check" style={{ fontSize: '12px', color: '#fff' }}></i>
+                                                    ) : lesson.isQuiz ? (
+                                                        <i className="fas fa-question" style={{ fontSize: '12px', color: currentLesson === lesson.id ? '#fff' : '#666' }}></i>
+                                                    ) : (
+                                                        <span className="mobile-lesson-index" style={{
+                                                            fontWeight: '600',
+                                                            color: currentLesson === lesson.id ? '#fff' : '#666'
+                                                        }}>{index + 1}</span>
                                                     )}
+                                                </div>
+                                                <div style={{ flex: 1 }}>
+                                                    <p className="mobile-lesson-title lesson-text-title" style={{
+                                                        marginBottom: '2px',
+                                                        fontWeight: '500',
+                                                        lineHeight: '1.3'
+                                                    }}>{lesson.title}</p>
+                                                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                                        <small className="mobile-lesson-meta" style={{
+                                                            opacity: currentLesson === lesson.id ? 0.8 : 0.6,
+                                                        }}>
+                                                            <i className="fas fa-clock" style={{ marginRight: '4px', fontSize: '10px' }}></i>
+                                                            {lesson.duration}
+                                                        </small>
+                                                        {lesson.videoQuizzes && lesson.videoQuizzes.length > 0 && (
+                                                            <small className="mobile-lesson-badge" style={{
+                                                                background: currentLesson === lesson.id ? 'rgba(255,255,255,0.2)' : '#fef3c7',
+                                                                color: currentLesson === lesson.id ? '#fff' : '#92400e',
+                                                                padding: '2px 6px',
+                                                                borderRadius: '4px',
+                                                                fontWeight: '600'
+                                                            }}>
+                                                                🎯 {lesson.videoQuizzes.length} คำถาม
+                                                            </small>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
 
+
                     {/* Main Content */}
-                    <div className="col-lg-9 col-md-8" style={{ padding: '24px 32px' }}>
+                    <div className="col-xl-9 order-1 order-xl-2 learning-content-col">
                         {currentLessonData?.isQuiz ? (
                             /* Final Quiz View */
                             <div className="quiz-wrapper" style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -429,8 +430,8 @@ const CourseLearningArea = () => {
                                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
                                     marginBottom: '24px'
                                 }}>
-                                    <p style={{ color: '#666', marginBottom: '8px', fontSize: '16px' }}>คำถามที่ 1 จาก 10</p>
-                                    <h5 style={{ color: '#014D40', marginBottom: '24px', lineHeight: '1.5' }}>
+                                    <p className="quiz-progress-text" style={{ color: '#666', marginBottom: '8px', fontSize: '16px' }}>คำถามที่ 1 จาก 10</p>
+                                    <h5 className="quiz-question-text" style={{ color: '#014D40', marginBottom: '24px', lineHeight: '1.5' }}>
                                         กระบวนการใดที่เกี่ยวข้องกับการดูดซึมยาเข้าสู่กระแสเลือด?
                                     </h5>
 
@@ -495,11 +496,12 @@ const CourseLearningArea = () => {
                             <div className="video-wrapper">
                                 {/* Video Player */}
                                 <div style={{ position: 'relative', marginBottom: '24px' }}>
-                                    <div className="video-container" style={{
+                                    <div className="video-simulation-container" style={{
                                         background: '#000',
                                         borderRadius: '16px',
                                         overflow: 'hidden',
                                         aspectRatio: '16/9',
+                                        margin: '0 auto',
                                         position: 'relative',
                                         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',
                                     }}>
@@ -553,15 +555,15 @@ const CourseLearningArea = () => {
                                                     >
                                                         <i className="fas fa-pause" style={{ fontSize: '20px' }}></i>
                                                     </div>
-                                                    <p style={{ fontSize: '22px', marginBottom: '8px' }}>{t('กำลังเล่นวิดีโอ...', 'Playing video...')}</p>
-                                                    <p style={{ fontSize: '32px', fontWeight: 'bold', color: '#40C7A9' }}>
+                                                    <p className="video-overlay-status" style={{ fontSize: '22px', marginBottom: '8px' }}>{t('กำลังเล่นวิดีโอ...', 'Playing video...')}</p>
+                                                    <p className="video-overlay-time" style={{ fontSize: '32px', fontWeight: 'bold', color: '#40C7A9' }}>
                                                         {formatTime(videoTime)}
                                                     </p>
                                                     <p style={{ fontSize: '17px', color: '#888', marginTop: '8px' }}>
                                                         {t('คลิกเพื่อหยุดวิดีโอ', 'Click to pause')}
                                                     </p>
                                                     {currentLessonData?.videoQuizzes && currentLessonData.videoQuizzes.length > 0 && (
-                                                        <p style={{ fontSize: '18px', color: '#888', marginTop: '12px' }}>
+                                                        <p className="video-overlay-next-quiz" style={{ fontSize: '18px', color: '#888', marginTop: '12px' }}>
                                                             🎯 {t('คำถามถัดไปที่', 'Next question at')}: {formatTime(
                                                                 currentLessonData.videoQuizzes.find(q => q.timeInSeconds > videoTime && !answeredQuizzes.includes(q.timeInSeconds))?.timeInSeconds || 0
                                                             )}
@@ -634,18 +636,15 @@ const CourseLearningArea = () => {
 
                                 {/* Lesson Info & Tabs - Restructured for mobile order */}
                                 <div className="lesson-content-row">
-                                    {/* 1. Lesson Title - แสดงก่อน */}
-                                    <div className="lesson-title-section">
-                                        <div style={{
-                                            background: '#fff',
-                                            borderRadius: '16px',
-                                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
-                                        }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                                    {/* LEFT COLUMN: Content */}
+                                    <div className="course-content-main">
+                                        {/* 1. Lesson Title - แสดงก่อน */}
+                                        <div className="lesson-info-box">
+                                            <div className="lesson-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
                                                 <h4 className="mobile-main-title" style={{ color: '#014D40', margin: 0 }}>
                                                     {currentLessonData?.title}
                                                 </h4>
-                                                <div style={{ display: 'flex', gap: '8px' }}>
+                                                <div className="lesson-badges" style={{ display: 'flex', gap: '8px' }}>
                                                     {currentLessonData?.videoQuizzes && currentLessonData.videoQuizzes.length > 0 && (
                                                         <span style={{
                                                             background: '#fef3c7',
@@ -674,100 +673,102 @@ const CourseLearningArea = () => {
                                                 {currentLessonData?.description}
                                             </p>
                                         </div>
-                                    </div>
 
-                                    {/* 2. Mobile Lessons List - แสดงเฉพาะบน mobile หลัง Lesson Title */}
-                                    <div className="mobile-lessons-section">
-                                        <h6 style={{ color: '#014D40', marginBottom: '16px', fontWeight: '600' }}>
-                                            <i className="fas fa-list-ul" style={{ marginRight: '8px' }}></i>
-                                            {t('เนื้อหาการเรียน', 'Course Content')}
-                                        </h6>
-                                        <div>
-                                            {lessons.map((lesson, index) => (
-                                                <div
-                                                    key={lesson.id}
-                                                    onClick={() => { setCurrentLesson(lesson.id); }}
-                                                    style={{
-                                                        padding: '16px',
-                                                        borderRadius: '12px',
-                                                        marginBottom: '10px',
-                                                        cursor: 'pointer',
-                                                        background: currentLesson === lesson.id
-                                                            ? 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)'
-                                                            : lesson.completed ? '#e8f8f4' : '#f9fafb',
-                                                        color: currentLesson === lesson.id ? '#fff' : '#333',
-                                                        border: currentLesson === lesson.id ? 'none' : '1px solid #e5e7eb',
-                                                        transition: 'all 0.3s ease',
-                                                        boxShadow: currentLesson === lesson.id ? '0 4px 12px rgba(1, 77, 64, 0.2)' : 'none',
-                                                    }}
-                                                >
-                                                    <div className="d-flex align-items-center gap-3">
-                                                        <div style={{
-                                                            width: '40px',
-                                                            height: '40px',
-                                                            borderRadius: '50%',
-                                                            background: lesson.completed
-                                                                ? '#22c55e'
-                                                                : currentLesson === lesson.id
-                                                                    ? 'rgba(255,255,255,0.2)'
-                                                                    : '#e5e7eb',
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'center',
-                                                            flexShrink: 0,
-                                                        }}>
-                                                            {lesson.completed ? (
-                                                                <i className="fas fa-check mobile-icon-check" style={{ color: '#fff' }}></i>
-                                                            ) : lesson.isQuiz ? (
-                                                                <i className="fas fa-question mobile-icon-quiz" style={{ color: currentLesson === lesson.id ? '#fff' : '#666' }}></i>
-                                                            ) : (
-                                                                <span className="mobile-lesson-index" style={{
-                                                                    fontWeight: '600',
-                                                                    color: currentLesson === lesson.id ? '#fff' : '#666'
-                                                                }}>{index + 1}</span>
-                                                            )}
-                                                        </div>
-                                                        <div style={{ flex: 1 }}>
-                                                            <p className="mobile-lesson-title" style={{
-                                                                marginBottom: '4px',
-                                                                fontWeight: '600',
-                                                                lineHeight: '1.4'
-                                                            }}>{lesson.title}</p>
-                                                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-                                                                <small className="mobile-lesson-meta" style={{
-                                                                    opacity: currentLesson === lesson.id ? 0.9 : 0.7,
-                                                                    display: 'flex',
-                                                                    alignItems: 'center'
-                                                                }}>
-                                                                    <i className="fas fa-clock" style={{ marginRight: '6px' }}></i>
-                                                                    {lesson.duration}
-                                                                </small>
-                                                                {lesson.videoQuizzes && lesson.videoQuizzes.length > 0 && (
-                                                                    <small className="mobile-lesson-badge" style={{
-                                                                        background: currentLesson === lesson.id ? 'rgba(255,255,255,0.2)' : '#fef3c7',
-                                                                        color: currentLesson === lesson.id ? '#fff' : '#92400e',
-                                                                        padding: '4px 10px',
-                                                                        borderRadius: '6px',
-                                                                        fontWeight: '600'
-                                                                    }}>
-                                                                        🎯 {lesson.videoQuizzes.length} คำถาม
-                                                                    </small>
+                                        {/* 2. Mobile Lessons List - แสดงบน mobile ในกรอบสีขาว */}
+                                        <div className="lesson-info-box d-block d-xl-none">
+                                            <h6 style={{ color: '#014D40', marginBottom: '16px', fontWeight: '600' }}>
+                                                <i className="fas fa-list-ul" style={{ marginRight: '8px' }}></i>
+                                                {t('เนื้อหาการเรียน', 'Course Content')}
+                                            </h6>
+                                            <div>
+                                                {lessons.map((lesson, index) => (
+                                                    <div
+                                                        key={lesson.id}
+                                                        onClick={() => { setCurrentLesson(lesson.id); }}
+                                                        style={{
+                                                            padding: '12px',
+                                                            borderRadius: '12px',
+                                                            marginBottom: '8px',
+                                                            cursor: 'pointer',
+                                                            background: currentLesson === lesson.id
+                                                                ? 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)'
+                                                                : lesson.completed ? '#e8f8f4' : '#f9fafb',
+                                                            color: currentLesson === lesson.id ? '#fff' : '#333',
+                                                            border: currentLesson === lesson.id ? 'none' : '1px solid #e5e7eb',
+                                                            transition: 'all 0.3s ease',
+                                                            boxShadow: currentLesson === lesson.id ? '0 4px 12px rgba(1, 77, 64, 0.2)' : 'none',
+                                                        }}
+                                                    >
+                                                        <div className="d-flex align-items-start gap-3">
+                                                            <div style={{
+                                                                width: '32px',
+                                                                height: '32px',
+                                                                borderRadius: '50%',
+                                                                marginTop: '2px',
+                                                                background: lesson.completed
+                                                                    ? '#22c55e'
+                                                                    : currentLesson === lesson.id
+                                                                        ? 'rgba(255,255,255,0.2)'
+                                                                        : '#e5e7eb',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                                flexShrink: 0,
+                                                            }}>
+                                                                {lesson.completed ? (
+                                                                    <i className="fas fa-check mobile-icon-check" style={{ color: '#fff' }}></i>
+                                                                ) : lesson.isQuiz ? (
+                                                                    <i className="fas fa-question mobile-icon-quiz" style={{ color: currentLesson === lesson.id ? '#fff' : '#666' }}></i>
+                                                                ) : (
+                                                                    <span className="mobile-lesson-index" style={{
+                                                                        fontWeight: '600',
+                                                                        color: currentLesson === lesson.id ? '#fff' : '#666'
+                                                                    }}>{index + 1}</span>
                                                                 )}
+                                                            </div>
+                                                            <div style={{ flex: 1, minWidth: 0 }}>
+                                                                <p className="mobile-lesson-title" style={{
+                                                                    marginBottom: '4px',
+                                                                    fontWeight: '600',
+                                                                    lineHeight: '1.4',
+                                                                    whiteSpace: 'normal',
+                                                                    wordBreak: 'break-word',
+                                                                    paddingRight: '8px'
+                                                                }}>{lesson.title}</p>
+                                                                <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                                                    <small className="mobile-lesson-meta" style={{
+                                                                        opacity: currentLesson === lesson.id ? 0.9 : 0.7,
+                                                                        display: 'flex',
+                                                                        alignItems: 'center',
+                                                                        whiteSpace: 'nowrap'
+                                                                    }}>
+                                                                        <i className="fas fa-clock" style={{ marginRight: '4px' }}></i>
+                                                                        {lesson.duration}
+                                                                    </small>
+                                                                    {lesson.videoQuizzes && lesson.videoQuizzes.length > 0 && (
+                                                                        <small className="mobile-lesson-badge" style={{
+                                                                            background: currentLesson === lesson.id ? 'rgba(255,255,255,0.2)' : '#fef3c7',
+                                                                            color: currentLesson === lesson.id ? '#fff' : '#92400e',
+                                                                            padding: '2px 8px',
+                                                                            borderRadius: '4px',
+                                                                            fontWeight: '600',
+                                                                            whiteSpace: 'nowrap'
+                                                                        }}>
+                                                                            🎯 {lesson.videoQuizzes.length} คำถาม
+                                                                        </small>
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {/* 3. Documents Section - แสดงหลังเนื้อหาการเรียน */}
-                                    <div className="documents-section">
-                                        <div style={{
-                                            background: '#fff',
-                                            borderRadius: '16px',
+                                        {/* 3. Documents Section - แสดงก่อน Actions */}
+                                        <div className="lesson-info-box" style={{
+                                            padding: '0 !important',
                                             overflow: 'hidden',
-                                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
                                         }}>
                                             <div style={{
                                                 display: 'flex',
@@ -834,17 +835,13 @@ const CourseLearningArea = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* 3. Actions Section - แสดงล่างสุด */}
-                                    <div className="actions-section">
-                                        <div style={{
-                                            background: '#fff',
-                                            borderRadius: '16px',
-                                            padding: '24px',
-                                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
-                                            marginBottom: '20px'
-                                        }}>
+                                        {/* RIGHT COLUMN: Actions & Navigation */}
+                                    </div>
+                                    <div className="course-content-sidebar">
+
+                                        {/* 4. Actions Section - แสดงล่างสุด ต่อจากเอกสาร */}
+                                        <div className="lesson-info-box">
                                             <h6 style={{ color: '#014D40', marginBottom: '16px', fontWeight: '600' }}>
                                                 <i className="fas fa-tasks" style={{ marginRight: '8px' }}></i>
                                                 {t('การดำเนินการ', 'Actions')}
@@ -881,7 +878,9 @@ const CourseLearningArea = () => {
                                                 </button>
                                             )}
                                         </div>
-                                        <Link href="/profile" style={{
+
+                                        {/* Back Button (Visible on all screens) */}
+                                        <Link href="/profile" className="back-to-course-btn" style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -893,10 +892,15 @@ const CourseLearningArea = () => {
                                             color: '#014D40',
                                             textDecoration: 'none',
                                             fontWeight: '600',
+                                            width: '100%',
+                                            marginBottom: '20px'
                                         }}>
                                             <i className="fas fa-arrow-left"></i>
                                             กลับไปคอร์สของฉัน
                                         </Link>
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -906,239 +910,242 @@ const CourseLearningArea = () => {
             </div>
 
             {/* Interactive Quiz Popup Modal */}
-            {showQuizPopup && currentQuiz && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'rgba(0,0,0,0.8)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1000,
-                    animation: 'fadeIn 0.3s ease'
-                }}>
+            {
+                showQuizPopup && currentQuiz && (
                     <div style={{
-                        background: '#fff',
-                        borderRadius: '24px',
-                        padding: '36px',
-                        maxWidth: '550px',
-                        width: '90%',
-                        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-                        animation: 'slideUp 0.3s ease'
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'rgba(0,0,0,0.8)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1000,
+                        animation: 'fadeIn 0.3s ease'
                     }}>
-                        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-                            <div style={{
-                                width: '64px',
-                                height: '64px',
-                                background: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)',
-                                borderRadius: '50%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                margin: '0 auto 16px',
-                            }}>
-                                <i className="fas fa-pause" style={{ fontSize: '24px', color: '#fff' }}></i>
-                            </div>
-                            <p style={{ color: '#f59e0b', fontWeight: '600', marginBottom: '4px', fontSize: '16px' }}>
-                                ⏸️ วิดีโอหยุดชั่วคราว
-                            </p>
-                            <h4 style={{ color: '#014D40', margin: 0 }}>
-                                🎯 คำถามระหว่างเรียน
-                            </h4>
-                            <p style={{ color: '#888', fontSize: '15px', marginTop: '4px' }}>
-                                ตอบคำถามให้ถูกต้องเพื่อเล่นวิดีโอต่อ
-                            </p>
-                        </div>
-
-                        <p style={{ color: '#333', marginBottom: '24px', fontSize: '18px', lineHeight: '1.6', fontWeight: '500' }}>
-                            {currentQuiz.question}
-                        </p>
-
-                        {/* คำถามแบบตัวเลือก (Multiple Choice) */}
-                        {currentQuiz.type === 'multiple_choice' && currentQuiz.options && (
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
-                                {currentQuiz.options.map((opt, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={() => !answerResult && setSelectedAnswer(i)}
-                                        disabled={answerResult !== null}
-                                        style={{
-                                            padding: '16px 20px',
-                                            border: `2px solid ${answerResult ?
-                                                (i === currentQuiz.correctAnswer ? '#22c55e' :
-                                                    i === selectedAnswer && answerResult === 'wrong' ? '#ef4444' : '#e5e7eb')
-                                                : selectedAnswer === i ? '#014D40' : '#e5e7eb'
-                                                }`,
-                                            borderRadius: '12px',
-                                            background: answerResult ?
-                                                (i === currentQuiz.correctAnswer ? '#dcfce7' :
-                                                    i === selectedAnswer && answerResult === 'wrong' ? '#fee2e2' : '#fff')
-                                                : selectedAnswer === i ? '#e8f8f4' : '#fff',
-                                            textAlign: 'left',
-                                            cursor: answerResult ? 'default' : 'pointer',
-                                            transition: 'all 0.2s ease',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '12px'
-                                        }}
-                                    >
-                                        <span style={{
-                                            width: '32px',
-                                            height: '32px',
-                                            borderRadius: '50%',
-                                            background: answerResult ?
-                                                (i === currentQuiz.correctAnswer ? '#22c55e' :
-                                                    i === selectedAnswer ? '#ef4444' : '#e5e7eb')
-                                                : selectedAnswer === i ? '#014D40' : '#e5e7eb',
-                                            color: (selectedAnswer === i || (answerResult && i === currentQuiz.correctAnswer)) ? '#fff' : '#666',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            fontWeight: '600',
-                                            fontSize: '16px'
-                                        }}>
-                                            {answerResult && i === currentQuiz.correctAnswer ? '✓' :
-                                                answerResult === 'wrong' && i === selectedAnswer ? '✕' :
-                                                    String.fromCharCode(65 + i)}
-                                        </span>
-                                        <span style={{ color: '#333', fontSize: '16px' }}>{opt}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-
-                        {/* คำถามแบบข้อเขียน (Written) */}
-                        {currentQuiz.type === 'written' && (
-                            <div style={{ marginBottom: '24px' }}>
+                        <div style={{
+                            background: '#fff',
+                            borderRadius: '24px',
+                            padding: '36px',
+                            maxWidth: '550px',
+                            width: '90%',
+                            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+                            animation: 'slideUp 0.3s ease'
+                        }}>
+                            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
                                 <div style={{
-                                    background: '#f0f9ff',
-                                    border: '1px solid #0ea5e9',
-                                    borderRadius: '12px',
-                                    padding: '12px 16px',
-                                    marginBottom: '16px',
+                                    width: '64px',
+                                    height: '64px',
+                                    background: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)',
+                                    borderRadius: '50%',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '8px'
+                                    justifyContent: 'center',
+                                    margin: '0 auto 16px',
                                 }}>
-                                    <i className="fas fa-pen" style={{ color: '#0ea5e9' }}></i>
-                                    <span style={{ color: '#0369a1', fontSize: '16px' }}>
-                                        {t('กรุณาพิมพ์คำตอบของคุณ', 'Please type your answer')}
-                                    </span>
+                                    <i className="fas fa-pause" style={{ fontSize: '24px', color: '#fff' }}></i>
                                 </div>
-                                <textarea
-                                    value={writtenAnswer}
-                                    onChange={(e) => setWrittenAnswer(e.target.value)}
-                                    placeholder={t('พิมพ์คำตอบของคุณที่นี่...', 'Type your answer here...')}
-                                    disabled={answerResult !== null}
+                                <p style={{ color: '#f59e0b', fontWeight: '600', marginBottom: '4px', fontSize: '16px' }}>
+                                    ⏸️ วิดีโอหยุดชั่วคราว
+                                </p>
+                                <h4 style={{ color: '#014D40', margin: 0 }}>
+                                    🎯 คำถามระหว่างเรียน
+                                </h4>
+                                <p style={{ color: '#888', fontSize: '15px', marginTop: '4px' }}>
+                                    ตอบคำถามให้ถูกต้องเพื่อเล่นวิดีโอต่อ
+                                </p>
+                            </div>
+
+                            <p style={{ color: '#333', marginBottom: '24px', fontSize: '18px', lineHeight: '1.6', fontWeight: '500' }}>
+                                {currentQuiz.question}
+                            </p>
+
+                            {/* คำถามแบบตัวเลือก (Multiple Choice) */}
+                            {currentQuiz.type === 'multiple_choice' && currentQuiz.options && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
+                                    {currentQuiz.options.map((opt, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => !answerResult && setSelectedAnswer(i)}
+                                            disabled={answerResult !== null}
+                                            style={{
+                                                padding: '16px 20px',
+                                                border: `2px solid ${answerResult ?
+                                                    (i === currentQuiz.correctAnswer ? '#22c55e' :
+                                                        i === selectedAnswer && answerResult === 'wrong' ? '#ef4444' : '#e5e7eb')
+                                                    : selectedAnswer === i ? '#014D40' : '#e5e7eb'
+                                                    }`,
+                                                borderRadius: '12px',
+                                                background: answerResult ?
+                                                    (i === currentQuiz.correctAnswer ? '#dcfce7' :
+                                                        i === selectedAnswer && answerResult === 'wrong' ? '#fee2e2' : '#fff')
+                                                    : selectedAnswer === i ? '#e8f8f4' : '#fff',
+                                                textAlign: 'left',
+                                                cursor: answerResult ? 'default' : 'pointer',
+                                                transition: 'all 0.2s ease',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '12px'
+                                            }}
+                                        >
+                                            <span style={{
+                                                width: '32px',
+                                                height: '32px',
+                                                borderRadius: '50%',
+                                                background: answerResult ?
+                                                    (i === currentQuiz.correctAnswer ? '#22c55e' :
+                                                        i === selectedAnswer ? '#ef4444' : '#e5e7eb')
+                                                    : selectedAnswer === i ? '#014D40' : '#e5e7eb',
+                                                color: (selectedAnswer === i || (answerResult && i === currentQuiz.correctAnswer)) ? '#fff' : '#666',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                fontWeight: '600',
+                                                fontSize: '16px'
+                                            }}>
+                                                {answerResult && i === currentQuiz.correctAnswer ? '✓' :
+                                                    answerResult === 'wrong' && i === selectedAnswer ? '✕' :
+                                                        String.fromCharCode(65 + i)}
+                                            </span>
+                                            <span style={{ color: '#333', fontSize: '16px' }}>{opt}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* คำถามแบบข้อเขียน (Written) */}
+                            {currentQuiz.type === 'written' && (
+                                <div style={{ marginBottom: '24px' }}>
+                                    <div style={{
+                                        background: '#f0f9ff',
+                                        border: '1px solid #0ea5e9',
+                                        borderRadius: '12px',
+                                        padding: '12px 16px',
+                                        marginBottom: '16px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px'
+                                    }}>
+                                        <i className="fas fa-pen" style={{ color: '#0ea5e9' }}></i>
+                                        <span style={{ color: '#0369a1', fontSize: '16px' }}>
+                                            {t('กรุณาพิมพ์คำตอบของคุณ', 'Please type your answer')}
+                                        </span>
+                                    </div>
+                                    <textarea
+                                        value={writtenAnswer}
+                                        onChange={(e) => setWrittenAnswer(e.target.value)}
+                                        placeholder={t('พิมพ์คำตอบของคุณที่นี่...', 'Type your answer here...')}
+                                        disabled={answerResult !== null}
+                                        style={{
+                                            width: '100%',
+                                            minHeight: '120px',
+                                            padding: '16px',
+                                            border: answerResult === 'submitted' ? '2px solid #22c55e' : '2px solid #e5e7eb',
+                                            borderRadius: '12px',
+                                            fontSize: '18px',
+                                            lineHeight: '1.6',
+                                            resize: 'vertical',
+                                            fontFamily: 'inherit',
+                                            background: answerResult === 'submitted' ? '#f0fdf4' : '#fff',
+                                        }}
+                                    />
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        marginTop: '8px',
+                                        fontSize: '13px'
+                                    }}>
+                                        <span style={{ color: '#888' }}>
+                                            {writtenAnswer.length} {t('ตัวอักษร', 'characters')}
+                                        </span>
+
+                                    </div>
+                                </div>
+                            )}
+
+                            {answerResult === 'correct' && (
+                                <div style={{
+                                    background: '#dcfce7',
+                                    color: '#166534',
+                                    padding: '16px',
+                                    borderRadius: '12px',
+                                    textAlign: 'center',
+                                    marginBottom: '16px',
+                                    fontWeight: '600'
+                                }}>
+                                    ✅ ถูกต้อง! กำลังเล่นวิดีโอต่อ...
+                                </div>
+                            )}
+
+                            {answerResult === 'wrong' && (
+                                <div style={{
+                                    background: '#fee2e2',
+                                    color: '#991b1b',
+                                    padding: '16px',
+                                    borderRadius: '12px',
+                                    textAlign: 'center',
+                                    marginBottom: '16px',
+                                    fontWeight: '600'
+                                }}>
+                                    ❌ ไม่ถูกต้อง ลองใหม่อีกครั้ง!
+                                </div>
+                            )}
+
+                            {answerResult === 'submitted' && (
+                                <div style={{
+                                    background: '#dcfce7',
+                                    color: '#166534',
+                                    padding: '16px',
+                                    borderRadius: '12px',
+                                    textAlign: 'center',
+                                    marginBottom: '16px',
+                                    fontWeight: '600'
+                                }}>
+                                    ✅ ส่งคำตอบเรียบร้อย! กำลังเล่นวิดีโอต่อ...
+                                    {currentQuiz.sampleAnswer && (
+                                        <p style={{ fontWeight: 'normal', marginTop: '8px', fontSize: '15px' }}>
+                                            💡 ตัวอย่างคำตอบ: {currentQuiz.sampleAnswer}
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+
+                            {!answerResult && (
+                                <button
+                                    onClick={handleAnswerSubmit}
+                                    disabled={
+                                        currentQuiz.type === 'multiple_choice'
+                                            ? selectedAnswer === null
+                                            : false
+                                    }
                                     style={{
                                         width: '100%',
-                                        minHeight: '120px',
                                         padding: '16px',
-                                        border: answerResult === 'submitted' ? '2px solid #22c55e' : '2px solid #e5e7eb',
+                                        background: (currentQuiz.type === 'multiple_choice' ? selectedAnswer === null : false)
+                                            ? '#e5e7eb'
+                                            : 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)',
+                                        color: (currentQuiz.type === 'multiple_choice' ? selectedAnswer === null : false)
+                                            ? '#999'
+                                            : '#fff',
+                                        border: 'none',
                                         borderRadius: '12px',
-                                        fontSize: '18px',
-                                        lineHeight: '1.6',
-                                        resize: 'vertical',
-                                        fontFamily: 'inherit',
-                                        background: answerResult === 'submitted' ? '#f0fdf4' : '#fff',
+                                        fontWeight: '600',
+                                        cursor: (currentQuiz.type === 'multiple_choice' ? selectedAnswer === null : false)
+                                            ? 'not-allowed'
+                                            : 'pointer',
+                                        fontSize: '20px'
                                     }}
-                                />
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    marginTop: '8px',
-                                    fontSize: '13px'
-                                }}>
-                                    <span style={{ color: '#888' }}>
-                                        {writtenAnswer.length} {t('ตัวอักษร', 'characters')}
-                                    </span>
-
-                                </div>
-                            </div>
-                        )}
-
-                        {answerResult === 'correct' && (
-                            <div style={{
-                                background: '#dcfce7',
-                                color: '#166534',
-                                padding: '16px',
-                                borderRadius: '12px',
-                                textAlign: 'center',
-                                marginBottom: '16px',
-                                fontWeight: '600'
-                            }}>
-                                ✅ ถูกต้อง! กำลังเล่นวิดีโอต่อ...
-                            </div>
-                        )}
-
-                        {answerResult === 'wrong' && (
-                            <div style={{
-                                background: '#fee2e2',
-                                color: '#991b1b',
-                                padding: '16px',
-                                borderRadius: '12px',
-                                textAlign: 'center',
-                                marginBottom: '16px',
-                                fontWeight: '600'
-                            }}>
-                                ❌ ไม่ถูกต้อง ลองใหม่อีกครั้ง!
-                            </div>
-                        )}
-
-                        {answerResult === 'submitted' && (
-                            <div style={{
-                                background: '#dcfce7',
-                                color: '#166534',
-                                padding: '16px',
-                                borderRadius: '12px',
-                                textAlign: 'center',
-                                marginBottom: '16px',
-                                fontWeight: '600'
-                            }}>
-                                ✅ ส่งคำตอบเรียบร้อย! กำลังเล่นวิดีโอต่อ...
-                                {currentQuiz.sampleAnswer && (
-                                    <p style={{ fontWeight: 'normal', marginTop: '8px', fontSize: '15px' }}>
-                                        💡 ตัวอย่างคำตอบ: {currentQuiz.sampleAnswer}
-                                    </p>
-                                )}
-                            </div>
-                        )}
-
-                        {!answerResult && (
-                            <button
-                                onClick={handleAnswerSubmit}
-                                disabled={
-                                    currentQuiz.type === 'multiple_choice'
-                                        ? selectedAnswer === null
-                                        : false
-                                }
-                                style={{
-                                    width: '100%',
-                                    padding: '16px',
-                                    background: (currentQuiz.type === 'multiple_choice' ? selectedAnswer === null : false)
-                                        ? '#e5e7eb'
-                                        : 'linear-gradient(135deg, #014D40 0%, #006B5A 100%)',
-                                    color: (currentQuiz.type === 'multiple_choice' ? selectedAnswer === null : false)
-                                        ? '#999'
-                                        : '#fff',
-                                    border: 'none',
-                                    borderRadius: '12px',
-                                    fontWeight: '600',
-                                    cursor: (currentQuiz.type === 'multiple_choice' ? selectedAnswer === null : false)
-                                        ? 'not-allowed'
-                                        : 'pointer',
-                                    fontSize: '20px'
-                                }}
-                            >
-                                {currentQuiz.type === 'written' ? 'ส่งคำตอบ' : 'ตรวจคำตอบ'}
-                            </button>
-                        )}
+                                >
+                                    {currentQuiz.type === 'written' ? 'ส่งคำตอบ' : 'ตรวจคำตอบ'}
+                                </button>
+                            )}
+                        </div>
                     </div>
-                </div>
-            )}
+
+                )
+            }
 
             <style jsx global>{`
                 @keyframes fadeIn {
@@ -1155,22 +1162,76 @@ const CourseLearningArea = () => {
                 }
 
 
-                @media (max-width: 991px) {
-                    /* TEXT SIZES - KEPT LARGE */
-                    .mobile-main-title { font-size: 26px !important; line-height: 1.3 !important; }
-                    .mobile-desc { font-size: 18px !important; line-height: 1.6 !important; }
-                    .mobile-lesson-title { font-size: 20px !important; font-weight: 600 !important; }
-                    .mobile-lesson-meta { font-size: 16px !important; }
-                    .mobile-lesson-badge { font-size: 14px !important; }
-                    .mobile-doc-text { font-size: 18px !important; }
-                    .mobile-doc-sub { font-size: 16px !important; }
-                    .mobile-course-name { font-size: 22px !important; }
-                    .mobile-progress-text { font-size: 18px !important; }
-                    .mobile-lesson-index { font-size: 18px !important; font-weight: 600 !important; }
+                .course-sidebar-responsive {
+                    background: #fff;
+                    border-right: 1px solid #e5e7eb;
+                    min-height: calc(100vh - 80px);
+                }
+
+                .video-simulation-container {
+                    max-height: 70vh;
+                }
+
+                .lesson-info-box {
+                    background: #fff;
+                    border-radius: 16px;
+                    padding: 24px;
+                    margin-bottom: 24px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                }
+
+                .learning-content-col {
+                    padding: 24px;
+                }
+
+                @media (max-width: 1199.98px) {
+                    .course-sidebar-responsive {
+                        border-right: none;
+                        border-top: 1px solid #e5e7eb;
+                        min-height: auto;
+                    }
+                    .video-simulation-container {
+                        max-height: 30vh; /* Mobile Landscape Optimized */
+                    }
+                }
+
+                /* DESKTOP LAYOUT (>= 1200px) */
+                @media (min-width: 1200px) {
+                    .lesson-content-row {
+                        display: flex;
+                        gap: 24px;
+                        align-items: flex-start;
+                    }
                     
-                    /* ICON SIZES - REVERTED TO NORMAL */
-                    .mobile-icon-check { font-size: 14px !important; }
-                    .mobile-icon-quiz { font-size: 14px !important; }
+                    .course-content-main {
+                        flex: 1;
+                        min-width: 0; /* Prevent flex overflow */
+                    }
+                    
+                    .course-content-sidebar {
+                        width: 320px;
+                        flex-shrink: 0;
+                        position: sticky;
+                        top: 24px; /* Optional: Makes it sticky if needed */
+                    }
+                }
+
+                @media (max-width: 1199.98px) {
+                    /* TEXT SIZES - ADJUSTED FOR COMPACTNESS */
+                    .mobile-main-title { font-size: 20px !important; line-height: 1.3 !important; }
+                    .mobile-desc { font-size: 14px !important; line-height: 1.5 !important; }
+                    .mobile-lesson-title { font-size: 16px !important; font-weight: 600 !important; }
+                    .mobile-lesson-meta { font-size: 13px !important; }
+                    .mobile-lesson-badge { font-size: 12px !important; }
+                    .mobile-doc-text { font-size: 16px !important; }
+                    .mobile-doc-sub { font-size: 14px !important; }
+                    .mobile-course-name { font-size: 18px !important; }
+                    .mobile-progress-text { font-size: 14px !important; }
+                    .mobile-lesson-index { font-size: 14px !important; font-weight: 600 !important; }
+                    
+                    /* ICON SIZES */
+                    .mobile-icon-check { font-size: 12px !important; }
+                    .mobile-icon-quiz { font-size: 12px !important; }
                     .course-learning-section i { font-size: 14px !important; }
                     
                     /* Aggressive Text Overrides */
@@ -1192,6 +1253,7 @@ const CourseLearningArea = () => {
                 .mobile-doc-text { font-size: 18px; }
                 .mobile-doc-sub { font-size: 15px; }
             `}</style>
+
         </section>
     );
 };

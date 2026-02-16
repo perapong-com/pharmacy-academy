@@ -137,6 +137,17 @@ body {
   line-height: 1.6;
 }
 
+/* Mobile base typography: Increase font size, line-height, and letter-spacing for better readability */
+@media (max-width: 576px) {
+
+  html,
+  body {
+    font-size: 17px !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.01em !important;
+  }
+}
+
 /* Ensure language specific settings also use it (just in case) */
 html.lang-th,
 html.lang-en,
@@ -2069,10 +2080,11 @@ label[for] {
 
   /* Course Title - Larger and readable */
   .course-card-title {
-    font-size: 15px !important;
+    font-size: 16px !important;
     line-height: 1.4 !important;
     font-weight: 600 !important;
     padding-right: 0 !important;
+    letter-spacing: 0.01em !important;
   }
 
   /* Status Badge - Inline below title */
@@ -2080,6 +2092,34 @@ label[for] {
     font-size: 11px !important;
     padding: 4px 12px !important;
     border-radius: 16px !important;
+  }
+
+  /* Main Content Column */
+  .learning-content-col {
+    padding: 24px 32px !important;
+  }
+
+  @media (max-width: 768px) {
+    .learning-content-col {
+      padding: 16px !important;
+    }
+  }
+
+  .lesson-content-row {
+    width: 100%;
+  }
+
+  /* Lesson Info Box & List Container */
+  .lesson-info-box {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    padding: 24px !important;
+    margin-bottom: 24px;
+  }
+
+  .lesson-header-row {
+    flex-wrap: nowrap;
   }
 
   /* Meta Info - Same row */
@@ -4010,4 +4050,640 @@ label[for] {
 
 .text-force-bold {
   font-weight: 700 !important;
+}
+
+/* ========================================
+   Responsive Typography Improvements
+   ======================================== */
+
+/* Course Grid Title - Mobile */
+@media (max-width: 768px) {
+
+  .courses-content h5,
+  .courses-content h5 a,
+  .courses-content h5 span {
+    font-size: 18px !important;
+    line-height: 1.4 !important;
+  }
+
+  .courses-content h4 {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .courses-content h5,
+  .courses-content h5 a,
+  .courses-content h5 span {
+    font-size: 16px !important;
+  }
+
+  .courses-content h4 {
+    font-size: 16px !important;
+  }
+}
+
+/* Footer Typography - Mobile */
+@media (max-width: 768px) {
+
+  .footer-section p,
+  .footer-area p,
+  .footer-section a,
+  .footer-area a,
+  .footer-section li,
+  .footer-area li {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  .footer-section h5,
+  .footer-area h5 {
+    font-size: 18px !important;
+  }
+
+  /* Social Icons - Larger on Mobile */
+  .footer-section .social-icon a,
+  .footer-area .social-icon a {
+    width: 44px !important;
+    height: 44px !important;
+    line-height: 44px !important;
+    font-size: 20px !important;
+    margin-right: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .footer-section p,
+  .footer-area p,
+  .footer-section a,
+  .footer-area a,
+  .footer-section li,
+  .footer-area li {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  .footer-section h5,
+  .footer-area h5 {
+    font-size: 18px !important;
+  }
+
+  /* Social Icons */
+  .footer-section .social-icon a,
+  .footer-area .social-icon a {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 18px !important;
+  }
+}
+
+/* Course Details - Mobile Typography */
+@media (max-width: 768px) {
+  .accordion-button {
+    font-size: 16px !important;
+  }
+
+  .accordion-body span {
+    font-size: 15px !important;
+  }
+
+  .description-content p,
+  .description-content li {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .accordion-button {
+    font-size: 15px !important;
+  }
+
+  .accordion-body span {
+    font-size: 14px !important;
+  }
+
+  .description-content p,
+  .description-content li {
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.01em !important;
+  }
+}
+
+/* Functional Pages (Auth & Breadcrumb) - Mobile */
+@media (max-width: 768px) {
+
+  .sign-in-section h3,
+  .register-section h3 {
+    font-size: 22px !important;
+  }
+
+  .sign-in-section label,
+  .register-section label {
+    font-size: 15px !important;
+  }
+
+  .sign-in-section input,
+  .register-section input,
+  .sign-in-section select,
+  .register-section select {
+    font-size: 16px !important;
+    padding: 12px 14px !important;
+  }
+
+  .sign-in-section .theme-btn,
+  .register-section .theme-btn {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .sign-in-section h3,
+  .register-section h3 {
+    font-size: 20px !important;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb-content h1 {
+    font-size: 22px !important;
+    line-height: 1.3 !important;
+  }
+
+  .breadcrumb-content p,
+  .breadcrumb-content .client-content h5 {
+    font-size: 14px !important;
+  }
+}
+
+/* ========================================
+   Global Input Fix (Prevent iOS Zoom)
+   ======================================== */
+@media (max-width: 768px) {
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* ========================================
+   Cart Table Mobile Layout (Card Style)
+   ======================================== */
+@media (max-width: 768px) {
+
+  .cart-list-area table,
+  .cart-list-area tbody,
+  .cart-list-area tr,
+  .cart-list-area td {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Hide table header */
+  .cart-list-area thead {
+    display: none !important;
+  }
+
+  /* Card styling for rows */
+  .cart-list-area tr {
+    margin-bottom: 20px !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    background: #fff !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  /* Cell styling */
+  .cart-list-area td {
+    text-align: right !important;
+    padding: 8px 0 !important;
+    border: none !important;
+    position: relative !important;
+  }
+
+  /* Product Name & Image (First cell) */
+  .cart-list-area td:first-child {
+    text-align: left !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    padding-bottom: 15px !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Quantity Section (Center alignment) */
+  .cart-list-area td.price-quantity {
+    display: flex !important;
+    justify-content: flex-end !important;
+  }
+
+  /* Last cell (Subtotal) */
+  .cart-list-area td:last-child {
+    border-top: 1px solid #f3f4f6 !important;
+    padding-top: 15px !important;
+    margin-top: 10px !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    color: #004736 !important;
+  }
+}
+
+/* ========================================
+   Header Revision - Mobile Size Increase
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* Logo Text (High Specificity to fix 12px bug) */
+  html body .header-logo-text,
+  .header-logo-text {
+    font-size: 24px !important;
+  }
+
+  /* Language Switcher */
+  .language-switcher {
+    font-size: 16px !important;
+    padding: 4px 10px !important;
+  }
+
+  /* Hamburger Menu Icon */
+  .sidebar__toggle i {
+    font-size: 26px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-logo-text {
+    font-size: 20px !important;
+  }
+}
+
+/* ========================================
+   Profile Revision - Mobile Text Increase
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* Profile Name */
+  .profile-section h2 {
+    font-size: 26px !important;
+  }
+
+  /* Profile Email */
+  .profile-section p {
+    font-size: 16px !important;
+  }
+
+  /* Stats Numbers (e.g. 3 Courses) */
+  .text-resp-h3 {
+    font-size: 28px !important;
+  }
+
+  /* Stats Labels & Course Titles */
+  .text-resp-body-lg,
+  .course-card-title {
+    font-size: 18px !important;
+  }
+
+  /* Course Meta (Instructor name etc) */
+  .course-card-meta {
+    font-size: 15px !important;
+  }
+
+  /* Badges */
+  .course-card-badge,
+  .pharmacist-badge {
+    font-size: 14px !important;
+  }
+
+  /* Buttons in Profile */
+  .profile-section .theme-btn,
+  .profile-section .course-card-btn {
+    font-size: 16px !important;
+    padding: 12px 20px !important;
+  }
+}
+
+/* ========================================
+   Payment History Revision - Mobile
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* Summary Box (Total Amount, Courses, CPE) */
+  /* Increase specificity and size for Numbers */
+  .payment-history-section .summary-box h5,
+  .payment-history-section .summary-box .text-resp-h3 {
+    font-size: 24px !important;
+  }
+
+  /* Increase specificity and size */
+  .payment-history-section .summary-box p,
+  .payment-history-section .summary-box .text-resp-body {
+    font-size: 16px !important;
+  }
+
+  /* History Cards (Mobile List) */
+  .payment-cards-mobile h6 {
+    /* Course Name */
+    font-size: 18px !important;
+  }
+
+  /* Select the Order ID header (first div inside card) */
+  .payment-cards-mobile>div>div:first-child {
+    font-size: 16px !important;
+    padding: 14px 16px !important;
+  }
+
+  /* Amount Text */
+  .payment-cards-mobile span {
+    font-size: 20px !important;
+  }
+
+  /* Date Text (Fix 12px issue) */
+  .payment-cards-mobile p {
+    font-size: 16px !important;
+  }
+}
+
+/* ========================================
+   Checkout Revision - Mobile
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* Headings & Titles */
+  .checkout-section .payment-summary-title,
+  .checkout-section h5 {
+    font-size: 20px !important;
+  }
+
+  /* Labels (Form Labels) */
+  .checkout-section label,
+  .checkout-section p.text-force-20,
+  .checkout-section .text-force-20 {
+    font-size: 18px !important;
+  }
+
+  /* Specific Override: Payment Methods & Receipt Type (Make them bigger) */
+  .checkout-section .payment-methods p.text-force-20,
+  .checkout-section .receipt-type-section span.text-force-20 {
+    font-size: 18px !important;
+  }
+
+  /* Form Inputs (Text, Select) */
+  .checkout-section input[type="text"],
+  .checkout-section select {
+    font-size: 18px !important;
+    /* Increase to 18px for readability */
+    padding: 10px !important;
+    /* Keep padding compact */
+  }
+
+  /* Submit Button */
+  .checkout-section button.text-force-20 {
+    font-size: 18px !important;
+    padding: 14px !important;
+  }
+}
+
+/* ========================================
+   Checkout Summary Revision - Mobile
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* Cart Items */
+  .checkout-cart-items h6 {
+    font-size: 18px !important;
+    /* Title */
+  }
+
+  .checkout-cart-items p {
+    font-size: 15px !important;
+    /* Instructor/Meta */
+  }
+
+  .checkout-cart-items span {
+    font-size: 13px !important;
+    /* Credits Badge */
+  }
+
+  /* Order Summary */
+  .order-summary span {
+    font-size: 16px !important;
+    /* General Labels */
+  }
+
+  /* Specific Subtotal (Restore to 18px or bigger) */
+  .order-summary .text-force-18 {
+    font-size: 18px !important;
+  }
+
+  /* Discount specific (if needs to be smaller/larger) */
+  .order-summary span[style*="font-size: 13px"],
+  .order-summary span[style*="font-size: 14px"] {
+    font-size: 14px !important;
+  }
+
+  /* Total Amount (Make sure it's big) */
+  .order-summary strong.text-force-30 {
+    font-size: 26px !important;
+    /* Match Payment History max preference */
+  }
+
+  /* Nuclear Override for Subtotal (Fix 12px bug) - Increased Specificity */
+  html body .checkout-section .order-summary span.text-force-18,
+  html body span.text-force-18 {
+    font-size: 18px !important;
+  }
+
+  /* Nuclear Override for ALL other summary spans (VAT, etc) to Fix 12px bug */
+  html body .checkout-section .order-summary span {
+    font-size: 16px !important;
+  }
+}
+
+/* ========================================
+   Course Page Revision - Mobile
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* --- Course Grid (Normal State) --- */
+  /* Card Title */
+  .courses-card-main-items h5,
+  .courses-card-main-items h5 a {
+    font-size: 22px !important;
+    /* Increased from 18px to match hover style better */
+    line-height: 1.3 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Category Label (Top Left Overlay) */
+  .courses-card-main-items .courses-title,
+  .courses-card-main-items h3 {
+    font-size: 18px !important;
+    /* Increased from 16px */
+  }
+
+  /* Category List (Bottom) */
+  .courses-card-main-items .post-cat li a {
+    font-size: 18px !important;
+  }
+
+  /* Instructor & Meta */
+  .courses-card-main-items p,
+  .courses-card-main-items .post-class li {
+    font-size: 16px !important;
+  }
+
+  /* --- Course Details --- */
+  /* Tabs (Course Info, Curriculum, etc) - was 30px */
+  /* Tabs (Course Info, Curriculum, etc) - was 30px */
+  html body .courses-details-content .nav-link,
+  html body .courses-details-content .nav-link.active {
+    font-size: 18px !important;
+    /* Reverted to 18px as requested */
+    padding: 10px 14px !important;
+    font-family: inherit !important;
+    /* Ensure no weird font override */
+  }
+
+  /* --- Course Learning Page --- */
+  /* Video Overlay */
+  .video-container .video-overlay-status {
+    font-size: 18px !important;
+  }
+
+  .video-container .video-overlay-time {
+    font-size: 24px !important;
+  }
+
+  .video-container .video-overlay-next-quiz {
+    font-size: 14px !important;
+  }
+
+  /* Sidebar Lessons */
+  .lesson-sidebar .lesson-text-title {
+    font-size: 15px !important;
+  }
+
+  /* Quiz Popup */
+  .quiz-wrapper .quiz-progress-text {
+    font-size: 14px !important;
+  }
+
+  .quiz-wrapper .quiz-question-text {
+    font-size: 18px !important;
+  }
+
+  /* Section Headings - was 30px */
+  .courses-details-content h3.font-bold,
+  .courses-details-content h3 {
+    font-size: 22px !important;
+    margin-bottom: 15px !important;
+  }
+
+  /* Body Text - was 20px */
+  .courses-details-content p {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* List Items (Curriculum / Sidebar) */
+  .courses-details-content ul li,
+  .courses-sidebar-area ul li span {
+    font-size: 16px !important;
+  }
+
+  /* Sidebar Price - was 36px */
+  .courses-sidebar-area .courses-content h3 {
+    font-size: 28px !important;
+  }
+
+  /* Sidebar Buttons */
+  .courses-sidebar-area .theme-btn {
+    font-size: 18px !important;
+  }
+
+  /* --- Course Card Hover (Green Box) --- */
+  /* Move Content Up */
+  .courses-card-items-hover {
+    align-items: flex-start !important;
+    padding-top: 25px !important;
+    /* Reduced from 50px to move it up more */
+  }
+
+  /* Fix Content Structure to allow button push */
+  .courses-card-items-hover .courses-content {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .courses-card-items-hover h5 span {
+    font-size: 26px !important;
+    /* Title: 22px -> 26px (Fill space) */
+    line-height: 1.3 !important;
+  }
+
+  .courses-card-items-hover h4 {
+    font-size: 24px !important;
+    /* Price: 22px -> 24px */
+    color: #FFB013 !important;
+    margin-top: 8px !important;
+  }
+
+  .courses-card-items-hover .post-cat li a {
+    font-size: 18px !important;
+    /* Category Badge */
+  }
+
+  .courses-card-items-hover .text-force-16 {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    margin-top: 8px !important;
+  }
+
+  .courses-card-items-hover .client-items {
+    margin-top: 20px !important;
+    /* Push down to avoid overlap with long description */
+  }
+
+  .courses-card-items-hover .theme-btn {
+    font-size: 22px !important;
+    /* Button Text */
+    color: #004736 !important;
+    margin-top: auto !important;
+    /* Push to bottom */
+    width: 100% !important;
+    margin-bottom: 60px !important;
+    /* Lifted up significantly to avoid cutoff */
+  }
+
+  .courses-card-items-hover .theme-btn span {
+    font-size: 22px !important;
+  }
+}
+
+/* ========================================
+   Header Logo Fix - Mobile (Redo)
+   ======================================== */
+@media (max-width: 768px) {
+
+  /* Logo Text (High Specificity to fix 12px bug from lines 1544) */
+  html body .header-logo .header-logo-text,
+  .header-logo .header-logo-text,
+  .header-logo-text {
+    font-size: 18px !important;
+  }
 }
