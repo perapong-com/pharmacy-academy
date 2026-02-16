@@ -17,12 +17,33 @@ const SignInArea: React.FC = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState("");
+    const [loginFailed, setLoginFailed] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setError("");
+        setLoginFailed(false);
+        setFieldErrors({});
+
+        // Validation
+        const newFieldErrors: Record<string, string> = {};
+        if (!email.trim()) {
+            newFieldErrors.email = t('กรุณากรอกอีเมล', 'Please enter your email');
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newFieldErrors.email = t('รูปแบบอีเมลไม่ถูกต้อง', 'Invalid email format');
+        }
+
+        if (!password) {
+            newFieldErrors.password = t('กรุณากรอกรหัสผ่าน', 'Please enter your password');
+        }
+
+        if (Object.keys(newFieldErrors).length > 0) {
+            setFieldErrors(newFieldErrors);
+            setLoginFailed(true);
+            setIsSubmitting(false);
+            return;
+        }
 
         const result = await login(email, password);
 
@@ -36,7 +57,23 @@ const SignInArea: React.FC = () => {
                 router.push("/");
             }
         } else {
-            setError(result.error || "เข้าสู่ระบบไม่สำเร็จ");
+            setLoginFailed(true);
+            const errorMsg = (result.error || '').toLowerCase();
+            
+            // Handle User Not Found specifically
+            if (errorMsg.includes('not found') || errorMsg.includes('user not found')) {
+                setFieldErrors({
+                    email: t('ไม่พบบัญชีนี้อยู่ในระบบ', 'Account not found in system')
+                });
+            } else if (errorMsg.includes('email') || errorMsg.includes('user') || errorMsg.includes('อีเมล')) {
+                setFieldErrors({
+                    email: t('อีเมลไม่ถูกต้อง', 'Invalid email')
+                });
+            } else {
+                setFieldErrors({
+                    password: t('รหัสผ่านไม่ถูกต้อง', 'Incorrect password')
+                });
+            }
             setIsSubmitting(false);
         }
     };
@@ -64,42 +101,16 @@ const SignInArea: React.FC = () => {
                 </p>
             </div>
 
-            {/* Error Message */}
-            {error && (
-                <div className="text-resp-body" style={{
-                    padding: '12px 16px',
-                    backgroundColor: '#FEF2F2',
-                    border: '1px solid #FECACA',
-                    borderRadius: '8px',
-                    marginBottom: '18px',
-                    color: '#DC2626',
-                }}>
-                    <i className="fas fa-exclamation-circle" style={{ marginRight: '8px' }}></i>
-                    {error}
-                </div>
-            )}
 
-            {/* Demo Credentials */}
-            <div className="text-resp-info" style={{
-                padding: '16px 20px',
-                backgroundColor: '#F0FDF4',
-                border: '1px solid #BBF7D0',
-                borderRadius: '8px',
-                marginBottom: '24px',
-            }}>
-                <p className="text-resp-body" style={{ margin: 0, color: '#166534', fontWeight: 'bold' }}>
-                    <i className="fas fa-info-circle" style={{ marginRight: '8px' }}></i>
-                    {t('บัญชีทดสอบ', 'Demo Account')}:
-                </p>
-                <p style={{ margin: '8px 0 0', color: '#166534' }}>
-                    Email: <strong>andrew.johnson@gmail.com</strong><br />
-                    Password: <strong>123456</strong>
-                </p>
-            </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
                 {/* Email */}
                 <div style={{ marginBottom: '18px' }}>
+                    {loginFailed && (
+                        <div style={{ color: '#DC2626', fontSize: '22px', marginBottom: '12px', fontWeight: '500' }}>
+                            {t('เข้าสู่ระบบล้มเหลว', 'Login Failed')}
+                        </div>
+                    )}
                     <label className="text-resp-body-lg" style={{
                         display: 'block',
                         marginBottom: '10px',
@@ -112,13 +123,21 @@ const SignInArea: React.FC = () => {
                         type="email"
                         placeholder={t('กรอกอีเมลของคุณ', 'Enter your email')}
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            setLoginFailed(false);
+                            if (fieldErrors.email) setFieldErrors(prev => {
+                                const next = { ...prev };
+                                delete next.email;
+                                return next;
+                            });
+                        }}
                         required
                         style={{
                             width: '100%',
                             padding: '16px 20px',
                             borderRadius: '12px',
-                            border: '1px solid #D1D5DB',
+                            border: fieldErrors.email ? '1px solid #DC2626' : '1px solid #D1D5DB',
                             outline: 'none',
                             transition: 'border-color 0.2s, box-shadow 0.2s',
                             backgroundColor: '#F9FAFB',
@@ -126,14 +145,23 @@ const SignInArea: React.FC = () => {
                         }}
                         className="text-resp-body-lg"
                         onFocus={(e) => {
-                            e.target.style.borderColor = '#014D40';
-                            e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
+                            if (!fieldErrors.email) {
+                                e.target.style.borderColor = '#014D40';
+                                e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
+                            } else {
+                                e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
+                            }
                         }}
                         onBlur={(e) => {
-                            e.target.style.borderColor = '#D1D5DB';
+                            e.target.style.borderColor = fieldErrors.email ? '#DC2626' : '#D1D5DB';
                             e.target.style.boxShadow = 'none';
                         }}
                     />
+                    {fieldErrors.email && (
+                        <span style={{ color: '#DC2626', fontSize: '22px', marginTop: '6px', display: 'block' }}>
+                            {fieldErrors.email}
+                        </span>
+                    )}
                 </div>
 
                 {/* Password */}
@@ -151,13 +179,21 @@ const SignInArea: React.FC = () => {
                             type={showPassword ? "text" : "password"}
                             placeholder={t('กรอกรหัสผ่านของคุณ', 'Enter your password')}
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setLoginFailed(false);
+                                if (fieldErrors.password) setFieldErrors(prev => {
+                                    const next = { ...prev };
+                                    delete next.password;
+                                    return next;
+                                });
+                            }}
                             required
                             style={{
                                 width: '100%',
                                 padding: '16px 50px 16px 20px',
                                 borderRadius: '12px',
-                                border: '1px solid #D1D5DB',
+                                border: fieldErrors.password ? '1px solid #DC2626' : '1px solid #D1D5DB',
                                 outline: 'none',
                                 transition: 'border-color 0.2s, box-shadow 0.2s',
                                 backgroundColor: '#F9FAFB',
@@ -165,11 +201,15 @@ const SignInArea: React.FC = () => {
                             }}
                             className="text-resp-body-lg"
                             onFocus={(e) => {
-                                e.target.style.borderColor = '#014D40';
-                                e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
+                                if (!fieldErrors.password) {
+                                    e.target.style.borderColor = '#014D40';
+                                    e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
+                                } else {
+                                    e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
+                                }
                             }}
                             onBlur={(e) => {
-                                e.target.style.borderColor = '#D1D5DB';
+                                e.target.style.borderColor = fieldErrors.password ? '#DC2626' : '#D1D5DB';
                                 e.target.style.boxShadow = 'none';
                             }}
                         />
@@ -197,6 +237,11 @@ const SignInArea: React.FC = () => {
                             )}
                         </button>
                     </div>
+                    {fieldErrors.password && (
+                        <span style={{ color: '#DC2626', fontSize: '22px', marginTop: '6px', display: 'block' }}>
+                            {fieldErrors.password}
+                        </span>
+                    )}
                 </div>
 
                 {/* Forgot Password */}

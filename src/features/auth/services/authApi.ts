@@ -7,32 +7,7 @@ import type {
     User,
 } from '../types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
-
-// Mock users for development - ย้ายมาจาก AuthContext เดิม
-const MOCK_USERS = [
-    {
-        email: 'andrew.johnson@gmail.com',
-        password: '123456',
-        name: 'Andrew Johnson',
-        role: 'pharmacist' as const,
-        avatar: undefined,
-    },
-    {
-        email: 'user@ontrack.com',
-        password: 'password123',
-        name: 'Khun Somchai',
-        role: 'general' as const,
-        avatar: undefined,
-    },
-    {
-        email: 'pharm@ontrack.com',
-        password: 'password123',
-        name: 'Phar. Somsri',
-        role: 'pharmacist' as const,
-        avatar: undefined,
-    },
-];
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
 /**
  * Auth API Service
@@ -43,92 +18,101 @@ export const authService = {
      * Login
      */
     async login(credentials: LoginCredentials): Promise<AuthResponse> {
-        // TODO: Replace with actual API call
-        // const response = await fetch(`${API_BASE_URL}/auth/login`, {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(credentials),
-        // });
-        // return response.json();
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credentials),
+            });
 
-        // Mock implementation
-        await new Promise((resolve) => setTimeout(resolve, 800));
+            const data = await response.json();
 
-        const matchedUser = MOCK_USERS.find(
-            (u) =>
-                u.email.toLowerCase() === credentials.email.toLowerCase() &&
-                u.password === credentials.password
-        );
+            if (!response.ok) {
+                return { success: false, error: data.message || 'Login failed' };
+            }
 
-        if (matchedUser) {
-            const user: User = {
-                name: matchedUser.name,
-                email: matchedUser.email,
-                role: matchedUser.role,
-                avatar: matchedUser.avatar,
-            };
-            return { success: true, user };
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('ontrack_user', JSON.stringify(data.user));
+            }
+
+            return { success: true, user: data.user, token: data.token };
+        } catch (error) {
+            return { success: false, error: 'Connection error' };
         }
-
-        return { success: false, error: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง' };
     },
 
     /**
      * Register (บุคคลทั่วไป)
      */
     async register(data: RegisterData): Promise<AuthResponse> {
-        // TODO: Replace with actual API call
-        await new Promise((resolve) => setTimeout(resolve, 800));
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    fullName: data.name,
+                    email: data.email,
+                    password: data.password,
+                    role: 'member',
+                }),
+            });
 
-        // Mock: Check if email already exists
-        const emailExists = MOCK_USERS.some(
-            (u) => u.email.toLowerCase() === data.email.toLowerCase()
-        );
+            const result = await response.json();
 
-        if (emailExists) {
-            return { success: false, error: 'อีเมลนี้ถูกใช้งานแล้ว' };
+            if (!response.ok) {
+                return { success: false, error: result.message || 'Registration failed' };
+            }
+
+            if (result.token) {
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('ontrack_user', JSON.stringify(result.user));
+            }
+
+            return { success: true, user: result.user, token: result.token };
+        } catch (error) {
+            return { success: false, error: 'Connection error' };
         }
-
-        const user: User = {
-            name: data.name,
-            email: data.email,
-            role: 'general',
-        };
-
-        return { success: true, user };
     },
 
     /**
      * Register (เภสัชกร)
      */
     async registerPharmacist(data: RegisterPharmacistData): Promise<AuthResponse> {
-        // TODO: Replace with actual API call
-        await new Promise((resolve) => setTimeout(resolve, 800));
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    fullName: data.name,
+                    email: data.email,
+                    password: data.password,
+                    role: 'pharmacist',
+                    professionalLicenseNumber: data.professionalLicenseNumber,
+                }),
+            });
 
-        const emailExists = MOCK_USERS.some(
-            (u) => u.email.toLowerCase() === data.email.toLowerCase()
-        );
+            const result = await response.json();
 
-        if (emailExists) {
-            return { success: false, error: 'อีเมลนี้ถูกใช้งานแล้ว' };
+            if (!response.ok) {
+                return { success: false, error: result.message || 'Registration failed' };
+            }
+
+            if (result.token) {
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('ontrack_user', JSON.stringify(result.user));
+            }
+
+            return { success: true, user: result.user, token: result.token };
+        } catch (error) {
+            return { success: false, error: 'Connection error' };
         }
-
-        const user: User = {
-            name: data.name,
-            email: data.email,
-            role: 'pharmacist',
-            pharmacistLicense: data.pharmacistLicense,
-            pharmacistVerificationStatus: 'pending',
-        };
-
-        return { success: true, user };
     },
 
     /**
      * Logout
      */
     async logout(): Promise<void> {
-        // TODO: Replace with actual API call to invalidate token
         localStorage.removeItem('ontrack_user');
         localStorage.removeItem('token');
     },
@@ -137,25 +121,28 @@ export const authService = {
      * Get current user from token
      */
     async getCurrentUser(): Promise<User | null> {
-        // Try to get from localStorage first
-        const storedUser = localStorage.getItem('ontrack_user');
-        if (storedUser) {
-            try {
-                return JSON.parse(storedUser);
-            } catch {
-                localStorage.removeItem('ontrack_user');
-                return null;
-            }
-        }
+        const token = localStorage.getItem('token');
+        if (!token) return null;
 
-        // TODO: Validate token with API
-        // const token = localStorage.getItem('token');
-        // if (token) {
-        //   const response = await fetch(`${API_BASE_URL}/auth/me`, {
-        //     headers: { 'Authorization': `Bearer ${token}` },
-        //   });
-        //   if (response.ok) return response.json();
-        // }
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success && data.user) {
+                    localStorage.setItem('ontrack_user', JSON.stringify(data.user));
+                    return data.user;
+                }
+            } else {
+                // Token invalid or expired
+                localStorage.removeItem('token');
+                localStorage.removeItem('ontrack_user');
+            }
+        } catch (error) {
+            console.error('Error fetching user:', error);
+        }
 
         return null;
     },
@@ -164,52 +151,28 @@ export const authService = {
      * Update profile
      */
     async updateProfile(data: Partial<User>): Promise<AuthResponse> {
-        // TODO: Replace with actual API call
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        const currentUser = await this.getCurrentUser();
-        if (!currentUser) {
-            return { success: false, error: 'กรุณาเข้าสู่ระบบ' };
-        }
-
-        const updatedUser = { ...currentUser, ...data };
-        localStorage.setItem('ontrack_user', JSON.stringify(updatedUser));
-
-        return { success: true, user: updatedUser };
+        throw new Error('Not implemented');
     },
 
     /**
      * Change password
      */
     async changePassword(oldPassword: string, newPassword: string): Promise<AuthResponse> {
-        // TODO: Replace with actual API call
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // Mock: Always succeed for now
-        return { success: true };
+        throw new Error('Not implemented');
     },
 
     /**
      * Forgot password - Send reset email
      */
     async forgotPassword(email: string): Promise<{ success: boolean; message?: string }> {
-        // TODO: Replace with actual API call
-        await new Promise((resolve) => setTimeout(resolve, 800));
-
-        return {
-            success: true,
-            message: 'ส่งลิงก์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว'
-        };
+        throw new Error('Not implemented');
     },
 
     /**
      * Reset password with token
      */
     async resetPassword(token: string, newPassword: string): Promise<AuthResponse> {
-        // TODO: Replace with actual API call
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        return { success: true };
+        throw new Error('Not implemented');
     },
 
     /**

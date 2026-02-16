@@ -7,14 +7,17 @@ import { Eye, EyeOff } from "lucide-react";
 
 import AuthLayout from "./AuthLayout";
 import { useLanguage } from '@/features/i18n';
+import { useAuth } from "@/features/auth";
 
 const RegisterArea: React.FC = () => {
     const { t } = useLanguage();
     const router = useRouter();
+    const { register, registerPharmacist } = useAuth();
     const [activeTab, setActiveTab] = useState<"general" | "pharmacist">("general");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState("");
 
     // Form data
     const [formData, setFormData] = useState({
@@ -23,21 +26,94 @@ const RegisterArea: React.FC = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        phone: "",
         licenseNumber: "",
         facilityName: "",
     });
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
     const handleInputChange = (field: string, value: string) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
+        // Clear error for this field when user types
+        if (fieldErrors[field]) {
+            setFieldErrors(prev => {
+                const newErrors = { ...prev };
+                delete newErrors[field];
+                return newErrors;
+            });
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        console.log("Registration:", { tab: activeTab, ...formData });
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        router.push("/");
+        setError("");
+        setFieldErrors({});
+
+        // Validation logic
+        const newFieldErrors: Record<string, string> = {};
+        
+        if (!formData.firstName.trim()) {
+            newFieldErrors.firstName = t('กรุณากรอกชื่อ-นามสกุล', 'Please enter your name');
+        }
+        
+        if (!formData.email.trim()) {
+            newFieldErrors.email = t('กรุณากรอกอีเมล', 'Please enter your email');
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newFieldErrors.email = t('รูปแบบอีเมลไม่ถูกต้อง', 'Invalid email format');
+        }
+
+        if (!formData.password) {
+            newFieldErrors.password = t('กรุณากรอกรหัสผ่าน', 'Please enter your password');
+        } else if (formData.password.length < 8) {
+            newFieldErrors.password = t('รหัสผ่านควรมีความยาวอย่างน้อย 8 ตัวอักษร', 'Password should be at least 8 characters');
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            newFieldErrors.confirmPassword = t('รหัสผ่านไม่ตรงกัน', 'Passwords do not match');
+        }
+
+        if (activeTab === "pharmacist" && !formData.licenseNumber.trim()) {
+            newFieldErrors.licenseNumber = t('กรุณากรอกเลขที่ใบอนุญาต', 'Please enter your license number');
+        }
+
+        if (Object.keys(newFieldErrors).length > 0) {
+            setFieldErrors(newFieldErrors);
+            setIsSubmitting(false);
+            return;
+        }
+
+        try {
+            let result;
+            if (activeTab === "pharmacist") {
+                result = await registerPharmacist({
+                    name: `${formData.firstName} ${formData.lastName}`.trim(),
+                    email: formData.email,
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword,
+                    professionalLicenseNumber: formData.licenseNumber,
+                    acceptTerms: true
+                });
+            } else {
+                result = await register({
+                    name: `${formData.firstName} ${formData.lastName}`.trim(),
+                    email: formData.email,
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword,
+                    acceptTerms: true
+                });
+            }
+
+            if (result.success) {
+                router.push("/");
+            } else {
+                setError(result.error || t('การลงทะเบียนล้มเหลว', 'Registration failed'));
+                setIsSubmitting(false);
+            }
+        } catch (err) {
+            console.error("Registration error:", err);
+            setError(t('เกิดข้อผิดพลาดในการเชื่อมต่อ', 'Connection error'));
+            setIsSubmitting(false);
+        }
     };
 
     const inputStyle: React.CSSProperties = {
@@ -58,13 +134,17 @@ const RegisterArea: React.FC = () => {
         color: '#374151',
     };
 
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-        e.target.style.borderColor = '#014D40';
-        e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
+    const handleFocus = (field: string) => (e: React.FocusEvent<HTMLInputElement>) => {
+        if (!fieldErrors[field]) {
+            e.target.style.borderColor = '#014D40';
+            e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)';
+        } else {
+            e.target.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
+        }
     };
 
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        e.target.style.borderColor = '#D1D5DB';
+    const handleBlur = (field: string) => (e: React.FocusEvent<HTMLInputElement>) => {
+        e.target.style.borderColor = fieldErrors[field] ? '#DC2626' : '#D1D5DB';
         e.target.style.boxShadow = 'none';
     };
 
@@ -138,7 +218,22 @@ const RegisterArea: React.FC = () => {
                 </button>
             </div>
 
-            <form onSubmit={handleSubmit}>
+            {/* Error Message */}
+            {error && (
+                <div className="text-resp-body" style={{
+                    padding: '12px 16px',
+                    backgroundColor: '#FEF2F2',
+                    border: '1px solid #FECACA',
+                    borderRadius: '8px',
+                    marginBottom: '18px',
+                    color: '#DC2626',
+                }}>
+                    <i className="fas fa-exclamation-circle" style={{ marginRight: '8px' }}></i>
+                    {error}
+                </div>
+            )}
+
+            <form onSubmit={handleSubmit} noValidate>
                 {/* Full Name */}
                 <div style={{ marginBottom: '14px' }}>
                     <label className="text-resp-body-lg" style={labelStyle}>{t('ชื่อ-นามสกุล', 'Name-Last Name')}</label>
@@ -148,11 +243,19 @@ const RegisterArea: React.FC = () => {
                         value={formData.firstName}
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
                         required
-                        style={inputStyle}
+                        style={{
+                            ...inputStyle,
+                            borderColor: fieldErrors.firstName ? '#DC2626' : '#D1D5DB'
+                        }}
                         className="text-resp-body-lg"
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
+                        onFocus={handleFocus('firstName')}
+                        onBlur={handleBlur('firstName')}
                     />
+                    {fieldErrors.firstName && (
+                        <span style={{ color: '#DC2626', fontSize: '22px', marginTop: '6px', display: 'block' }}>
+                            {fieldErrors.firstName}
+                        </span>
+                    )}
                 </div>
 
                 {/* Email */}
@@ -164,11 +267,19 @@ const RegisterArea: React.FC = () => {
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         required
-                        style={inputStyle}
+                        style={{
+                            ...inputStyle,
+                            borderColor: fieldErrors.email ? '#DC2626' : '#D1D5DB'
+                        }}
                         className="text-resp-body-lg"
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
+                        onFocus={handleFocus('email')}
+                        onBlur={handleBlur('email')}
                     />
+                    {fieldErrors.email && (
+                        <span style={{ color: '#DC2626', fontSize: '22px', marginTop: '6px', display: 'block' }}>
+                            {fieldErrors.email}
+                        </span>
+                    )}
                 </div>
 
                 {/* Password */}
@@ -181,10 +292,14 @@ const RegisterArea: React.FC = () => {
                             value={formData.password}
                             onChange={(e) => handleInputChange('password', e.target.value)}
                             required
-                            style={{ ...inputStyle, paddingRight: '60px' }}
+                            style={{ 
+                                ...inputStyle, 
+                                paddingRight: '60px',
+                                borderColor: fieldErrors.password ? '#DC2626' : '#D1D5DB'
+                            }}
                             className="text-resp-body-lg"
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
+                            onFocus={handleFocus('password')}
+                            onBlur={handleBlur('password')}
                         />
                         <button
                             type="button"
@@ -206,6 +321,11 @@ const RegisterArea: React.FC = () => {
                             }
                         </button>
                     </div>
+                    {fieldErrors.password && (
+                        <span style={{ color: '#DC2626', fontSize: '22px', marginTop: '6px', display: 'block' }}>
+                            {fieldErrors.password}
+                        </span>
+                    )}
                 </div>
 
                 {/* Confirm Password */}
@@ -218,10 +338,14 @@ const RegisterArea: React.FC = () => {
                             value={formData.confirmPassword}
                             onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                             required
-                            style={{ ...inputStyle, paddingRight: '60px' }}
+                            style={{ 
+                                ...inputStyle, 
+                                paddingRight: '60px',
+                                borderColor: fieldErrors.confirmPassword ? '#DC2626' : '#D1D5DB'
+                            }}
                             className="text-resp-body-lg"
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
+                            onFocus={handleFocus('confirmPassword')}
+                            onBlur={handleBlur('confirmPassword')}
                         />
                         <button
                             type="button"
@@ -243,6 +367,11 @@ const RegisterArea: React.FC = () => {
                             }
                         </button>
                     </div>
+                    {fieldErrors.confirmPassword && (
+                        <span style={{ color: '#DC2626', fontSize: '22px', marginTop: '6px', display: 'block' }}>
+                            {fieldErrors.confirmPassword}
+                        </span>
+                    )}
                 </div>
 
                 {/* Pharmacist-only Fields */}
@@ -256,11 +385,19 @@ const RegisterArea: React.FC = () => {
                                 value={formData.licenseNumber}
                                 onChange={(e) => handleInputChange('licenseNumber', e.target.value)}
                                 required
-                                style={inputStyle}
+                                style={{
+                                    ...inputStyle,
+                                    borderColor: fieldErrors.licenseNumber ? '#DC2626' : '#D1D5DB'
+                                }}
                                 className="text-resp-body-lg"
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
+                                onFocus={handleFocus('licenseNumber')}
+                                onBlur={handleBlur('licenseNumber')}
                             />
+                            {fieldErrors.licenseNumber && (
+                                <span style={{ color: '#DC2626', fontSize: '22px', marginTop: '6px', display: 'block' }}>
+                                    {fieldErrors.licenseNumber}
+                                </span>
+                            )}
                         </div>
                     </>
                 )}

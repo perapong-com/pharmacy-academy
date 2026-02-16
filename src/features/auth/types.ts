@@ -14,14 +14,14 @@ export type VerificationStatus = 'pending' | 'verified' | 'rejected';
  * ข้อมูลผู้ใช้
  */
 export interface User {
-    id?: number;
-    name: string;
+    id: number;
+    fullName: string;
     email: string;
     role: UserRole;
     avatar?: string;
     phone?: string;
     // สำหรับเภสัชกร
-    pharmacistLicense?: string;
+    professionalLicenseNumber?: string;
     pharmacistVerificationStatus?: VerificationStatus;
 }
 
@@ -50,7 +50,7 @@ export interface RegisterData {
  * ข้อมูลสำหรับสมัครสมาชิก (เภสัชกร)
  */
 export interface RegisterPharmacistData extends RegisterData {
-    pharmacistLicense: string;
+    professionalLicenseNumber: string;
     graduatedFrom?: string;
     yearsOfExperience?: number;
 }
