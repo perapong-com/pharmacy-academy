@@ -89,11 +89,11 @@ const UserProfileArea = () => {
                                             color: '#004736',
                                             fontWeight: 'bold'
                                         }}>
-                                            {user.name?.charAt(0).toUpperCase() || 'U'}
+                                            {user.fullName?.charAt(0).toUpperCase() || 'U'}
                                         </div>
                                         <div>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                                                <h2 style={{ margin: 0, fontWeight: '700', color: '#fff' }}>{user.name}</h2>
+                                                <h2 style={{ margin: 0, fontWeight: '700', color: '#fff' }}>{user.fullName}</h2>
                                             </div>
                                             <p style={{ margin: '0 0 5px', opacity: 0.9 }}>
                                                 <i className="fas fa-envelope me-2"></i>{user.email}

@@ -138,7 +138,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                     }}
                 >
                     {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                        <img src={user.avatar} alt={user.fullName} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                     ) : (
                         <i className="fas fa-user" style={{ color: '#fff', fontSize: '14px' }}></i>
                     )}
@@ -162,7 +162,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                 }}>
                     {/* User Info Header */}
                     <div style={{ padding: '12px', borderBottom: '1px solid #f0f0f0', marginBottom: '8px' }}>
-                        <p style={{ margin: 0, color: '#014D40', fontWeight: '600', fontSize: '16px' }}>{user.name}</p>
+                        <p style={{ margin: 0, color: '#014D40', fontWeight: '600', fontSize: '16px' }}>{user.fullName}</p>
                         <p style={{ margin: '2px 0 0', color: '#666', fontSize: '13px' }}>{user.email}</p>
                     </div>
 
@@ -243,7 +243,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                     boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
                 }}>
                     {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <img src={user.avatar} alt={user.fullName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
                         <i className="fas fa-user" style={{ color: '#888', fontSize: '18px' }}></i>
                     )}
@@ -259,7 +259,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                         lineHeight: '1.3',
                         letterSpacing: '0.01em',
                     }}>
-                        {user.name}
+                        {user.fullName}
                     </p>
                     <p style={{
                         margin: 0,
@@ -319,7 +319,7 @@ const HeaderUserProfile = ({ compact = false }: HeaderUserProfileProps) => {
                         fontWeight: '600',
                         fontSize: '14px',
                     }}>
-                        {user.name}
+                        {user.fullName}
                     </p>
                     <p style={{
                         margin: '2px 0 0',

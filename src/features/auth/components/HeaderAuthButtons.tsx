@@ -26,7 +26,7 @@ const HeaderAuthButtons: React.FC = () => {
                         whiteSpace: "nowrap",
                     }}
                 >
-                    สวัสดี, {user.name}
+                    สวัสดี, {user.fullName}
                 </span>
                 <button
                     onClick={logout}
