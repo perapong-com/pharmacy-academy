@@ -50,7 +50,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Login - supports both legacy (email, password) and new (credentials) format
     const login = useCallback(async (
         emailOrCredentials: string | LoginCredentials,
-        password?: string
+        password?: string,
+        rememberMe?: boolean
     ): Promise<AuthResponse> => {
         setIsLoading(true);
         setError(null);
@@ -61,7 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             : emailOrCredentials;
 
         try {
-            const response = await authService.login(credentials);
+            const response = await authService.login(credentials, rememberMe || false);
 
             if (response.success && response.user) {
                 setUser(response.user);
@@ -174,8 +175,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, []);
 
     // Reset Password
-    const resetPassword = useCallback(async (token: string, newPassword: string): Promise<AuthResponse> => {
-        return authService.resetPassword(token, newPassword);
+    const resetPassword = useCallback(async (email: string, otp: string, newPassword: string): Promise<AuthResponse> => {
+        return authService.resetPassword(email, otp, newPassword) as Promise<AuthResponse>;
     }, []);
 
     const value: AuthContextType = {

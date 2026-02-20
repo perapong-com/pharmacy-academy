@@ -9,15 +9,18 @@ import type {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
-/**
- * Auth API Service
- * จัดการ API calls ทั้งหมดที่เกี่ยวกับ Authentication
- */
+// Helper: get the correct storage based on rememberMe preference
+function getStorage(): Storage {
+    if (typeof window === 'undefined') return localStorage;
+    const remember = localStorage.getItem('rememberMe');
+    return remember === 'true' ? localStorage : sessionStorage;
+}
+
 export const authService = {
     /**
      * Login
      */
-    async login(credentials: LoginCredentials): Promise<AuthResponse> {
+    async login(credentials: LoginCredentials, rememberMe: boolean = false): Promise<AuthResponse> {
         try {
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
@@ -28,17 +31,50 @@ export const authService = {
             const data = await response.json();
 
             if (!response.ok) {
-                return { success: false, error: data.message || 'Login failed' };
+                return { 
+                    success: false, 
+                    error: data.error || data.message || 'เข้าสู่ระบบล้มเหลว',
+                    requiresCaptcha: data.requiresCaptcha || false
+                };
             }
 
+            // Save rememberMe preference
+            localStorage.setItem('rememberMe', String(rememberMe));
+            const storage = rememberMe ? localStorage : sessionStorage;
+
             if (data.token) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('ontrack_user', JSON.stringify(data.user));
+                storage.setItem('token', data.token);
+                storage.setItem('ontrack_user', JSON.stringify(data.user));
             }
 
             return { success: true, user: data.user, token: data.token };
         } catch (error) {
-            return { success: false, error: 'Connection error' };
+            return { success: false, error: 'เกิดข้อผิดพลาดในการเชื่อมต่อ' };
+        }
+    },
+
+    /**
+     * Fetch Captcha
+     */
+    async fetchCaptcha(): Promise<{ 
+        success: boolean; 
+        svg?: string; 
+        token?: string; 
+        error?: string 
+    }> {
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/captcha`);
+            const data = await response.json();
+            if (data.success) {
+                return { 
+                    success: true, 
+                    svg: data.svg, 
+                    token: data.token 
+                };
+            }
+            return { success: false, error: 'ไม่สามารถดึง CAPTCHA ได้' };
+        } catch (error) {
+            return { success: false, error: 'เกิดข้อผิดพลาดในการเชื่อมต่อ' };
         }
     },
 
@@ -61,7 +97,7 @@ export const authService = {
             const result = await response.json();
 
             if (!response.ok) {
-                return { success: false, error: result.message || 'Registration failed' };
+                return { success: false, error: result.message || 'สมัครสมาชิกล้มเหลว' };
             }
 
             if (result.token) {
@@ -71,7 +107,7 @@ export const authService = {
 
             return { success: true, user: result.user, token: result.token };
         } catch (error) {
-            return { success: false, error: 'Connection error' };
+            return { success: false, error: 'เกิดข้อผิดพลาดในการเชื่อมต่อ' };
         }
     },
 
@@ -95,7 +131,7 @@ export const authService = {
             const result = await response.json();
 
             if (!response.ok) {
-                return { success: false, error: result.message || 'Registration failed' };
+                return { success: false, error: result.message || 'สมัครสมาชิกล้มเหลว' };
             }
 
             if (result.token) {
@@ -105,7 +141,7 @@ export const authService = {
 
             return { success: true, user: result.user, token: result.token };
         } catch (error) {
-            return { success: false, error: 'Connection error' };
+            return { success: false, error: 'เกิดข้อผิดพลาดในการเชื่อมต่อ' };
         }
     },
 
@@ -115,13 +151,17 @@ export const authService = {
     async logout(): Promise<void> {
         localStorage.removeItem('ontrack_user');
         localStorage.removeItem('token');
+        sessionStorage.removeItem('ontrack_user');
+        sessionStorage.removeItem('token');
+        localStorage.removeItem('rememberMe');
     },
 
     /**
      * Get current user from token
      */
     async getCurrentUser(): Promise<User | null> {
-        const token = localStorage.getItem('token');
+        const storage = getStorage();
+        const token = storage.getItem('token') || localStorage.getItem('token') || sessionStorage.getItem('token');
         if (!token) return null;
 
         try {
@@ -132,13 +172,15 @@ export const authService = {
             if (response.ok) {
                 const data = await response.json();
                 if (data.success && data.user) {
-                    localStorage.setItem('ontrack_user', JSON.stringify(data.user));
+                    storage.setItem('ontrack_user', JSON.stringify(data.user));
                     return data.user;
                 }
             } else {
                 // Token invalid or expired
                 localStorage.removeItem('token');
                 localStorage.removeItem('ontrack_user');
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('ontrack_user');
             }
         } catch (error) {
             console.error('Error fetching user:', error);
@@ -165,14 +207,69 @@ export const authService = {
      * Forgot password - Send reset email
      */
     async forgotPassword(email: string): Promise<{ success: boolean; message?: string }> {
-        throw new Error('Not implemented');
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                return { success: false, message: data.error || 'เกิดข้อผิดพลาด' };
+            }
+
+            return { success: true, message: data.message };
+        } catch (error) {
+            return { success: false, message: 'เกิดข้อผิดพลาดในการเชื่อมต่อ' };
+        }
+    },
+
+    /**
+     * Verify OTP code
+     */
+    async verifyOtp(email: string, otp: string): Promise<{ success: boolean; message?: string }> {
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                return { success: false, message: data.error || 'เกิดข้อผิดพลาด' };
+            }
+
+            return { success: true, message: data.message };
+        } catch (error) {
+            return { success: false, message: 'เกิดข้อผิดพลาดในการเชื่อมต่อ' };
+        }
     },
 
     /**
      * Reset password with token
      */
-    async resetPassword(token: string, newPassword: string): Promise<AuthResponse> {
-        throw new Error('Not implemented');
+    async resetPassword(email: string, otp: string, newPassword: string): Promise<{ success: boolean; message?: string }> {
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp, newPassword }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                return { success: false, message: data.error || 'เกิดข้อผิดพลาด' };
+            }
+
+            return { success: true, message: data.message };
+        } catch (error) {
+            return { success: false, message: 'เกิดข้อผิดพลาดในการเชื่อมต่อ' };
+        }
     },
 
     /**

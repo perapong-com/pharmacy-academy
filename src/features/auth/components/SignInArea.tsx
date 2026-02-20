@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, KeyRound, Loader2, X, RefreshCw, CheckCircle, AlertCircle } from "lucide-react";
 import { useAuth } from "@/features/auth";
+import { authService } from '../services/authApi';
 
 import AuthLayout from "./AuthLayout";
 import { useLanguage } from '@/features/i18n';
@@ -19,33 +20,168 @@ const SignInArea: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [loginFailed, setLoginFailed] = useState(false);
     const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+    const [rememberMe, setRememberMe] = useState(false);
+    
+    // Captcha states
+    const [requiresCaptcha, setRequiresCaptcha] = useState(true);
+    const [captchaSvg, setCaptchaSvg] = useState('');
+    const [captchaToken, setCaptchaToken] = useState('');
+    const [captchaAnswer, setCaptchaAnswer] = useState('');
+
+    // Forgot password states
+    const [showOtpModal, setShowOtpModal] = useState(false);
+    const [showResetModal, setShowResetModal] = useState(false);
+    const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [forgotError, setForgotError] = useState("");
+    const [forgotSubmitting, setForgotSubmitting] = useState(false);
+    const [resendCooldown, setResendCooldown] = useState(0);
+    const [resetSuccess, setResetSuccess] = useState(false);
+    const otpInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+    const handleFetchCaptcha = async () => {
+        try {
+            const res = await authService.fetchCaptcha();
+            if (res.success && res.svg && res.token) {
+                setCaptchaSvg(res.svg);
+                setCaptchaToken(res.token);
+            }
+        } catch (error) {
+            console.error('Failed to fetch captcha', error);
+        }
+    };
+
+    useEffect(() => {
+        handleFetchCaptcha();
+    }, []);
+
+    const handleForgotPassword = async () => {
+        setFieldErrors({});
+        setLoginFailed(false);
+
+        if (!email.trim()) {
+            setFieldErrors({ email: t('กรุณากรอกอีเมลก่อนกด ลืมรหัสผ่าน', 'Please enter your email first') });
+            return;
+        }
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            setFieldErrors({ email: t('รูปแบบอีเมลไม่ถูกต้อง', 'Invalid email format') });
+            return;
+        }
+
+        setForgotSubmitting(true);
+        const result = await authService.forgotPassword(email);
+        if (result.success) {
+            setShowOtpModal(true);
+            setResendCooldown(15);
+            setOtp(["", "", "", "", "", ""]);
+            setForgotError("");
+        } else {
+            setFieldErrors({ email: result.message || t('เกิดข้อผิดพลาด', 'An error occurred') });
+        }
+        setForgotSubmitting(false);
+    };
+
+    const handleOtpChange = (index: number, value: string) => {
+        if (!/^\d*$/.test(value)) return;
+        const newOtp = [...otp];
+        newOtp[index] = value.slice(-1);
+        setOtp(newOtp);
+        setForgotError("");
+        if (value && index < 5) otpInputRefs.current[index + 1]?.focus();
+    };
+
+    const handleOtpKeyDown = (index: number, e: React.KeyboardEvent) => {
+        if (e.key === 'Backspace' && !otp[index] && index > 0) {
+            otpInputRefs.current[index - 1]?.focus();
+        }
+    };
+
+    const handleOtpPaste = (e: React.ClipboardEvent) => {
+        e.preventDefault();
+        const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+        const newOtp = [...otp];
+        for (let i = 0; i < 6; i++) newOtp[i] = pasted[i] || "";
+        setOtp(newOtp);
+        if (pasted.length === 6) otpInputRefs.current[5]?.focus();
+    };
+
+    const handleVerifyOtp = async () => {
+        const otpString = otp.join("");
+        if (otpString.length !== 6) {
+            setForgotError(t('กรุณากรอกรหัส OTP 6 หลัก', 'Please enter 6-digit OTP'));
+            return;
+        }
+        setForgotSubmitting(true);
+        const result = await authService.verifyOtp(email, otpString);
+        if (result.success) {
+            setShowOtpModal(false);
+            setShowResetModal(true);
+            setForgotError("");
+            setNewPassword("");
+            setConfirmPassword("");
+        } else {
+            setForgotError(result.message || t('รหัส OTP ไม่ถูกต้อง', 'Invalid OTP'));
+        }
+        setForgotSubmitting(false);
+    };
+
+    const handleResendOtp = async () => {
+        if (resendCooldown > 0) return;
+        setForgotSubmitting(true);
+        setForgotError("");
+        const result = await authService.forgotPassword(email);
+        if (result.success) {
+            setOtp(["", "", "", "", "", ""]);
+            setResendCooldown(15);
+            setForgotError(t('ส่งรหัส OTP ใหม่แล้ว', 'New OTP sent'));
+        } else {
+            setForgotError(result.message || t('เกิดข้อผิดพลาด', 'An error occurred'));
+        }
+        setForgotSubmitting(false);
+    };
+
+    const handleResetPassword = async () => {
+        setForgotError("");
+        if (newPassword.length < 8) {
+            setForgotError(t('รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร', 'Password must be at least 8 characters'));
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            setForgotError(t('รหัสผ่านไม่ตรงกัน', 'Passwords do not match'));
+            return;
+        }
+        setForgotSubmitting(true);
+        const result = await authService.resetPassword(email, otp.join(""), newPassword);
+        if (result.success) {
+            setShowResetModal(false);
+            setResetSuccess(true);
+            setTimeout(() => setResetSuccess(false), 5000);
+        } else {
+            setForgotError(result.message || t('เกิดข้อผิดพลาด', 'An error occurred'));
+        }
+        setForgotSubmitting(false);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setLoginFailed(false);
         setFieldErrors({});
+        setLoginFailed(false);
+        setIsSubmitting(true);
 
-        // Validation
-        const newFieldErrors: Record<string, string> = {};
-        if (!email.trim()) {
-            newFieldErrors.email = t('กรุณากรอกอีเมล', 'Please enter your email');
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            newFieldErrors.email = t('รูปแบบอีเมลไม่ถูกต้อง', 'Invalid email format');
-        }
-
-        if (!password) {
-            newFieldErrors.password = t('กรุณากรอกรหัสผ่าน', 'Please enter your password');
-        }
-
-        if (Object.keys(newFieldErrors).length > 0) {
-            setFieldErrors(newFieldErrors);
-            setLoginFailed(true);
+        // Check if CAPTCHA is required but not provided
+        if (requiresCaptcha && (!captchaAnswer || !captchaToken)) {
+            setFieldErrors({ captcha: t('กรุณากรอกรหัส CAPTCHA', 'Please enter CAPTCHA code') });
             setIsSubmitting(false);
             return;
         }
 
-        const result = await login(email, password);
+        const result = await login({
+            email, 
+            password, 
+            captchaAnswer: requiresCaptcha ? captchaAnswer : undefined,
+            captchaToken: requiresCaptcha ? captchaToken : undefined
+        }, undefined, rememberMe);
 
         if (result.success) {
             // Check if there's a redirect URL stored
@@ -60,6 +196,15 @@ const SignInArea: React.FC = () => {
             setLoginFailed(true);
             const errorMsg = (result.error || '').toLowerCase();
             
+            // Check if backend says we now need CAPTCHA
+            if (result.requiresCaptcha) {
+                setRequiresCaptcha(true);
+                if (requiresCaptcha) {
+                    handleFetchCaptcha();
+                    setCaptchaAnswer('');
+                }
+            }
+            
             // Handle User Not Found specifically
             if (errorMsg.includes('not found') || errorMsg.includes('user not found')) {
                 setFieldErrors({
@@ -69,11 +214,18 @@ const SignInArea: React.FC = () => {
                 setFieldErrors({
                     email: t('อีเมลไม่ถูกต้อง', 'Invalid email')
                 });
+            } else if (errorMsg.includes('captcha')) {
+                setFieldErrors({
+                    captcha: t('รหัส CAPTCHA ไม่ถูกต้อง', 'Invalid CAPTCHA code')
+                });
+                handleFetchCaptcha();
+                setCaptchaAnswer('');
             } else {
                 setFieldErrors({
                     password: t('รหัสผ่านไม่ถูกต้อง', 'Incorrect password')
                 });
             }
+            
             setIsSubmitting(false);
         }
     };
@@ -85,6 +237,215 @@ const SignInArea: React.FC = () => {
 
     return (
         <AuthLayout>
+            {/* ===== OTP Modal ===== */}
+            {showOtpModal && (
+                <div style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    zIndex: 9999, padding: '20px',
+                }}>
+                    <div style={{
+                        backgroundColor: '#ffffff', borderRadius: '20px',
+                        padding: '40px 32px', width: '100%', maxWidth: '440px',
+                        position: 'relative', boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3)',
+                    }}>
+                        <button onClick={() => setShowOtpModal(false)} style={{
+                            position: 'absolute', top: '16px', right: '16px',
+                            background: '#F3F4F6', border: 'none', borderRadius: '10px',
+                            width: '36px', height: '36px', cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                            <X style={{ width: '18px', height: '18px', color: '#6B7280' }} />
+                        </button>
+
+                        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+                            <div style={{
+                                width: '64px', height: '64px', borderRadius: '16px',
+                                background: 'linear-gradient(135deg, #0D9488, #014D40)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                margin: '0 auto 16px',
+                            }}>
+                                <KeyRound style={{ width: '32px', height: '32px', color: '#ffffff' }} />
+                            </div>
+                            <h2 style={{ fontSize: '22px', fontWeight: 'bold', color: '#111827', marginBottom: '8px' }}>
+                                {t('ยืนยันรหัส OTP', 'Verify OTP Code')}
+                            </h2>
+                            <p style={{ color: '#6B7280', fontSize: '14px', lineHeight: '1.5' }}>
+                                {t('เราส่งรหัส 6 หลักไปที่', 'We sent a 6-digit code to')}<br />
+                                <strong style={{ color: '#014D40' }}>{email}</strong>
+                            </p>
+                        </div>
+
+                        {forgotError && (
+                            <div style={{
+                                color: forgotError.includes('ใหม่แล้ว') || forgotError.includes('sent') ? '#059669' : '#DC2626',
+                                fontSize: '14px', marginBottom: '16px', textAlign: 'center', fontWeight: '500',
+                                padding: '10px 16px', borderRadius: '10px',
+                                backgroundColor: forgotError.includes('ใหม่แล้ว') || forgotError.includes('sent') ? '#F0FDF4' : '#FEF2F2',
+                            }}>{forgotError}</div>
+                        )}
+
+                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '24px' }}>
+                            {otp.map((digit, index) => (
+                                <input
+                                    key={index}
+                                    ref={(el) => { otpInputRefs.current[index] = el; }}
+                                    type="text" inputMode="numeric" maxLength={1}
+                                    value={digit}
+                                    onChange={(e) => handleOtpChange(index, e.target.value)}
+                                    onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                                    onPaste={index === 0 ? handleOtpPaste : undefined}
+                                    style={{
+                                        width: '52px', height: '60px', textAlign: 'center',
+                                        fontSize: '24px', fontWeight: 'bold', fontFamily: 'monospace',
+                                        borderRadius: '12px', outline: 'none', transition: 'all 0.2s',
+                                        border: digit ? '2px solid #014D40' : '2px solid #D1D5DB',
+                                        backgroundColor: digit ? '#F0FDF9' : '#F9FAFB', color: '#014D40',
+                                    }}
+                                    onFocus={(e) => { e.target.style.borderColor = '#014D40'; e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.15)'; }}
+                                    onBlur={(e) => { e.target.style.borderColor = digit ? '#014D40' : '#D1D5DB'; e.target.style.boxShadow = 'none'; }}
+                                />
+                            ))}
+                        </div>
+
+                        <button onClick={handleVerifyOtp} disabled={forgotSubmitting || otp.join("").length !== 6} style={{
+                            width: '100%', padding: '16px', backgroundColor: '#014D40', color: '#ffffff',
+                            border: 'none', borderRadius: '12px', fontWeight: 'bold', fontSize: '16px',
+                            cursor: (forgotSubmitting || otp.join("").length !== 6) ? 'not-allowed' : 'pointer',
+                            opacity: (forgotSubmitting || otp.join("").length !== 6) ? 0.6 : 1,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                            marginBottom: '16px', transition: 'all 0.2s ease',
+                        }}>
+                            {forgotSubmitting
+                                ? <><Loader2 style={{ width: '20px', height: '20px', animation: 'spin 1s linear infinite' }} /> {t('กำลังตรวจสอบ...', 'Verifying...')}</>
+                                : t('ยืนยัน OTP', 'Verify OTP')
+                            }
+                        </button>
+
+                        <div style={{ textAlign: 'center' }}>
+                            <button type="button" onClick={handleResendOtp} disabled={forgotSubmitting || resendCooldown > 0} style={{
+                                background: 'none', border: 'none', fontWeight: '600', padding: '8px 16px',
+                                color: resendCooldown > 0 ? '#9CA3AF' : '#014D40',
+                                cursor: (forgotSubmitting || resendCooldown > 0) ? 'not-allowed' : 'pointer',
+                                display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px',
+                            }}>
+                                <RefreshCw style={{ width: '16px', height: '16px' }} />
+                                {resendCooldown > 0
+                                    ? t(`ส่งอีกครั้งใน ${resendCooldown} วินาที`, `Resend in ${resendCooldown}s`)
+                                    : t('ส่งรหัส OTP อีกครั้ง', 'Resend OTP')
+                                }
+                            </button>
+                        </div>
+                        <p style={{ textAlign: 'center', color: '#9CA3AF', fontSize: '12px', marginTop: '12px' }}>
+                            {t('รหัส OTP จะหมดอายุใน 10 นาที', 'OTP expires in 10 minutes')}
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {/* ===== Reset Password Modal ===== */}
+            {showResetModal && (
+                <div style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    zIndex: 9999, padding: '20px',
+                }}>
+                    <div style={{
+                        backgroundColor: '#ffffff', borderRadius: '20px',
+                        padding: '40px 32px', width: '100%', maxWidth: '440px',
+                        position: 'relative', boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3)',
+                    }}>
+                        <button onClick={() => setShowResetModal(false)} style={{
+                            position: 'absolute', top: '16px', right: '16px',
+                            background: '#F3F4F6', border: 'none', borderRadius: '10px',
+                            width: '36px', height: '36px', cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                            <X style={{ width: '18px', height: '18px', color: '#6B7280' }} />
+                        </button>
+
+                        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+                            <div style={{
+                                width: '64px', height: '64px', borderRadius: '16px',
+                                background: 'linear-gradient(135deg, #0D9488, #014D40)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                margin: '0 auto 16px',
+                            }}>
+                                <KeyRound style={{ width: '32px', height: '32px', color: '#ffffff' }} />
+                            </div>
+                            <h2 style={{ fontSize: '22px', fontWeight: 'bold', color: '#111827', marginBottom: '8px' }}>
+                                {t('ตั้งรหัสผ่านใหม่', 'Set New Password')}
+                            </h2>
+                            <div style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                                padding: '6px 14px', borderRadius: '8px',
+                                backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0',
+                                color: '#059669', fontSize: '13px', fontWeight: '600',
+                            }}>
+                                <CheckCircle style={{ width: '14px', height: '14px' }} />
+                                {t('OTP ยืนยันแล้ว', 'OTP Verified')}
+                            </div>
+                        </div>
+
+                        {forgotError && (
+                            <div style={{
+                                color: '#DC2626', fontSize: '14px', marginBottom: '16px',
+                                textAlign: 'center', fontWeight: '500', padding: '10px 16px',
+                                borderRadius: '10px', backgroundColor: '#FEF2F2',
+                            }}>{forgotError}</div>
+                        )}
+
+                        <div style={{ marginBottom: '18px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold', color: '#374151', fontSize: '14px' }}>
+                                {t('รหัสผ่านใหม่', 'New Password')}
+                            </label>
+                            <input type="password" placeholder={t('อย่างน้อย 8 ตัวอักษร', 'At least 8 characters')}
+                                value={newPassword} onChange={(e) => { setNewPassword(e.target.value); setForgotError(""); }}
+                                style={{
+                                    width: '100%', padding: '14px 20px', borderRadius: '12px',
+                                    border: '1px solid #D1D5DB', outline: 'none', backgroundColor: '#F9FAFB', color: '#111827',
+                                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                                }}
+                                onFocus={(e) => { e.target.style.borderColor = '#014D40'; e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)'; }}
+                                onBlur={(e) => { e.target.style.borderColor = '#D1D5DB'; e.target.style.boxShadow = 'none'; }}
+                            />
+                        </div>
+
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold', color: '#374151', fontSize: '14px' }}>
+                                {t('ยืนยันรหัสผ่านใหม่', 'Confirm New Password')}
+                            </label>
+                            <input type="password" placeholder={t('กรอกรหัสผ่านอีกครั้ง', 'Re-enter your password')}
+                                value={confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value); setForgotError(""); }}
+                                style={{
+                                    width: '100%', padding: '14px 20px', borderRadius: '12px',
+                                    border: '1px solid #D1D5DB', outline: 'none', backgroundColor: '#F9FAFB', color: '#111827',
+                                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                                }}
+                                onFocus={(e) => { e.target.style.borderColor = '#014D40'; e.target.style.boxShadow = '0 0 0 3px rgba(1, 77, 64, 0.1)'; }}
+                                onBlur={(e) => { e.target.style.borderColor = '#D1D5DB'; e.target.style.boxShadow = 'none'; }}
+                            />
+                        </div>
+
+                        <button onClick={handleResetPassword} disabled={forgotSubmitting} style={{
+                            width: '100%', padding: '16px', backgroundColor: '#014D40', color: '#ffffff',
+                            border: 'none', borderRadius: '12px', fontWeight: 'bold', fontSize: '16px',
+                            cursor: forgotSubmitting ? 'not-allowed' : 'pointer',
+                            opacity: forgotSubmitting ? 0.6 : 1,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                            transition: 'all 0.2s ease',
+                        }}>
+                            {forgotSubmitting
+                                ? <><Loader2 style={{ width: '20px', height: '20px', animation: 'spin 1s linear infinite' }} /> {t('กำลังเปลี่ยน...', 'Changing...')}</>
+                                : t('เปลี่ยนรหัสผ่าน', 'Reset Password')
+                            }
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Header */}
             <div style={{ marginBottom: '28px' }}>
                 <h1 className="text-resp-h1" style={{
@@ -102,6 +463,19 @@ const SignInArea: React.FC = () => {
             </div>
 
 
+
+            {/* Reset Success Banner */}
+            {resetSuccess && (
+                <div style={{
+                    padding: '14px 20px', borderRadius: '12px', marginBottom: '20px',
+                    backgroundColor: '#F0FDF4', border: '1px solid #BBF7D0',
+                    color: '#059669', display: 'flex', alignItems: 'center', gap: '10px',
+                    fontSize: '14px', fontWeight: '600',
+                }}>
+                    <CheckCircle style={{ width: '20px', height: '20px' }} />
+                    {t('เปลี่ยนรหัสผ่านสำเร็จ! กรุณาเข้าสู่ระบบด้วยรหัสผ่านใหม่', 'Password changed! Please login with your new password')}
+                </div>
+            )}
 
             <form onSubmit={handleSubmit} noValidate>
                 {/* Email */}
@@ -244,20 +618,134 @@ const SignInArea: React.FC = () => {
                     )}
                 </div>
 
-                {/* Forgot Password */}
-                <div style={{ textAlign: 'right', marginBottom: '20px' }}>
-                    <Link
-                        href="#"
+                {/* Remember Me + Forgot Password */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                    {/* Remember Me */}
+                    <label style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        cursor: 'pointer',
+                        userSelect: 'none',
+                    }}>
+                        <div
+                            onClick={() => setRememberMe(!rememberMe)}
+                            style={{
+                                width: '20px',
+                                height: '20px',
+                                borderRadius: '5px',
+                                border: rememberMe ? '2px solid #014D40' : '2px solid #D1D5DB',
+                                backgroundColor: rememberMe ? '#014D40' : 'transparent',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s ease',
+                                cursor: 'pointer',
+                                flexShrink: 0,
+                            }}
+                        >
+                            {rememberMe && (
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            )}
+                        </div>
+                        <span className="text-resp-link" style={{ color: '#374151', fontWeight: '500' }}>
+                            {t('จดจำฉัน', 'Remember me')}
+                        </span>
+                    </label>
+
+                    {/* Forgot Password */}
+                    <button
+                        type="button"
+                        onClick={handleForgotPassword}
+                        disabled={forgotSubmitting}
                         className="text-resp-link"
                         style={{
                             color: '#014D40',
                             fontWeight: '600',
+                            background: 'none',
+                            border: 'none',
+                            cursor: forgotSubmitting ? 'not-allowed' : 'pointer',
+                            padding: 0,
                             textDecoration: 'none',
                         }}
                     >
-                        {t('ลืมรหัสผ่าน?', 'Forgot Password?')}
-                    </Link>
+                        {forgotSubmitting ? t('กำลังส่ง OTP...', 'Sending OTP...') : t('ลืมรหัสผ่าน?', 'Forgot Password?')}
+                    </button>
                 </div>
+
+                    {/* CAPTCHA Section */}
+                    {requiresCaptcha && (
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', color: '#1F2937', fontWeight: '600' }} className="text-resp-body">
+                                {t('กรุณากรอกรหัส CAPTCHA', 'Please enter CAPTCHA code')}
+                            </label>
+                            
+                            <div style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: '12px', 
+                                marginBottom: '10px' 
+                            }}>
+                                <div 
+                                    style={{ 
+                                        flex: 1, 
+                                        height: '50px', 
+                                        backgroundColor: '#f3f4f6', 
+                                        borderRadius: '8px',
+                                        overflow: 'hidden',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        border: '1px solid #e5e7eb'
+                                    }}
+                                    dangerouslySetInnerHTML={{ __html: captchaSvg }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleFetchCaptcha}
+                                    style={{
+                                        padding: '10px',
+                                        backgroundColor: 'transparent',
+                                        border: '1px solid #e5e7eb',
+                                        borderRadius: '8px',
+                                        color: '#6b7280',
+                                        cursor: 'pointer'
+                                    }}
+                                    title={t('เปลี่ยนรูป', 'Change image')}
+                                >
+                                    <RefreshCw size={20} />
+                                </button>
+                            </div>
+
+                            <div style={{ position: 'relative' }}>
+                                <input
+                                    type="text"
+                                    value={captchaAnswer}
+                                    onChange={(e) => setCaptchaAnswer(e.target.value)}
+                                    placeholder={t('รหัสที่เห็นในภาพ', 'Code from image')}
+                                    required
+                                    style={{
+                                        width: '100%',
+                                        padding: '14px 16px',
+                                        backgroundColor: fieldErrors.captcha ? '#FEF2F2' : '#F9FAFB',
+                                        border: `2px solid ${fieldErrors.captcha ? '#EF4444' : '#E5E7EB'}`,
+                                        borderRadius: '10px',
+                                        outline: 'none',
+                                        fontSize: '16px',
+                                        transition: 'all 0.2s ease',
+                                    }}
+                                />
+                                {fieldErrors.captcha && (
+                                    <div style={{ color: '#EF4444', fontSize: '13px', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        <AlertCircle size={14} />
+                                        {fieldErrors.captcha}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
 
                 {/* Login Button */}
                 <button
@@ -341,6 +829,14 @@ const SignInArea: React.FC = () => {
                     </Link>
                 </p>
             </div>
+
+            {/* CSS Animation */}
+            <style jsx global>{`
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
         </AuthLayout>
     );
 };
