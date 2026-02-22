@@ -63,6 +63,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         try {
             const response = await authService.login(credentials, rememberMe || false);
+            console.log('DEBUG: AuthProvider.login response:', response);
 
             if (response.success && response.user) {
                 setUser(response.user);
@@ -73,6 +74,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
             return response;
         } catch (err) {
+            console.error('DEBUG: AuthProvider.login error:', err);
             const errorMessage = err instanceof Error ? err.message : 'เกิดข้อผิดพลาด';
             setError(errorMessage);
             return { success: false, error: errorMessage };

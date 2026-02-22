@@ -9,6 +9,7 @@ import { authService } from '../services/authApi';
 
 import AuthLayout from "./AuthLayout";
 import { useLanguage } from '@/features/i18n';
+import { TextCaptchaModal } from './TextCaptchaModal';
 
 const SignInArea: React.FC = () => {
     const { t } = useLanguage();
@@ -23,10 +24,7 @@ const SignInArea: React.FC = () => {
     const [rememberMe, setRememberMe] = useState(false);
     
     // Captcha states
-    const [requiresCaptcha, setRequiresCaptcha] = useState(true);
-    const [captchaSvg, setCaptchaSvg] = useState('');
-    const [captchaToken, setCaptchaToken] = useState('');
-    const [captchaAnswer, setCaptchaAnswer] = useState('');
+    const [showCaptchaModal, setShowCaptchaModal] = useState(false);
 
     // Forgot password states
     const [showOtpModal, setShowOtpModal] = useState(false);
@@ -40,20 +38,8 @@ const SignInArea: React.FC = () => {
     const [resetSuccess, setResetSuccess] = useState(false);
     const otpInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-    const handleFetchCaptcha = async () => {
-        try {
-            const res = await authService.fetchCaptcha();
-            if (res.success && res.svg && res.token) {
-                setCaptchaSvg(res.svg);
-                setCaptchaToken(res.token);
-            }
-        } catch (error) {
-            console.error('Failed to fetch captcha', error);
-        }
-    };
-
+    // No longer fetching CAPTCHA on mount
     useEffect(() => {
-        handleFetchCaptcha();
     }, []);
 
     const handleForgotPassword = async () => {
@@ -169,63 +155,66 @@ const SignInArea: React.FC = () => {
         setLoginFailed(false);
         setIsSubmitting(true);
 
-        // Check if CAPTCHA is required but not provided
-        if (requiresCaptcha && (!captchaAnswer || !captchaToken)) {
-            setFieldErrors({ captcha: t('กรุณากรอกรหัส CAPTCHA', 'Please enter CAPTCHA code') });
-            setIsSubmitting(false);
-            return;
-        }
+        // Instead of inline check, we just show the modal
+        setShowCaptchaModal(true);
+        setIsSubmitting(false);
+    };
 
-        const result = await login({
-            email, 
-            password, 
-            captchaAnswer: requiresCaptcha ? captchaAnswer : undefined,
-            captchaToken: requiresCaptcha ? captchaToken : undefined
-        }, undefined, rememberMe);
+    const handleCaptchaSuccess = async (answer: string, token: string) => {
+        console.log('DEBUG: SignInArea handleCaptchaSuccess triggered', { answer, tokenLength: token.length });
+        setShowCaptchaModal(false);
+        setIsSubmitting(true);
 
-        if (result.success) {
-            // Check if there's a redirect URL stored
-            const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
-            if (redirectUrl) {
-                sessionStorage.removeItem("redirectAfterLogin");
-                router.push(redirectUrl);
-            } else {
-                router.push("/");
-            }
-        } else {
-            setLoginFailed(true);
-            const errorMsg = (result.error || '').toLowerCase();
-            
-            // Check if backend says we now need CAPTCHA
-            if (result.requiresCaptcha) {
-                setRequiresCaptcha(true);
-                if (requiresCaptcha) {
-                    handleFetchCaptcha();
-                    setCaptchaAnswer('');
+        try {
+            console.log('DEBUG: Calling login() from SignInArea...');
+            const result = await login({
+                email, 
+                password, 
+                captchaAnswer: answer,
+                captchaToken: token
+            }, undefined, rememberMe);
+            console.log('DEBUG: Login result received in SignInArea:', result);
+
+            if (result.success) {
+                console.log('DEBUG: Login successful, redirecting...');
+                // Check if there's a redirect URL stored
+                const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+                if (redirectUrl) {
+                    sessionStorage.removeItem("redirectAfterLogin");
+                    router.push(redirectUrl);
+                } else {
+                    router.push("/");
                 }
-            }
-            
-            // Handle User Not Found specifically
-            if (errorMsg.includes('not found') || errorMsg.includes('user not found')) {
-                setFieldErrors({
-                    email: t('ไม่พบบัญชีนี้อยู่ในระบบ', 'Account not found in system')
-                });
-            } else if (errorMsg.includes('email') || errorMsg.includes('user') || errorMsg.includes('อีเมล')) {
-                setFieldErrors({
-                    email: t('อีเมลไม่ถูกต้อง', 'Invalid email')
-                });
-            } else if (errorMsg.includes('captcha')) {
-                setFieldErrors({
-                    captcha: t('รหัส CAPTCHA ไม่ถูกต้อง', 'Invalid CAPTCHA code')
-                });
-                handleFetchCaptcha();
-                setCaptchaAnswer('');
             } else {
-                setFieldErrors({
-                    password: t('รหัสผ่านไม่ถูกต้อง', 'Incorrect password')
-                });
+                console.log('DEBUG: Login failed in SignInArea:', result.error);
+                setLoginFailed(true);
+                const errorMsg = (result.error || '').toLowerCase();
+                
+                // Handle User Not Found specifically
+                if (errorMsg.includes('not found') || errorMsg.includes('user not found')) {
+                    setFieldErrors({
+                        email: t('ไม่พบบัญชีนี้อยู่ในระบบ', 'Account not found in system')
+                    });
+                } else if (errorMsg.includes('email') || errorMsg.includes('user') || errorMsg.includes('อีเมล')) {
+                    setFieldErrors({
+                        email: t('อีเมลไม่ถูกต้อง', 'Invalid email')
+                    });
+                } else if (errorMsg.includes('captcha')) {
+                    setFieldErrors({
+                        captcha: t('รหัส CAPTCHA ไม่ถูกต้อง', 'Invalid CAPTCHA code')
+                    });
+                    // Re-open modal on CAPTCHA error
+                    setShowCaptchaModal(true);
+                } else {
+                    setFieldErrors({
+                        password: t('รหัสผ่านไม่ถูกต้อง', 'Incorrect password')
+                    });
+                }
+                setIsSubmitting(false);
             }
-            
+        } catch (err) {
+            console.error('DEBUG: Exception caught in handleCaptchaSuccess:', err);
+            setLoginFailed(true);
             setIsSubmitting(false);
         }
     };
@@ -477,6 +466,14 @@ const SignInArea: React.FC = () => {
                 </div>
             )}
 
+            {/* CAPTCHA Modal */}
+            {showCaptchaModal && (
+                <TextCaptchaModal 
+                    onSuccess={handleCaptchaSuccess} 
+                    onClose={() => setShowCaptchaModal(false)} 
+                />
+            )}
+
             <form onSubmit={handleSubmit} noValidate>
                 {/* Email */}
                 <div style={{ marginBottom: '18px' }}>
@@ -675,77 +672,6 @@ const SignInArea: React.FC = () => {
                     </button>
                 </div>
 
-                    {/* CAPTCHA Section */}
-                    {requiresCaptcha && (
-                        <div style={{ marginBottom: '20px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', color: '#1F2937', fontWeight: '600' }} className="text-resp-body">
-                                {t('กรุณากรอกรหัส CAPTCHA', 'Please enter CAPTCHA code')}
-                            </label>
-                            
-                            <div style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                gap: '12px', 
-                                marginBottom: '10px' 
-                            }}>
-                                <div 
-                                    style={{ 
-                                        flex: 1, 
-                                        height: '50px', 
-                                        backgroundColor: '#f3f4f6', 
-                                        borderRadius: '8px',
-                                        overflow: 'hidden',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        border: '1px solid #e5e7eb'
-                                    }}
-                                    dangerouslySetInnerHTML={{ __html: captchaSvg }}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={handleFetchCaptcha}
-                                    style={{
-                                        padding: '10px',
-                                        backgroundColor: 'transparent',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        color: '#6b7280',
-                                        cursor: 'pointer'
-                                    }}
-                                    title={t('เปลี่ยนรูป', 'Change image')}
-                                >
-                                    <RefreshCw size={20} />
-                                </button>
-                            </div>
-
-                            <div style={{ position: 'relative' }}>
-                                <input
-                                    type="text"
-                                    value={captchaAnswer}
-                                    onChange={(e) => setCaptchaAnswer(e.target.value)}
-                                    placeholder={t('รหัสที่เห็นในภาพ', 'Code from image')}
-                                    required
-                                    style={{
-                                        width: '100%',
-                                        padding: '14px 16px',
-                                        backgroundColor: fieldErrors.captcha ? '#FEF2F2' : '#F9FAFB',
-                                        border: `2px solid ${fieldErrors.captcha ? '#EF4444' : '#E5E7EB'}`,
-                                        borderRadius: '10px',
-                                        outline: 'none',
-                                        fontSize: '16px',
-                                        transition: 'all 0.2s ease',
-                                    }}
-                                />
-                                {fieldErrors.captcha && (
-                                    <div style={{ color: '#EF4444', fontSize: '13px', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                        <AlertCircle size={14} />
-                                        {fieldErrors.captcha}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
 
                 {/* Login Button */}
                 <button

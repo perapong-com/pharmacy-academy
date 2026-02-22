@@ -22,6 +22,7 @@ export const authService = {
      */
     async login(credentials: LoginCredentials, rememberMe: boolean = false): Promise<AuthResponse> {
         try {
+            console.log('DEBUG: Sending login request to:', `${API_BASE_URL}/auth/login`);
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -29,6 +30,7 @@ export const authService = {
             });
 
             const data = await response.json();
+            console.log('DEBUG: Login API RAW response:', { status: response.status, ok: response.ok, data });
 
             if (!response.ok) {
                 return { 

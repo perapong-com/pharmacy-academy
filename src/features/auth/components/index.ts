@@ -6,3 +6,4 @@ export { default as RegisterPharmacistArea } from './RegisterPharmacistArea';
 export { default as EnrollButton } from './EnrollButton';
 export { default as HeaderAuthButtons } from './HeaderAuthButtons';
 export { default as ForgotPasswordArea } from './ForgotPasswordArea';
+export { TextCaptchaModal } from './TextCaptchaModal';
