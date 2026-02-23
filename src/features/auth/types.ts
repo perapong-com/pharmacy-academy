@@ -32,6 +32,8 @@ export interface LoginCredentials {
     email: string;
     password: string;
     rememberMe?: boolean;
+    captchaAnswer?: string;
+    captchaToken?: string;
 }
 
 /**
@@ -63,6 +65,7 @@ export interface AuthResponse {
     user?: User;
     token?: string;
     error?: string;
+    requiresCaptcha?: boolean;
 }
 
 /**
@@ -79,14 +82,14 @@ export interface AuthState {
  * Actions สำหรับ Auth
  */
 export interface AuthActions {
-    login: (emailOrCredentials: string | LoginCredentials, password?: string) => Promise<AuthResponse>;
+    login: (emailOrCredentials: string | LoginCredentials, password?: string, rememberMe?: boolean) => Promise<AuthResponse>;
     register: (data: RegisterData) => Promise<AuthResponse>;
     registerPharmacist: (data: RegisterPharmacistData) => Promise<AuthResponse>;
     logout: () => void;
     updateProfile: (data: Partial<User>) => Promise<AuthResponse>;
     changePassword: (oldPassword: string, newPassword: string) => Promise<AuthResponse>;
     forgotPassword: (email: string) => Promise<{ success: boolean; message?: string }>;
-    resetPassword: (token: string, newPassword: string) => Promise<AuthResponse>;
+    resetPassword: (email: string, otp: string, newPassword: string) => Promise<AuthResponse>;
 }
 
 /**

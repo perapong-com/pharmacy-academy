@@ -73,7 +73,14 @@ const RegisterPharmacistArea = () => {
             if (result.success) {
                 router.push("/");
             } else {
-                setError(result.error || t('การลงทะเบียนล้มเหลว', 'Registration failed'));
+                const errorMsg = result.error || "";
+                if (errorMsg.includes("ชื่อซ้ำ")) {
+                    setFieldErrors({ name: t('ชื่อนี้ถูกใช้งานแล้ว', 'This name is already in use') });
+                } else if (errorMsg.includes("อีเมลซ้ำ")) {
+                    setFieldErrors({ email: t('อีเมลนี้ถูกใช้งานแล้ว', 'This email is already in use') });
+                } else {
+                    setError(errorMsg || t('การลงทะเบียนล้มเหลว', 'Registration failed'));
+                }
                 setIsSubmitting(false);
             }
         } catch (err) {
