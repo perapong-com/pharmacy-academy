@@ -116,51 +116,11 @@ export interface CourseSearchResult {
     image: string;
 }
 
-interface SearchContextType {
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
-    suggestions: CourseSearchResult[];
-    showSuggestions: boolean;
-    setShowSuggestions: (show: boolean) => void;
-    selectedPriceRange: string;
-    setSelectedPriceRange: (range: string) => void;
-}
+import { useSearchStore } from '@/stores/useSearchStore';
 
-const SearchContext = createContext<SearchContextType | undefined>(undefined);
-
-export const SearchProvider = ({ children }: { children: ReactNode }) => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [showSuggestions, setShowSuggestions] = useState(false);
-    const [selectedPriceRange, setSelectedPriceRange] = useState('all');
-
-    // Get search suggestions based on query
-    const suggestions = searchQuery.length >= 2
-        ? ALL_COURSES.filter(course =>
-            course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            course.titleEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            course.instructor.toLowerCase().includes(searchQuery.toLowerCase())
-        ).slice(0, 5) // Limit to 5 suggestions
-        : [];
-
-    return (
-        <SearchContext.Provider value={{
-            searchQuery,
-            setSearchQuery,
-            suggestions,
-            showSuggestions,
-            setShowSuggestions,
-            selectedPriceRange,
-            setSelectedPriceRange,
-        }}>
-            {children}
-        </SearchContext.Provider>
-    );
+export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
+    // Empty provider for backward compatibility with layout.tsx until it's removed
+    return <>{children}</>;
 };
 
-export const useSearch = () => {
-    const context = useContext(SearchContext);
-    if (context === undefined) {
-        throw new Error('useSearch must be used within a SearchProvider');
-    }
-    return context;
-};
+export const useSearch = useSearchStore;

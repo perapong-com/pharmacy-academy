@@ -1,30 +1,44 @@
 "use client"
 import VideoPopup from '@/components/common/VideoPopup';
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { useAddToCart } from '@/features/cart/hooks';
 import type { CartItem } from '@/features/cart/types';
 
-const CoursesDetailsArea = () => {
+interface CoursesDetailsAreaProps {
+    initialData?: any; // To allow flexibility for Zero UI Breakage Pattern
+}
+
+const CoursesDetailsArea: React.FC<CoursesDetailsAreaProps> = ({ initialData }) => {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
     const router = useRouter();
     const { addToCart } = useAddToCart();
 
     // Mock course data matching the static content
     // In a real app, this would come from props or API
+    // Use initialData if provided, otherwise fallback to mock
+    const title = initialData?.title || initialData?.titleEn || "Web Development";
+    const price = initialData?.price || 1500;
+    const instructorName = initialData?.instructor || "Mario S. Davis";
+    const coverImage = initialData?.image || "assets/img/courses/details-1.jpg";
+    const sidebarImage = initialData?.image || "assets/img/courses/22.jpg";
+    const description = initialData?.description || "UX/UI design focuses on creating user-friendly and visually appealing digital experiences...";
+    const category = initialData?.category || "Development";
+
     const courseData: CartItem = {
-        id: 999, // Arbitrary ID for this static page
-        title: "Web Development",
-        price: 1500,
-        originalPrice: 2000, // Assuming original price
-        image: "assets/img/courses/22.jpg",
-        instructor: "Mario S. Davis",
-        rating: 4.8,
-        category: "Development",
-        credits: 2.5, // Mock credit
-        cpe: 2.0 // Mock CPE
+        id: initialData?.id || 999,
+        title: title,
+        price: price,
+        originalPrice: price + 500, // mock original price
+        image: sidebarImage,
+        instructor: instructorName,
+        rating: initialData?.rating || 4.8,
+        category: category,
+        credits: initialData?.cpe || 2.5,
+        cpe: initialData?.cpe || 2.0
     };
 
     const handleAddToCart = (e: React.MouseEvent) => {
@@ -55,8 +69,15 @@ const CoursesDetailsArea = () => {
                         <div className="row g-4">
                             <div className="col-lg-8">
                                 <div className="courses-details-items">
-                                    <div className="courses-image">
-                                        <img src="assets/img/courses/details-1.jpg" alt="img" />
+                                    <div className="courses-image" style={{ position: 'relative', height: '500px', overflow: 'hidden', width: '100%' }}>
+                                        <Image
+                                            src={coverImage.startsWith('/') ? coverImage : `/${coverImage}`}
+                                            alt="cover"
+                                            fill
+                                            style={{ objectFit: 'cover' }}
+                                            sizes="(max-width: 768px) 100vw, 800px"
+                                            priority
+                                        />
                                         <a
                                             onClick={() => setIsVideoOpen(true)}
                                             style={{ cursor: "pointer" }}
@@ -91,12 +112,7 @@ const CoursesDetailsArea = () => {
                                             <div id="Course" className="tab-pane fade show active" role="tabpanel">
                                                 <div className="description-content">
                                                     <h3 className="font-bold" style={{ fontSize: '30px' }}>Description</h3>
-                                                    <p className="mb-3" style={{ fontSize: '20px', lineHeight: '1.6' }}>
-                                                        UX/UI design focuses on creating user-friendly and visually appealing digital experiences, ensuring
-                                                        that products such as websites and apps are both intuitive and enjoyable UX (User Experience) Design involves understanding the needs, behaviors, and pain points of users to create a seamless, effective experience process includes conducting user research, mapping user journeys.
-                                                    </p>
-                                                    <p style={{ fontSize: '20px', lineHeight: '1.6' }}>
-                                                        UI (User Interface) Design is the process of creating the visual elements of a product, including layout, color schemes, typography, and interactive features like buttons and icons.
+                                                    <p className="mb-3" style={{ fontSize: '20px', lineHeight: '1.6' }} dangerouslySetInnerHTML={{ __html: description }}>
                                                     </p>
                                                     <h3 className="mt-5 font-bold" style={{ fontSize: '30px' }}>What you'll learn in this course?</h3>
                                                     <p className="mb-4" style={{ fontSize: '20px', lineHeight: '1.6' }}>
@@ -478,10 +494,16 @@ const CoursesDetailsArea = () => {
                             <div className="col-lg-4">
                                 <div className="courses-sidebar-area sticky-style">
                                     <div className="courses-items">
-                                        <div className="courses-image">
-                                            <img src="assets/img/courses/22.jpg" alt="img" />
-                                            <h3 className="courses-title">Development</h3>
-                                            <h4 className="topic-title">Web Development</h4>
+                                        <div className="courses-image" style={{ position: 'relative', paddingBottom: '60%', overflow: 'hidden' }}>
+                                            <Image
+                                                src={sidebarImage.startsWith('/') ? sidebarImage : `/${sidebarImage}`}
+                                                alt="sidebar cover"
+                                                fill
+                                                style={{ objectFit: 'cover' }}
+                                                sizes="(max-width: 768px) 100vw, 400px"
+                                            />
+                                            <h3 className="courses-title">{category}</h3>
+                                            <h4 className="topic-title">{title}</h4>
                                             <div className="arrow-items">
                                                 <div className="GlidingArrow">
                                                     <img src="assets/img/courses/a1.png" alt="img" />
@@ -504,9 +526,8 @@ const CoursesDetailsArea = () => {
                                             </div>
                                         </div>
                                         <div className="courses-content">
-                                            <h3 className="text-force-bold mb-2" style={{ color: '#014d40', fontSize: '36px' }}>฿1,500</h3>
-                                            <p style={{ fontSize: '18px' }}>
-                                                UX (User Experience) Design the involves understanding needs, behaviors.
+                                            <h3 className="text-force-bold mb-2" style={{ color: '#014d40', fontSize: '36px' }}>฿{price.toLocaleString()}</h3>
+                                            <p style={{ fontSize: '18px' }} dangerouslySetInnerHTML={{ __html: description.substring(0, 100) + '...' }}>
                                             </p>
                                             <div className="courses-btn">
                                                 <button onClick={handleAddToCart} className="theme-btn" style={{ fontSize: '22px', width: '100%', padding: '14px', fontWeight: 'bold' }}>Add to Cart</button>
@@ -522,7 +543,7 @@ const CoursesDetailsArea = () => {
                                                     <i className="far fa-chalkboard-teacher" style={{ fontSize: '20px' }}></i>
                                                     Instructor
                                                 </span>
-                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>Mario S. Davis</span>
+                                                <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>{instructorName}</span>
                                             </li>
                                             <li style={{ marginBottom: '12px' }}>
                                                 <span>
@@ -574,7 +595,7 @@ const CoursesDetailsArea = () => {
                                                 <span className="text" style={{ fontSize: '18px', fontWeight: '500' }}>Yes</span>
                                             </li>
                                         </ul>
-                                        <Link href="/courses-details" className="share-btn"><i className="fas fa-share"></i> Share this courses</Link>
+                                        <Link href={`/courses/${initialData?.id || ''}`} className="share-btn"><i className="fas fa-share"></i> Share this courses</Link>
                                     </div>
                                 </div>
                             </div>

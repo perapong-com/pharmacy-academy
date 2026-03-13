@@ -31,7 +31,7 @@ const EnrollButton: React.FC<EnrollButtonProps> = ({
 
         // Logged in: proceed to course or show success
         if (courseId) {
-            router.push(`/courses-details?id=${courseId}`);
+            router.push(`/courses/${courseId}`);
         } else {
             router.push("/courses-grid");
         }

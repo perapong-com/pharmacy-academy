@@ -181,7 +181,7 @@ const HeaderTwo = () => {
                                                     filteredCourses.map((course) => (
                                                         <Link
                                                             key={course.id}
-                                                            href={`/courses-details?id=${course.id}`}
+                                                            href={`/courses/${course.id}`}
                                                             onClick={() => setShowSuggestions(false)}
                                                             style={{
                                                                 display: 'flex',

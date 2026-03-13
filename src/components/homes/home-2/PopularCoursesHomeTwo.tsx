@@ -82,7 +82,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3 className="text-resp-h3 font-bold mb-3 leading-snug">
-                                                    <Link href="/courses-details" className="hover:text-primary transition-colors">
+                                                    <Link href="/courses/1" className="hover:text-primary transition-colors">
                                                         Learn With Advance Web
                                                         Design (UX/UI) Course
                                                     </Link>
@@ -101,7 +101,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -151,7 +151,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3 className="text-resp-h3 font-bold mb-3 leading-snug">
-                                                    <Link href="/courses-details" className="hover:text-primary transition-colors">
+                                                    <Link href="/courses/1" className="hover:text-primary transition-colors">
                                                         Finance Management Building
                                                         Wealth Security Business
                                                     </Link>
@@ -170,7 +170,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -219,7 +219,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3 className="text-resp-h3 font-bold mb-3 leading-snug">
-                                                    <Link href="/courses-details" className="hover:text-primary transition-colors">
+                                                    <Link href="/courses/1" className="hover:text-primary transition-colors">
                                                         Introduction to Data Science and Machine Learning
                                                     </Link>
                                                 </h3>
@@ -237,7 +237,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -286,7 +286,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3 className="text-resp-h3 font-bold mb-3 leading-snug">
-                                                    <Link href="/courses-details" className="hover:text-primary transition-colors">
+                                                    <Link href="/courses/1" className="hover:text-primary transition-colors">
                                                         Digital Marketing for Business
                                                         Grow and Success Sales
                                                     </Link>
@@ -305,7 +305,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -354,7 +354,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Complete to Advance Graphic
                                                         Design Masterclass
                                                     </Link>
@@ -373,7 +373,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -422,7 +422,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Effective Communication and
                                                         Leadership Skills
                                                     </Link>
@@ -441,7 +441,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -494,7 +494,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Learn With Advance Web
                                                         Design (UX/UI) Course
                                                     </Link>
@@ -513,7 +513,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -562,7 +562,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Finance Management Building
                                                         Wealth Security Business
                                                     </Link>
@@ -581,7 +581,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -630,7 +630,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Introduction to Data Science and Machine Learning
                                                     </Link>
                                                 </h3>
@@ -648,7 +648,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -697,7 +697,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Digital Marketing for Business
                                                         Grow and Success Sales
                                                     </Link>
@@ -716,7 +716,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -765,7 +765,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Complete to Advance Graphic
                                                         Design Masterclass
                                                     </Link>
@@ -784,7 +784,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -833,7 +833,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Effective Communication and
                                                         Leadership Skills
                                                     </Link>
@@ -852,7 +852,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -905,7 +905,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Learn With Advance Web
                                                         Design (UX/UI) Course
                                                     </Link>
@@ -924,7 +924,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -973,7 +973,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Finance Management Building
                                                         Wealth Security Business
                                                     </Link>
@@ -992,7 +992,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1041,7 +1041,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Introduction to Data Science and Machine Learning
                                                     </Link>
                                                 </h3>
@@ -1059,7 +1059,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1108,7 +1108,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Digital Marketing for Business
                                                         Grow and Success Sales
                                                     </Link>
@@ -1127,7 +1127,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1176,7 +1176,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Complete to Advance Graphic
                                                         Design Masterclass
                                                     </Link>
@@ -1195,7 +1195,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1244,7 +1244,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Effective Communication and
                                                         Leadership Skills
                                                     </Link>
@@ -1263,7 +1263,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1316,7 +1316,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Learn With Advance Web
                                                         Design (UX/UI) Course
                                                     </Link>
@@ -1335,7 +1335,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1384,7 +1384,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Finance Management Building
                                                         Wealth Security Business
                                                     </Link>
@@ -1403,7 +1403,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1452,7 +1452,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Introduction to Data Science and Machine Learning
                                                     </Link>
                                                 </h3>
@@ -1470,7 +1470,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1519,7 +1519,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Digital Marketing for Business
                                                         Grow and Success Sales
                                                     </Link>
@@ -1538,7 +1538,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1587,7 +1587,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Complete to Advance Graphic
                                                         Design Masterclass
                                                     </Link>
@@ -1606,7 +1606,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1655,7 +1655,7 @@ const PopularCoursesHomeTwo = () => {
                                                     </li>
                                                 </ul>
                                                 <h3>
-                                                    <Link href="/courses-details">
+                                                    <Link href="/courses/1">
                                                         Effective Communication and
                                                         Leadership Skills
                                                     </Link>
@@ -1674,7 +1674,7 @@ const PopularCoursesHomeTwo = () => {
                                                         80 Students
                                                     </li>
                                                     <li>
-                                                        <Link href="/courses-details" className="theme-btn text-resp-btn">Enroll Now</Link>
+                                                        <Link href="/courses/1" className="theme-btn text-resp-btn">Enroll Now</Link>
                                                     </li>
                                                 </ul>
                                             </div>

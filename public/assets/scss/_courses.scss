@@ -1348,35 +1348,34 @@
                         .checkmark {
                             position: absolute;
                             left: 0;
+                            top: 5px;
                             height: 20px;
                             width: 20px;
                             border-radius: 5px;
                             border: 1px solid rgba(0, 91, 255, 0.15);
                             background-color: $white;
-                            top: 5px;
+                            display: flex !important;
+                            align-items: center !important;
+                            justify-content: center !important;
 
                             &::after {
                                 content: "";
                             }
                         }
 
-                        input:checked~.checkmark {
+                        input:checked ~ .checkmark {
+                            background-color: #014D40;
+                            border-color: #014D40;
+
                             &::after {
                                 content: "\f00c";
-                                position: absolute;
-                                font-family: $fa;
-                                top: -5px;
-                                left: 5px;
-                                color: $theme-blue;
+                                font-family: "Font Awesome 6 Free";
+                                font-weight: 900;
+                                color: #fff;
                                 font-size: 11px;
+                                position: static;
+                                display: block;
                             }
-
-                            background-color: $theme-blue;
-                        }
-
-                        input:checked~.checkmark:after {
-                            display: block;
-                            color: $white;
                         }
                     }
 

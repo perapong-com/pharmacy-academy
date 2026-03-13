@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Send, Linkedin } from "lucide-react";
 
 interface AuthLayoutProps {
@@ -111,15 +112,17 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
                             borderRadius: '12px',
                             margin: '0 auto 28px',
                             overflow: 'hidden',
+                            position: 'relative' // Added for Next.js Image fill support
                         }}>
-                            <img
+                            <Image
                                 src="/images/ontrack-hero.png"
                                 alt="Ontrack Learning"
+                                fill
                                 style={{
-                                    width: '100%',
-                                    height: '100%',
                                     objectFit: 'cover',
                                 }}
+                                sizes="160px"
+                                priority
                             />
                         </div>
 

@@ -41,7 +41,7 @@ class ApiClient {
 
         // Add auth token if available
         if (typeof window !== 'undefined') {
-            const token = localStorage.getItem('auth_token');
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
             if (token) {
                 (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
             }
@@ -51,6 +51,7 @@ class ApiClient {
             const response = await fetch(url, {
                 ...fetchOptions,
                 headers,
+                credentials: 'include', // Ensure cookies are sent
             });
 
             const data = await response.json();

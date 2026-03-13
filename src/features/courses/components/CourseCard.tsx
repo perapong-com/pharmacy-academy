@@ -5,6 +5,7 @@
  */
 
 import Link from 'next/link';
+import Image from 'next/image';
 import React from 'react';
 import EnrollButton from '@/components/common/EnrollButton';
 import { useLanguage } from '@/features/i18n';
@@ -21,11 +22,13 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         <div className="courses-card-main-items">
             {/* Default card state */}
             <div className="courses-card-items" style={{ marginTop: '15px' }}>
-                <div className="courses-image">
-                    <img
-                        src={course.image}
+                <div className="courses-image" style={{ position: 'relative', height: '140px', overflow: 'hidden' }}>
+                    <Image
+                        src={course.image.startsWith('/') ? course.image : `/${course.image}`}
                         alt={course.title}
-                        style={{ maxHeight: '140px', objectFit: 'cover' }}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        sizes="(max-width: 768px) 100vw, 300px"
                     />
                     <h3 className="courses-title" style={{ fontSize: '30px' }}>{course.categoryEn}</h3>
                     <h4 className="topic-title">{course.cpe} CPE</h4>
@@ -35,7 +38,13 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                                 key={num}
                                 className={`GlidingArrow${num > 1 ? ` delay${num - 1}` : ''}`}
                             >
-                                <img src={`assets/img/courses/a${num}.png`} alt="img" />
+                                <Image
+                                    src={`/assets/img/courses/a${num}.png`}
+                                    alt="img"
+                                    width={40}
+                                    height={40}
+                                    style={{ width: 'auto', height: 'auto' }}
+                                />
                             </div>
                         ))}
                     </div>
@@ -52,7 +61,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                         </li>
                     </ul>
                     <h5>
-                        <Link href="/courses-details">{course.title}</Link>
+                        <Link href={`/courses/${course.id}`}>{course.title}</Link>
                     </h5>
                     <div className="client-items">
                         <div

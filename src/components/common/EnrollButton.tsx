@@ -25,11 +25,11 @@ const EnrollButton: React.FC<EnrollButtonProps> = ({
 
         if (!isAuthenticated) {
             // Save the intended destination
-            sessionStorage.setItem("redirectAfterLogin", `/courses-details?id=${courseId}`);
+            sessionStorage.setItem("redirectAfterLogin", `/courses/${courseId}`);
             router.push("/sign-in");
         } else {
             // User is logged in, go to course details or checkout
-            router.push(`/courses-details?id=${courseId}`);
+            router.push(`/courses/${courseId}`);
         }
     };
 

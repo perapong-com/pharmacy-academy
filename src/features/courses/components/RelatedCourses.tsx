@@ -88,7 +88,7 @@ const RelatedCourses = () => {
                                             </li>
                                         </ul>
                                         <h3>
-                                            <Link href="/courses-details">
+                                            <Link href="/courses/1">
                                                 Learn With Advance Web
                                                 Design (UX/UI) Course
                                             </Link>
@@ -107,7 +107,7 @@ const RelatedCourses = () => {
                                                 80 Students
                                             </li>
                                             <li>
-                                                <Link href="/courses-details" className="theme-btn">Enroll Now</Link>
+                                                <Link href="/courses/1" className="theme-btn">Enroll Now</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -156,7 +156,7 @@ const RelatedCourses = () => {
                                             </li>
                                         </ul>
                                         <h3>
-                                            <Link href="/courses-details">
+                                            <Link href="/courses/1">
                                                 Finance Management Building
                                                 Wealth Security
                                             </Link>
@@ -175,7 +175,7 @@ const RelatedCourses = () => {
                                                 80 Students
                                             </li>
                                             <li>
-                                                <Link href="/courses-details" className="theme-btn">Enroll Now</Link>
+                                                <Link href="/courses/1" className="theme-btn">Enroll Now</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -224,7 +224,7 @@ const RelatedCourses = () => {
                                             </li>
                                         </ul>
                                         <h3>
-                                            <Link href="/courses-details">
+                                            <Link href="/courses/1">
                                                 Introduction to Data Science and Machine Learning
                                             </Link>
                                         </h3>
@@ -242,7 +242,7 @@ const RelatedCourses = () => {
                                                 80 Students
                                             </li>
                                             <li>
-                                                <Link href="/courses-details" className="theme-btn">Enroll Now</Link>
+                                                <Link href="/courses/1" className="theme-btn">Enroll Now</Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -291,7 +291,7 @@ const RelatedCourses = () => {
                                             </li>
                                         </ul>
                                         <h3>
-                                            <Link href="/courses-details">
+                                            <Link href="/courses/1">
                                                 Introduction to Data Science and Machine Learning
                                             </Link>
                                         </h3>
@@ -309,7 +309,7 @@ const RelatedCourses = () => {
                                                 80 Students
                                             </li>
                                             <li>
-                                                <Link href="/courses-details" className="theme-btn">Enroll Now</Link>
+                                                <Link href="/courses/1" className="theme-btn">Enroll Now</Link>
                                             </li>
                                         </ul>
                                     </div>

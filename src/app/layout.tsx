@@ -3,8 +3,6 @@ import "./globals.css";
 import "../styles/index.scss";
 import { AuthProvider } from "@/features/auth";
 import { LanguageProvider } from "@/features/i18n";
-import { SearchProvider } from "@/features/search";
-import { CartProvider } from "@/features/cart";
 
 
 export default function RootLayout({
@@ -25,11 +23,7 @@ export default function RootLayout({
             <body>
                 <LanguageProvider>
                     <AuthProvider>
-                        <SearchProvider>
-                            <CartProvider>
-                                {children}
-                            </CartProvider>
-                        </SearchProvider>
+                        {children}
                     </AuthProvider>
                 </LanguageProvider>
             </body>

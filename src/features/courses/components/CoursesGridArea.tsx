@@ -2,11 +2,15 @@
 import Link from 'next/link';
 import React from 'react';
 import { useLanguage } from '@/features/i18n';
-import { CATEGORIES, PRICE_RANGES } from '../data/mockData';
+import { CATEGORIES, PRICE_RANGES, Course } from '../data/mockData';
 import CourseCard from './CourseCard';
 import { useCourseFilter } from '../hooks/useCourseFilter';
 
-const CoursesGridArea = () => {
+interface CoursesGridAreaProps {
+    initialCourses?: Course[];
+}
+
+const CoursesGridArea: React.FC<CoursesGridAreaProps> = ({ initialCourses }) => {
     const { language, t } = useLanguage();
     const {
         searchQuery,
@@ -20,7 +24,7 @@ const CoursesGridArea = () => {
         setSelectedPriceRange,
         setIsFilterOpen,
         clearFilters,
-    } = useCourseFilter();
+    } = useCourseFilter({ initialCourses });
 
 
     return (

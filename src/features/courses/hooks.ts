@@ -2,6 +2,7 @@
 
 // Courses Feature - Custom Hooks
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { coursesService } from './services';
 import type {
     Course,
     CourseCard,
@@ -46,23 +47,16 @@ export function useCourses(options: UseCoursesOptions = {}): UseCoursesReturn {
             setIsLoading(true);
             setError(null);
 
-            // TODO: Replace with actual API call
-            // const response = await coursesService.getCourses({ ...filters, page: currentPage, limit });
-
-            // Mock data for now
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            const mockCourses: CourseCard[] = [];
-            // Add mock implementation here when API is ready
+            const response = await coursesService.getCourses({ ...filters, page: currentPage, limit });
 
             if (append) {
-                setCourses(prev => [...prev, ...mockCourses]);
+                setCourses(prev => [...prev, ...response.courses]);
             } else {
-                setCourses(mockCourses);
+                setCourses(response.courses);
             }
 
-            setTotalCount(0);
-            setHasMore(false);
+            setTotalCount(response.total);
+            setHasMore(response.hasMore ?? response.courses.length === limit);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'เกิดข้อผิดพลาดในการโหลดคอร์ส');
         } finally {
@@ -116,18 +110,15 @@ export function useCourseDetail(courseId: number | string): UseCourseDetailRetur
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchCourse = useCallback(async () => {
+    const fetchCourseDetail = useCallback(async () => {
+        if (!courseId) return;
+
         try {
             setIsLoading(true);
             setError(null);
 
-            // TODO: Replace with actual API call
-            // const data = await coursesService.getCourseById(courseId);
-
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            // Mock: Set course data when API is ready
-            setCourse(null);
+            const data = await coursesService.getCourseDetail(Number(courseId));
+            setCourse(data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'ไม่พบคอร์สที่ต้องการ');
         } finally {
@@ -137,15 +128,15 @@ export function useCourseDetail(courseId: number | string): UseCourseDetailRetur
 
     useEffect(() => {
         if (courseId) {
-            fetchCourse();
+            fetchCourseDetail();
         }
-    }, [courseId, fetchCourse]);
+    }, [courseId, fetchCourseDetail]);
 
     return {
         course,
         isLoading,
         error,
-        refresh: fetchCourse,
+        refresh: fetchCourseDetail,
     };
 }
 
@@ -169,12 +160,8 @@ export function useEnrolledCourses(): UseEnrolledCoursesReturn {
             setIsLoading(true);
             setError(null);
 
-            // TODO: Replace with actual API call
-            // const courses = await coursesService.getEnrolledCourses();
-
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            setEnrolledCourses([]);
+            const courses = await coursesService.getEnrolledCourses();
+            setEnrolledCourses(courses);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'เกิดข้อผิดพลาด');
         } finally {
@@ -212,19 +199,8 @@ export function useCourseProgress(courseId: number): UseCourseProgressReturn {
         const fetchProgress = async () => {
             try {
                 setIsLoading(true);
-                // TODO: Replace with actual API call
-                // const data = await coursesService.getCourseProgress(courseId);
-
-                await new Promise(resolve => setTimeout(resolve, 300));
-
-                // Mock progress
-                setProgress({
-                    courseId,
-                    completedLessons: [],
-                    progressPercent: 0,
-                    startedAt: new Date().toISOString(),
-                    lastAccessedAt: new Date().toISOString(),
-                });
+                const data = await coursesService.getCourseProgress(courseId);
+                setProgress(data);
             } finally {
                 setIsLoading(false);
             }
@@ -238,12 +214,16 @@ export function useCourseProgress(courseId: number): UseCourseProgressReturn {
     const markLessonComplete = useCallback(async (lessonId: number) => {
         if (!progress) return;
 
-        // TODO: Replace with actual API call
-        // await coursesService.markLessonComplete(courseId, lessonId);
+        await coursesService.markLessonComplete(courseId, lessonId);
 
         setProgress(prev => {
             if (!prev) return prev;
-            const completedLessons = [...prev.completedLessons, lessonId];
+
+            // Avoid duplicate lessons
+            const completedLessons = prev.completedLessons.includes(lessonId)
+                ? prev.completedLessons
+                : [...prev.completedLessons, lessonId];
+
             return {
                 ...prev,
                 completedLessons,

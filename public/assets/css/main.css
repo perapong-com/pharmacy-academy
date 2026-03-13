@@ -14112,16 +14112,17 @@ p {
 }
 
 .courses-main-sidebar-area .courses-main-sidebar .courses-sidebar-items .courses-list .checkbox-single .checkbox-area input:checked~.checkmark {
-  background-color: var(--theme-blue);
+  background-color: #014D40;
 }
 
 .courses-main-sidebar-area .courses-main-sidebar .courses-sidebar-items .courses-list .checkbox-single .checkbox-area input:checked~.checkmark::after {
   content: "\f00c";
   position: absolute;
-  font-family: "Font Awesome 5 Pro";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
   top: -5px;
   left: 5px;
-  color: var(--theme-blue);
+  color: #fff;
   font-size: 11px;
 }
 

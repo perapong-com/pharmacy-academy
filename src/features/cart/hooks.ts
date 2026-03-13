@@ -1,8 +1,8 @@
 // Cart Hooks - Business logic for shopping cart
 'use client';
 
-import { useContext, useCallback, useMemo } from 'react';
-import { CartContext } from './CartProvider';
+import { useCallback, useMemo } from 'react';
+import { useCartStore } from '@/stores/useCartStore';
 import type { CartContextType, CartItem } from './types';
 
 /**
@@ -10,11 +10,7 @@ import type { CartContextType, CartItem } from './types';
  * ใช้สำหรับเข้าถึง cart state และ actions ทั้งหมด
  */
 export function useCart(): CartContextType {
-    const context = useContext(CartContext);
-    if (!context) {
-        throw new Error('useCart must be used within a CartProvider');
-    }
-    return context;
+    return useCartStore();
 }
 
 /**

@@ -22,8 +22,9 @@ export const authService = {
      */
     async login(credentials: LoginCredentials, rememberMe: boolean = false): Promise<AuthResponse> {
         try {
-            console.log('DEBUG: Sending login request to:', `${API_BASE_URL}/auth/login`);
-            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+            console.log('DEBUG: Sending login request to API Proxy:', `/api/auth/login`);
+            // Forward login request to Next.js API Route (Proxy) which sets the HttpOnly cookie
+            const response = await fetch(`/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credentials),
@@ -33,8 +34,8 @@ export const authService = {
             console.log('DEBUG: Login API RAW response:', { status: response.status, ok: response.ok, data });
 
             if (!response.ok) {
-                return { 
-                    success: false, 
+                return {
+                    success: false,
                     error: data.error || data.message || 'เข้าสู่ระบบล้มเหลว',
                     requiresCaptcha: data.requiresCaptcha || false
                 };
@@ -45,7 +46,9 @@ export const authService = {
             const storage = rememberMe ? localStorage : sessionStorage;
 
             if (data.token) {
-                storage.setItem('token', data.token);
+                // We no longer necessarily need to store the raw token in LS
+                // if we are fully migrating to HttpOnly cookies.
+                // But for now, we leave ontrack_user and rememberMe alone.
                 storage.setItem('ontrack_user', JSON.stringify(data.user));
             }
 
@@ -58,20 +61,20 @@ export const authService = {
     /**
      * Fetch Captcha
      */
-    async fetchCaptcha(): Promise<{ 
-        success: boolean; 
-        svg?: string; 
-        token?: string; 
-        error?: string 
+    async fetchCaptcha(): Promise<{
+        success: boolean;
+        svg?: string;
+        token?: string;
+        error?: string
     }> {
         try {
             const response = await fetch(`${API_BASE_URL}/auth/captcha`);
             const data = await response.json();
             if (data.success) {
-                return { 
-                    success: true, 
-                    svg: data.svg, 
-                    token: data.token 
+                return {
+                    success: true,
+                    svg: data.svg,
+                    token: data.token
                 };
             }
             return { success: false, error: 'ไม่สามารถดึง CAPTCHA ได้' };
@@ -151,6 +154,13 @@ export const authService = {
      * Logout
      */
     async logout(): Promise<void> {
+        // Clear HttpOnly cookie by hitting the logout proxy route
+        try {
+            await fetch(`/api/auth/logout`, { method: 'POST' });
+        } catch (e) {
+            console.error('Failed to logout via proxy API', e);
+        }
+
         localStorage.removeItem('ontrack_user');
         localStorage.removeItem('token');
         sessionStorage.removeItem('ontrack_user');

@@ -26,7 +26,11 @@ interface UseCourseFilterReturn {
     totalCourses: number;
 }
 
-export const useCourseFilter = (): UseCourseFilterReturn => {
+interface UseCourseFilterProps {
+    initialCourses?: Course[];
+}
+
+export const useCourseFilter = ({ initialCourses = COURSES_DATA }: UseCourseFilterProps = {}): UseCourseFilterReturn => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedPriceRange, setSelectedPriceRange] = useState(0);
@@ -49,7 +53,7 @@ export const useCourseFilter = (): UseCourseFilterReturn => {
     // Filter courses based on search, category, and price range
     const filteredCourses = useMemo(() => {
         const priceRange = PRICE_RANGES[selectedPriceRange];
-        return COURSES_DATA.filter((course) => {
+        return initialCourses.filter((course) => {
             const matchesSearch = searchQuery === '' ||
                 course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 course.titleEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -62,7 +66,7 @@ export const useCourseFilter = (): UseCourseFilterReturn => {
 
             return matchesSearch && matchesCategory && matchesPrice;
         });
-    }, [searchQuery, selectedCategory, selectedPriceRange]);
+    }, [searchQuery, selectedCategory, selectedPriceRange, initialCourses]);
 
     const clearFilters = () => {
         setSearchQuery('');
@@ -86,7 +90,7 @@ export const useCourseFilter = (): UseCourseFilterReturn => {
         clearFilters,
 
         // Data
-        totalCourses: COURSES_DATA.length,
+        totalCourses: initialCourses.length,
     };
 };
 
